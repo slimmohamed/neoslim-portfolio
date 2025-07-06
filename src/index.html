@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<link rel="stylesheet" href="css/preflight.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/utilities.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/main.css">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Slimani - Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              dark: '#1E1E1E',
+              light: '#F4F4F5',
+              green: '#5EA08C',
+              beige: '#F5DEB3',
+              blue: '#2B6777',
+              lime: '#CFEF00',
+              gray: '#A3A3A3',
+              border: '#3C3C3C'
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'fade-in-up': 'fadeInUp 1s ease-out forwards',
+              'pulse-slow': 'pulse 4s ease-in-out infinite'
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              },
+              fadeInUp: {
+                '0%': { opacity: 0, transform: 'translateY(20px)' },
+                '100%': { opacity: 1, transform: 'translateY(0)' },
+              },
+            },
+          }
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="/src/css/index.css">
+    <link rel="stylesheet" href="/src/css/theme.css">
+    <link rel="stylesheet" href="/src/css/preflight.css">
+    <link rel="stylesheet" href="/src/css/utilities.css">
+    <link rel="stylesheet" href="/src/css/main.css">
+</head>
+<body class="bg-light text-light">
+    <a href="#hero" class="sr-only focus:not-sr-only">Skip to main content</a>
+    <canvas id="background-canvas"></canvas>
+    
+    <header class="fixed top-0 left-0 w-full z-20 bg-dark/70 backdrop-blur shadow-sm border-b border-border">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+          <a href="#hero" class="transform transition duration-300 hover:scale-105">
+            <img src="/assets/images/ms6.png" alt="Logo Mohamed Slimani" class="h-24 w-auto">
+          </a>
+        </div>
+        
+        <nav class="hidden md:block" role="navigation" aria-label="Main Navigation">
+          <ul id="desktop-nav-menu" class="flex items-center gap-2">
+            <li><a href="#hero" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">HOME</a></li>
+            <li><a href="#about" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">ABOUT ME</a></li>
+            <li><a href="#works-section" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">WORKS</a></li>
+            <li><a href="#article-section" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">ARTICLE</a></li>
+            <li><a href="#contact-section" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">CONTACT</a></li>
+          </ul>
+        </nav>
+        
+        <!-- Mobile Menu Toggle -->
+        <div class="md:hidden">
+          <label class="hamburger">
+            <input id="mobile-menu-toggle" type="checkbox" aria-label="Toggle mobile menu" />
+            <svg viewBox="0 0 32 32">
+              <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+              <path class="line" d="M7 16 27 16"></path>
+            </svg>
+          </label>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 bg-dark border-t border-border z-30">
+        <ul class="space-y-1 p-4">
+          <li>
+            <a href="#hero" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-4 0v-4a1 1 0 011-1h2a1 1 0 011 1v4" />
+              </svg>
+              <span class="text-sm font-medium">Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="#about" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A3 3 0 018.293 17h7.414a3 3 0 013.172.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span class="text-sm font-medium">About Me</span>
+            </a>
+          </li>
+          <li>
+            <a href="#works-section" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+              </svg>
+              <span class="text-sm font-medium">Works</span>
+            </a>
+          </li>
+          <li>
+            <a href="#article-section" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 5h16M4 10h16M4 15h16M4 20h16" />
+              </svg>
+              <span class="text-sm font-medium">Article</span>
+            </a>
+          </li>
+          <li>
+            <a href="#contact-section" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 10a3.38 3.38 0 01-1.016 2.438A3.38 3.38 0 0117.5 13H6.5a3.38 3.38 0 01-2.484-1.016A3.38 3.38 0 013 10V6.5A3.5 3.5 0 016.5 3h11A3.5 3.5 0 0121 6.5V10z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 19h18M3 19v2h18v-2" />
+              </svg>
+              <span class="text-sm font-medium">Contact</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <main role="main">
+      <!-- Hero Section -->
+      <section id="hero" class="pt-32 min-h-[100vh] flex flex-col justify-center items-center text-center bg-slate-100">
+        <div class="text-center max-w-3xl">
+        <p class="tracking-widest uppercase text-sm text-green">Bienvenue</p>
+        <span class="block w-16 h-0.5 bg-gray-700 mx-auto mt-2 gsap-line"></span>
+        
+        <div class="mt-8 flex justify-center gsap-zoom-in">
+          <div class="relative w-auto h-auto">
+          <img src="/assets/images/Pre.png" alt="Profil Mohamed Slimani"
+            class="w-full h-full object-cover animate-float-smooth transition duration-500 ease-in-out hover:saturate-100 hover:brightness-10 hover:contrast-125">
+          </div>
+        </div>
+        
+        <h1 id="hero-title" class="text-5xl md:text-6xl mt-8 mb-4 gsap-fade-in-up text-center">
+          <span class="sr-only">Hello Mohamed Slimani</span>
+          <img src="/assets/images/hello.png" alt="" aria-hidden="true"
+          class="inline-block h-[3.5em] transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"/>
+        </h1>
+        
+        <button id="toggle-works-btn" class="btn-hero">
+          <div class="btn-hero__line"></div>
+          <div class="btn-hero__line"></div>
+          <span class="btn-hero__text">VIEW MY WORKS</span>
+          <div class="btn-hero__drow1"></div>
+          <div class="btn-hero__drow2"></div>
+        </button>
+        </div>
+      </section>    
+<!-- After Hero Section -->
+<div class="separator swirl transform rotate-180">
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="gradient-swirl" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ff6a00" />
+        <stop offset="100%" stop-color="var(--separator-color-end)" />
+      </linearGradient>
+    </defs>
+    <path d="M0,40 C480,0 960,100 1440,40 L1440,0 L0,0 Z" fill="url(#gradient-swirl)" />
+  </svg>
+</div>
+
+<!-- Works Section -->
+<section id="works-section" class="relative">
+  <div class="pointer-events-none absolute left-0 top-0 w-full h-16 z-10 works-section-top-gradient"></div>
+  
+  <div id="design-panel" 
+       class="relative z-0 pt-2 min-h-[400px] bg-gradient-to-br from-amber-400 via-orange-400 to-amber-600 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:brightness-105 transition duration-300 focus:outline-none focus:ring-4 focus:ring-amber-300">
+    <div class="max-w-sm">
+      <div class="flex justify-center items-center mb-6">
+        <img src="/assets/images/logodp.png" alt="Design Logo"
+          class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
+      </div>
+      <p class="mb-8 text-white/90">Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.</p>
+      <button
+        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-amber-600 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg"
+        onclick="navigateWithAnimation('/design-projects.html')">
+        Voir les projets de design
+      </button>
+    </div>
+  </div>
+
+  <div id="programming-panel" 
+       class="relative z-0 pt-2 min-h-[400px] bg-gradient-to-br from-slate-800 via-cyan-800 to-teal-700 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:brightness-105 transition duration-300 focus:outline-none focus:ring-4 focus:ring-slate-300">
+    <div class="max-w-sm">
+      <div class="flex justify-center items-center mb-6">
+        <img src="/assets/images/LOGOCP.png" alt="Coding Logo"
+          class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
+      </div>
+      <p class="mb-8 text-white/90">Explorez mes projets techniques, de la conception de sites web aux applications logicielles complexes.</p>
+      <button
+        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-slate-800 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg"
+        onclick="navigateWithAnimation('/coding-projects.html')">
+        Voir les projets de code
+      </button>
+    </div>
+  </div>
+
+  <div class="pointer-events-none absolute left-0 bottom-0 w-full h-16 z-10 works-section-bottom-gradient"></div>
+</section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 px-4 bg-dark">
+          <div class="max-w-4xl mx-auto text-center gsap-fade-in-up">
+                <img 
+                src="/assets/images/am2.png"
+                alt="Bannière Design Mohamed Slimani"
+                class="h-[250px] mx-auto mb-6 
+                drop-shadow-full max-w-[0_8px_8px_rgba(0,0,0,0.2)] 
+                transition duration-700 ease-in-out
+                hover:invert hover:grayscale hover:scale-105 hover:drop-shadow-full"
+                />
+                <p class="text-gray leading-relaxed text-lg mb-8">
+                    Je suis un développeur Full-Stack et un designer passionné avec une solide expérience en création d'applications web robustes et d'expériences utilisateur intuitives. Mon parcours m'a permis de maîtriser un large éventail de technologies, du front-end au back-end, tout en affinant mes compétences en design graphique et UI/UX. J'aime résoudre des problèmes complexes et construire des solutions élégantes qui ont un impact réel.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8 text-left">
+                    <div class="bg-border p-6 rounded-lg shadow-md gsap-fade-in-left group relative overflow-hidden">
+                      <canvas class="card-bg-canvas absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+                      <div class="relative z-10">
+                        <h3 class="text-2xl md:text-4xl font-light text-light mb-6 flex justify-center items-center gap-4">
+                            <span class="sr-only">Compétences Techniques</span>
+                            <span aria-hidden="true">
+                              <img src="/assets/images/ct2.png" 
+                                  alt="" 
+                                  class="h-[190px] transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:rotate-3" />
+                            </span>
+                        </h3>
+                        <ul class="space-y-3 text-gray">
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Développement Web (React, Next.js, Node.js)</li>
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Bases de Données (PostgreSQL, MongoDB, Firebase)</li>
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Cloud Computing (AWS, GCP)</li>
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Version Control (Git, GitHub)</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="bg-border p-6 rounded-lg shadow-md gsap-fade-in-left group relative overflow-hidden">
+                      <canvas class="card-bg-canvas absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+                      <div class="relative z-10">
+                        <h3 class="text-2xl md:text-4xl font-light text-light mb-6 flex justify-center items-center gap-4">
+                            <span class="sr-only">Compétences en Design</span>
+                            <img src="/assets/images/cd.png" 
+                                 alt="Compétences en Design Mohamed Slimani" 
+                                 class="h-[190px] transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:rotate-3" />
+                        </h3>
+                        <ul class="space-y-3 text-gray">
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>UI/UX Design (Figma, Sketch)</li>
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Design Graphique (Photoshop, Illustrator)</li>
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Branding & Identité Visuelle</li>
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Modélisation 3D (Blender, AutoCAD)</li>
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <div class="separator wave-layers">
+          <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#7bdff2" fill-opacity="1" d="M0,160L60,170C120,180,240,200,360,192C480,184,600,144,720,128C840,112,960,112,1080,128C1200,144,1320,176,1380,192L1440,208L1440,0L0,0Z"></path>
+            <path fill="#b2f7ef" fill-opacity="0.7" d="M0,192L60,186.7C120,181,240,171,360,160C480,149,600,139,720,138.7C840,139,960,149,1080,149.3C1200,149,1320,139,1380,133.3L1440,128L1440,320L0,320Z"></path>
+            <path fill="#eff7f6" fill-opacity="0.6" d="M0,224L80,213.3C160,203,320,181,480,176C640,171,800,181,960,186.7C1120,192,1280,192,1360,192L1440,192L1440,320L0,320Z"></path>
+          </svg>
+        </div>
+        
+        
+        <section id="article-section" class="py-24 px-4 relative z-20 bg-dark">
+            <div class="max-w-4xl mx-auto text-center gsap-fade-up">
+                <div class="flex justify-center mb-6 gsap-fade-up">
+                    <img
+                        src="/assets/images/article.png"
+                        alt="Latest Articles"
+                        class="w-64 md:w-80 transform transition duration-500 hover:scale-105 hover:rotate-1"
+                    />
+                </div>
+
+                <p class="text-lg md:text-xl text-gray leading-relaxed font-light">
+                    Stay tuned for insights on <span class="text-green font-medium">web development</span>,
+                    <span class="text-green font-medium">design trends</span>, and
+                    <span class="text-green font-medium">emerging technologies</span>.
+                </p>
+
+                <div
+                class="mt-12 bg-border backdrop-blur-md rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 ease-in-out p-8 max-w-2xl mx-auto group relative overflow-hidden 
+                gsap-zoom-in-up">
+                <div class="absolute -top-10 -left-10 w-40 h-40 bg-gradient-to-tr from-green/20 to-blue/30 rounded-full blur-2xl opacity-40 pointer-events-none group-hover:opacity-60 transition-opacity duration-300"></div>
+
+                    <p class="text-base md:text-lg text-light font-medium leading-relaxed">
+                        📝 <em>This section is coming soon!</em> You'll find in-depth articles on UX/UI,
+                        performance, full-stack best practices, and design workflow optimization.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <div class="separator wave-blue">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path class="wave1" d="M0,40 C150,80 350,0 500,40 C650,80 850,0 1000,40 C1150,80 1350,0 1500,40 L1500,120 L0,120 Z" opacity="0.3" />
+            <path class="wave2" d="M0,60 C150,100 350,20 500,60 C650,100 850,20 1000,60 C1150,100 1350,20 1500,60 L1500,120 L0,120 Z" opacity="0.6" />
+            <path class="wave3" d="M0,80 C150,120 350,40 500,80 C650,120 850,40 1000,80 C1150,120 1350,40 1500,80 L1500,120 L0,120 Z" />
+          </svg>
+        </div>
+<!-- Update your skills section in index.html -->
+<section id="skills" class="py-20 md:py-28 bg-dark">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="flex justify-center mb-6">
+      <img src="/assets/images/Skills.png" alt="Skills" 
+           class="w-64 md:w-80 transform transition duration-500 hover:scale-105 hover:rotate-1">
+    </div>
+    
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+  <!-- Column 1 -->
+  <div class="flex flex-col items-center">
+    <img
+      src="/assets/images/core.png"
+      alt="Core Competencies"
+      class="w-64 md:w-80 mb-6 transform transition duration-500 hover:scale-105 hover:rotate-1"
+    />
+    <div class="chart-container w-full">
+      <canvas id="skillsRadarChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Column 2 -->
+  <div class="flex flex-col items-center">
+    <img
+      src="/assets/images/tool.png"
+      alt="Tool & Technology Proficiency"
+      class="w-80 md:w-[28rem] mb-6 transform transition duration-500 hover:scale-105 hover:rotate-1"
+    />
+    <div class="chart-container w-full">
+      <canvas id="skillsBarChart"></canvas>
+    </div>
+  </div>
+</div>
+
+</section>
+<div class="separator wave-flow wave-blue -mb-px">
+  <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <path class="wave1" d="M0,40 C150,80 350,0 500,40 C650,80 850,0 1000,40 C1150,80 1350,0 1500,40 L1500,120 L0,120 Z" opacity="0.3" />
+    <path class="wave2" d="M0,60 C150,100 350,20 500,60 C650,100 850,20 1000,60 C1150,100 1350,20 1500,60 L1500,120 L0,120 Z" opacity="0.6" />
+    <path class="wave3" d="M0,80 C150,120 350,40 500,80 C650,120 850,40 1000,80 C1150,120 1350,40 1500,80 L1500,120 L0,120 Z" />
+  </svg>
+</div>
+<section id="contact" class="py-20 bg-gradient-to-br from-transparent via-dark/20 to-blue/20 relative overflow-hidden">
+  <div class="absolute inset-0 bg-[url('assets/images/grid.svg')] opacity-10"></div>
+              <div class="absolute w-96 h-96 bg-green/20 rounded-full -top-10 -left-40"></div>
+              <div class="absolute w-72 h-72 bg-green/20 rounded-full -bottom-20 -right-20"></div>
+            </div>
+          
+            <div class="relative z-10 max-w-3xl mx-auto text-center">
+              <div class="max-w-4xl mx-auto text-center">
+                <img 
+                  src="/assets/images/contact.png"
+                  alt="Contact"
+                  class="h-[220px] mx-auto mb-6 opacity-80 hover:opacity-100 hover:scale-105 hover:brightness-110 transition-all duration-700 ease-in-out drop-shadow-xl" />
+          
+                  <h2 class="text-4xl font-bold text-blue-600 mb-4">Contactez-moi</h2>
+                  <p class="text-lg text-dark/80 max-w-2xl mx-auto">Disponible pour de nouvelles opportunités et collaborations</p>
+              </div>
+            </div>
+          
+            <form class="space-y-5 text-left max-w-xl mx-auto px-4">
+              <div class="relative">
+                <input type="text" id="name" class="form-input peer" placeholder=" ">
+                <label for="name" class="form-label">Nom complet</label>
+              </div>
+            
+              <div class="relative">
+                <input type="email" id="email" class="form-input peer" placeholder=" ">
+                <label for="email" class="form-label">Email</label>
+              </div>
+            
+              <div class="relative">
+                <textarea id="message" rows="4" class="form-input peer pt-4" placeholder=" "></textarea>
+                <label for="message" class="form-label">Message</label>
+              </div>
+            
+              <div class="flex justify-center">
+                <button type="submit" class="btn-contact">
+                  <div class="svg-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                      <path fill="none" d="M0 0h24v24H0z"></path>
+                      <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+                    </svg>
+                  </div>
+                  <span class="btn-text">Envoyer</span>
+                </button>
+              </div>
+              <p class="text-sm text-gray mt-4">
+                En soumettant ce formulaire, vous acceptez que vos données soient utilisées pour répondre à votre demande. Consultez notre <a href="#" class="text-blue hover:underline">Politique de Confidentialité</a> pour plus d'informations.
+              </p>
+            </form>
+        </section>
+
+        <footer class="bg-dark text-light py-8 px-4 mt-12 shadow-inner border-t border-border">
+          <div class="max-w-6xl mx-auto flex flex-col items-center gap-6">
+            <img src="/assets/images/ms3.png" alt="Logo Mohamed Slimani" class="h-12 w-auto rounded-full shadow-lg border-2 border-border mb-2" />
+            <ul class="flex flex-wrap items-center gap-6 text-sm font-medium justify-center">
+              <li>
+                <a href="#" class="hover:text-beige transition-colors">About</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-beige transition-colors">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-beige transition-colors">Licensing</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-beige transition-colors">Contact</a>
+              </li>
+            </ul>
+            <div class="flex gap-4 justify-center mt-4">
+              <a href="#" class="hover:text-beige transition-colors" aria-label="LinkedIn">
+                <i class="fab fa-linkedin fa-lg"></i>
+              </a>
+              <a href="#" class="hover:text-beige transition-colors" aria-label="GitHub">
+                <i class="fab fa-github fa-lg"></i>
+              </a>
+              <a href="#" class="hover:text-beige transition-colors" aria-label="Email">
+                <i class="fas fa-envelope fa-lg"></i>
+              </a>
+            </div>
+          </div>
+          <hr class="my-6 border-green/40" />
+          <div class="text-center text-xs text-gray">
+            &copy; 2025 Mohamed Slimani. All rights reserved.
+          </div>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Radar Chart
+      const radarCtx = document.getElementById('skillsRadarChart').getContext('2d');
+      const radarChart = new Chart(radarCtx, {
+        type: 'radar',
+        data: {
+          labels: ['Frontend', 'Backend', 'UI/UX', 'DevOps', 'Database'],
+          datasets: [{
+            label: 'Skill Level',
+            data: [95, 75, 85, 70, 60],
+            fill: true,
+            backgroundColor: 'rgba(94, 160, 140, 0.2)',
+            borderColor: '#5EA08C',
+            pointBackgroundColor: '#5EA08C',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#5EA08C'
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            r: {
+              angleLines: { color: '#F5DEB3' },
+              grid: { color: '#3C3C3C' },
+              pointLabels: { color: '#F5DEB3', font: { size: 14 } },
+              ticks: { 
+                display: false,
+                backdropColor: 'transparent'
+              }
+            }
+          },
+          plugins: { 
+            legend: { display: false }
+          }
+        }
+      });
+    
+      // Bar Chart
+      const barCtx = document.getElementById('skillsBarChart').getContext('2d');
+      const barChart = new Chart(barCtx, {
+        type: 'bar',
+        data: {
+          labels: ['React', 'Node.js', 'Python', 'Figma', 'Adobe XD', 'Git'],
+          datasets: [{
+            label: 'Proficiency',
+            data: [95, 80, 70, 85, 80, 75],
+            backgroundColor: [
+              '#5EA08C', // React
+              '#5EA08C', // Node.js
+              '#5EA08C', // Python
+              '#F5DEB3', // Figma
+              '#F5DEB3', // Adobe XD
+              '#5EA08C'  // Git
+            ],
+            borderColor: [
+              '#5EA08C',
+              '#5EA08C',
+              '#5EA08C',
+              '#F5DEB3',
+              '#F5DEB3',
+              '#5EA08C'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          scales: {
+            x: { 
+              beginAtZero: true, 
+              max: 100,
+              grid: { color: '#3C3C3C' },
+              ticks: { color: '#F5DEB3', font: { size: 14 } }
+            },
+            y: { 
+              ticks: { color: '#F5DEB3', font: { size: 14 } },
+              grid: { color: '#3C3C3C' }
+            }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+
+      // Card particle animations
+      function animateCardParticles(canvas) {
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = canvas.offsetWidth;
+        let height = canvas.height = canvas.offsetHeight;
+        let particles = [];
+        const PARTICLE_COUNT = 12;
+        const COLORS = ['#5EA08C', '#2B6777', '#F5DEB3', '#CFEF00'];
+
+        function randomBetween(a, b) {
+          return a + Math.random() * (b - a);
+        }
+
+        function Particle() {
+          this.x = randomBetween(0, width);
+          this.y = randomBetween(0, height);
+          this.radius = randomBetween(1, 2.5);
+          this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+          this.vx = randomBetween(-0.15, 0.15);
+          this.vy = randomBetween(-0.15, 0.15);
+          this.alpha = randomBetween(0.2, 0.5);
+        }
+
+        Particle.prototype.update = function() {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < 0 || this.x > width) this.vx *= -1;
+          if (this.y < 0 || this.y > height) this.vy *= -1;
+        };
+
+        Particle.prototype.draw = function(ctx) {
+          ctx.save();
+          ctx.globalAlpha = this.alpha;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.shadowColor = this.color;
+          ctx.shadowBlur = 8;
+          ctx.fill();
+          ctx.restore();
+        };
+
+        function createParticles() {
+          particles = [];
+          for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push(new Particle());
+          }
+        }
+
+        function resize() {
+          width = canvas.width = canvas.offsetWidth;
+          height = canvas.height = canvas.offsetHeight;
+          createParticles();
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        function animate() {
+          ctx.clearRect(0, 0, width, height);
+          for (let p of particles) {
+            p.update();
+            p.draw(ctx);
+          }
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+      }
+
+      // Initialize for all card canvases
+      document.querySelectorAll('.card-bg-canvas').forEach(animateCardParticles);
+    </script>
+    <script>
+  const toggleBtn = document.getElementById('toggle-works-btn');
+  const worksSection = document.getElementById('works-section');
+  const btnText = toggleBtn.querySelector('.btn-hero__text');
+
+  toggleBtn.addEventListener('click', () => {
+    const isVisible = worksSection.style.display === 'block';
+
+    // Toggle section visibility
+    worksSection.style.display = isVisible ? 'none' : 'block';
+
+    // Update button text
+    btnText.textContent = isVisible ? 'VIEW MY WORKS' : 'HIDE WORKS';
+  });
+</script>
+<script src="src/js/main.js"></script>
+
+</body>
+</html>

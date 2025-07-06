@@ -16,10 +16,15 @@ module.exports = {
         gray: '#A3A3A3',
         border: '#3C3C3C'
       },
+      fontFamily: {
+        crimson: ['Crimson Pro', 'serif'],
+        agrandir: ['Agrandir', 'sans-serif'],
+      },
       animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'fade-in-up': 'fadeInUp 1s ease-out forwards',
-        'pulse-slow': 'pulse 4s ease-in-out infinite'
+        float: 'float 6s ease-in-out infinite',
+        fadeInUp: 'fadeInUp 1s ease-out forwards',
+        pulseSlow: 'pulse 4s ease-in-out infinite',
+        fadeIn: 'fadeIn 1s ease-out forwards',
       },
       keyframes: {
         float: {
@@ -27,6 +32,10 @@ module.exports = {
           '50%': { transform: 'translateY(-10px)' },
         },
         fadeInUp: {
+          '0%': { opacity: 0, transform: 'translateY(20px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
+        fadeIn: {
           '0%': { opacity: 0, transform: 'translateY(20px)' },
           '100%': { opacity: 1, transform: 'translateY(0)' },
         },
