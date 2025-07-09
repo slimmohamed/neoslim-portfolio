@@ -8,51 +8,57 @@ document.addEventListener('DOMContentLoaded', () => {
   initAnimations();
   initCardParticles();
 });
+function navigateWithAnimation(url) {
+  const overlay = document.createElement('div');
+  overlay.className = 'page-transition-overlay';
+  document.body.appendChild(overlay);
+  
+  gsap.to(overlay, {
+    scaleY: 1,
+    duration: 0.5,
+    ease: 'power2.inOut',
+    transformOrigin: 'bottom',
+    onComplete: () => {
+      window.location.href = url;
+    }
+  });
+}
 // Initialisation des animations
 function initAnimations() {
-  // Animation des panneaux Works
-  const panels = document.querySelectorAll('#design-panel, #programming-panel');
-  panels.forEach(panel => {
-    panel.addEventListener('mouseenter', () => {
-      gsap.to(panel, {
-        y: -10,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-    });
-    panel.addEventListener('mouseleave', () => {
-      gsap.to(panel, {
-        y: 0,
-        duration: 0.3,
-        ease: "power2.out"
-      });
+  if (typeof ScrollTrigger === 'undefined') return;
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // Animation des sections
+  gsap.utils.toArray('section').forEach(section => {
+    gsap.from(section, {
+      opacity: 0,
+      y: 50,
+      duration: 0.8,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      }
     });
   });
 
-  // Animation des boutons de navigation
-  const navButtons = document.querySelectorAll('.nav-button');
-  navButtons.forEach(button => {
-    button.addEventListener('mouseenter', () => {
-      const icon = button.querySelector('.icon');
-      if (icon) {
-        gsap.to(icon, {
-          x: button.classList.contains('back-button') ? 10 : -10,
-          duration: 0.4
-        });
-      }
-    });
-    button.addEventListener('mouseleave', () => {
-      const icon = button.querySelector('.icon');
-      if (icon) {
-        gsap.to(icon, {
-          x: 0,
-          duration: 0.4
-        });
+  // Animation des cartes projets
+  gsap.utils.toArray('.project-card').forEach((card, i) => {
+    gsap.from(card, {
+      opacity: 0,
+      x: i % 2 === 0 ? -50 : 50,
+      duration: 0.6,
+      delay: i * 0.1,
+      scrollTrigger: {
+        trigger: card,
+        start: 'top 90%',
+        toggleActions: 'play none none none'
       }
     });
   });
 }
-
 
 // Mobile Menu Toggle
 function initMobileMenu() {
@@ -62,12 +68,22 @@ function initMobileMenu() {
   if (mobileMenuToggle && mobileMenu) {
     mobileMenuToggle.addEventListener('change', (e) => {
       mobileMenu.classList.toggle('hidden', !e.target.checked);
-      
-      // Toggle body scroll when menu is open
       document.body.style.overflow = e.target.checked ? 'hidden' : '';
+      
+      // Animation du menu
+      if (e.target.checked) {
+        gsap.from(mobileMenu.querySelectorAll('li'), {
+          x: -50,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 0.5,
+          ease: "power2.out"
+        });
+      }
     });
   }
 }
+
 
 // Works Section Toggle
 function initWorksSection() {
@@ -75,17 +91,15 @@ function initWorksSection() {
   const worksSection = document.getElementById('works-section');
   
   if (toggleWorksBtn && worksSection) {
-    let worksVisible = false;
-    
     toggleWorksBtn.addEventListener('click', (e) => {
       e.preventDefault();
       toggleWorksVisibility();
     });
 
     function toggleWorksVisibility() {
-      worksVisible = !worksVisible;
+      const isHidden = worksSection.classList.contains('hidden');
       
-      if (worksVisible) {
+      if (isHidden) {
         showWorksSection();
       } else {
         hideWorksSection();
@@ -94,58 +108,66 @@ function initWorksSection() {
 
     function showWorksSection() {
       worksSection.classList.remove('hidden');
-      // Force reflow before animation
-      void worksSection.offsetWidth;
-      worksSection.style.opacity = '1';
-      worksSection.style.transform = 'scaleY(1)';
-      toggleWorksBtn.querySelector('.btn-hero__text').textContent = 'HIDE WORKS';
-      
-      // Scroll to section after a brief delay
-      setTimeout(() => {
-        worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
+      gsap.to(worksSection, {
+        opacity: 1,
+        scaleY: 1,
+        duration: 0.6,
+        ease: "power2.out",
+        onComplete: () => {
+          worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
     }
 
     function hideWorksSection() {
-      worksSection.style.opacity = '0';
-      worksSection.style.transform = 'scaleY(0)';
-      toggleWorksBtn.querySelector('.btn-hero__text').textContent = 'VIEW MY WORKS';
-      
-      // Hide after animation completes
-      setTimeout(() => {
-        worksSection.classList.add('hidden');
-      }, 500);
+      gsap.to(worksSection, {
+        opacity: 0,
+        scaleY: 0,
+        duration: 0.4,
+        ease: "power2.in",
+        onComplete: () => {
+          worksSection.classList.add('hidden');
+        }
+      });
     }
-
-    // Initialize works section as hidden
-    worksSection.classList.add('hidden');
-    worksSection.style.opacity = '0';
-    worksSection.style.transform = 'scaleY(0)';
   }
 }
 
+
 // Panel Interactions
 function initPanelInteractions() {
-  const setupPanel = (panel, url) => {
-    if (!panel) return;
-    
-    panel.addEventListener('click', (e) => {
-      if (!e.target.closest('button')) {
-        navigateWithAnimation(url);
-      }
-    });
-    
-    panel.addEventListener('keydown', (e) => {
-      if (['Enter', ' '].includes(e.key)) {
-        e.preventDefault();
-        navigateWithAnimation(url);
-      }
-    });
-  };
+  const panels = [
+    { element: document.getElementById('design-panel'), url: 'design-projects.html' },
+    { element: document.getElementById('programming-panel'), url: 'coding-projects.html' }
+  ];
 
-  setupPanel(document.getElementById('design-panel'), '/design-projects.html');
-  setupPanel(document.getElementById('programming-panel'), '/coding-projects.html');
+  panels.forEach(({element, url}) => {
+    if (!element) return;
+    
+    // Animation au hover
+    element.addEventListener('mouseenter', () => {
+      gsap.to(element, {
+        y: -10,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    });
+    
+    element.addEventListener('mouseleave', () => {
+      gsap.to(element, {
+        y: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    });
+
+    // Navigation
+    element.addEventListener('click', () => {
+      navigateWithAnimation(url);
+    });
+  });
 }
+
 
 // Smooth Scrolling
 function initSmoothScrolling() {
@@ -411,12 +433,78 @@ function getBarChartOptions() {
   };
   
 }
-
+function initNavigationButtons() {
+  const navButtons = document.querySelectorAll('.nav-button');
+  
+  navButtons.forEach(button => {
+    // Animation des icônes
+    button.addEventListener('mouseenter', () => {
+      const icon = button.querySelector('.icon');
+      if (icon) {
+        gsap.to(icon, {
+          x: button.classList.contains('back-button') ? 10 : -10,
+          duration: 0.4
+        });
+      }
+    });
+    
+    button.addEventListener('mouseleave', () => {
+      const icon = button.querySelector('.icon');
+      if (icon) {
+        gsap.to(icon, {
+          x: 0,
+          duration: 0.4
+        });
+      }
+    });
+  });
+}
 // Card Particle Animations
 function initCardParticles() {
   document.querySelectorAll('.card-bg-canvas').forEach(animateCardParticles);
 }
+function initFormValidation() {
+  const form = document.querySelector('.contact-form');
+  if (!form) return;
 
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Validation et envoi
+    if (validateForm()) {
+      // Animation de soumission
+      gsap.to(form, {
+        opacity: 0.7,
+        y: 10,
+        duration: 0.3,
+        onComplete: () => {
+          // Ici vous ajouteriez le code d'envoi réel
+          form.reset();
+          showSuccessMessage();
+        }
+      });
+    }
+  });
+
+  function validateForm() {
+    let isValid = true;
+    // Ajoutez votre logique de validation ici
+    return isValid;
+  }
+
+  function showSuccessMessage() {
+    const successMsg = document.createElement('div');
+    successMsg.className = 'success-message';
+    successMsg.textContent = 'Message envoyé avec succès!';
+    form.appendChild(successMsg);
+    
+    gsap.from(successMsg, {
+      y: 20,
+      opacity: 0,
+      duration: 0.5
+    });
+  }
+}
 function animateCardParticles(canvas) {
   if (!canvas) return;
   
