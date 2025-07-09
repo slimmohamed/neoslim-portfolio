@@ -59,10 +59,12 @@ header {
 
 #design-panel {
   background: linear-gradient(135deg, var(--yellow) 0%, var(--orange) 100%);
+  color: #fff;
 }
 
 #programming-panel {
   background: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
+    color: #fff;
 }
 
 /* Effets hover des panneaux */
@@ -82,8 +84,8 @@ header {
 }
 
 .panel-button:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
 }
 
 .panel-button::after {
@@ -105,7 +107,7 @@ header {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin: 3rem 0;
+  margin: 2rem 0;
   padding: 0 2rem;
 }
 .nav-button {
@@ -127,6 +129,11 @@ header {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+}
+.nav-button .button-text {
+  transform: translateX(-0.75rem);
+  opacity: 0;
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
 }
 
 .nav-button.back-button .icon {
@@ -181,6 +188,24 @@ header {
   box-shadow: 0 0 0 3px var(--green);
   border-color: var(--green);
 }
+.form-label {
+  position: absolute;
+  left: 1rem;
+  top: 0.75rem;
+  padding: 0 0.25rem;
+  background: #fff;
+  color: #6b7280;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.peer:focus ~ .form-label,
+.peer:not(:placeholder-shown) ~ .form-label {
+  top: -0.6rem;
+  font-size: 0.875rem;
+  background: #fff;
+  color: var(--blue);
+}
 
 .btn-submit {
   background: linear-gradient(135deg, var(--green) 0%, var(--blue) 100%);
@@ -207,7 +232,7 @@ header {
   z-index: 10;
 }
 .separator.swirl {
-  background: linear-gradient(to right, #f59e0b, #fdcb91);
+  background: linear-gradient(to right, var(--orange), var(--yellow));
 }
 
 .separator.wave-layers {
@@ -253,21 +278,20 @@ header {
 /* Responsive Design */
 @media (max-width: 768px) {
   header {
-    flex-direction: column;
-    align-items: center;
     position: relative;
+    padding: 1rem;
   }
   
   .logo-container {
-    margin: 1rem 0;
-    order: -1;
+        flex: 1;
+    justify-content: center;
+    margin: 0;
   }
   
   .mobile-menu-toggle {
     position: absolute;
-    right: 1.5rem;
-    top: 1.5rem;
-    margin-left: auto;
+    right: 1rem;
+    top: 1rem;
   }
   
   .nav-buttons {
