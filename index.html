@@ -611,21 +611,7 @@
       // Initialize for all card canvases
       document.querySelectorAll('.card-bg-canvas').forEach(animateCardParticles);
     </script>
-    <script>
-  const toggleBtn = document.getElementById('toggle-works-btn');
-  const worksSection = document.getElementById('works-section');
-  const btnText = toggleBtn.querySelector('.btn-hero__text');
-
-  toggleBtn.addEventListener('click', () => {
-    const isVisible = worksSection.style.display === 'block';
-
-    // Toggle section visibility
-    worksSection.style.display = isVisible ? 'none' : 'block';
-
-    // Update button text
-    btnText.textContent = isVisible ? 'VIEW MY WORKS' : 'HIDE WORKS';
-  });
-</script>
+ 
 <script src="src/js/main.js"></script>
 
 </body>
