@@ -132,13 +132,14 @@ header {
   transform: translate(1rem, 0);
 }
 
-/* Formulaire de contact - Redesign */
 .contact-form {
   max-width: 600px;
   margin: 0 auto;
   padding: 2rem;
-  background: rgba(30, 30, 30, 0.8);
   border-radius: 12px;
+  background: rgba(30, 30, 30, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
 }
 
 .form-group {
@@ -159,24 +160,26 @@ header {
 .form-input:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 0 3px rgba(94, 160, 140, 0.3);
+  box-shadow: 0 0 0 3px var(--green);
+  border-color: var(--green);
 }
 
 .btn-submit {
-  background: linear-gradient(135deg, #5EA08C 0%, #2B6777 100%);
+  background: linear-gradient(135deg, var(--green) 0%, var(--blue) 100%);
   padding: 1rem 2rem;
   border-radius: 8px;
   color: white;
   font-weight: 600;
   transition: all 0.3s ease;
-  width: 100%;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-submit:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(94, 160, 140, 0.4);
+  box-shadow: 0 8px 20px rgba(94, 160, 140, 0.4);
 }
-
+5. Bo
 /* Séparateurs - Améliorés */
 .separator {
   position: relative;
