@@ -58,13 +58,11 @@ header {
 }
 
 #design-panel {
-  background: linear-gradient(135deg, #FF9E2C 0%, #FF6B35 100%);
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: linear-gradient(135deg, var(--yellow) 0%, var(--orange) 100%);
 }
 
 #programming-panel {
-  background: linear-gradient(135deg, #2B6777 0%, #4A8D9C 100%);
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
 }
 
 /* Effets hover des panneaux */
@@ -103,33 +101,52 @@ header {
   left: 100%;
 }
 /* Boutons de navigation - Révisés */
-.nav-buttons {
+.navigation-buttons {
   display: flex;
-  justify-content: space-between;
-  padding: 2rem;
+  justify-content: center;
+  gap: 2rem;
+  margin: 3rem 0;
+  padding: 0 2rem;
 }
-
 .nav-button {
-  margin: 1.5rem;
+  position: relative;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  overflow: hidden;
   transition: all 0.4s cubic-bezier(0.65, 0, 0.076, 1);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
-.nav-button .circle {
-  background: #5EA08C;
+.nav-button .icon {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.nav-button.home .circle {
-  background: #2B6777;
+.nav-button.back-button .icon {
+  left: 1.5rem;
 }
 
-/* Animation des icônes */
+.nav-button.home-button .icon {
+  right: 1.5rem;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 .nav-button:hover .icon.arrow {
-  transform: translate(1rem, 0) rotate(180deg);
+  transform: translate(0.5rem, -50%);
 }
 
 .nav-button:hover .icon.home {
-  transform: translate(1rem, 0);
+  transform: translate(-0.5rem, -50%);
 }
 
 .contact-form {
@@ -179,7 +196,6 @@ header {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(94, 160, 140, 0.4);
 }
-5. Bo
 /* Séparateurs - Améliorés */
 .separator {
   position: relative;
@@ -210,30 +226,47 @@ header {
   0% { transform: translateX(-100%); opacity: 0; }
   100% { transform: translateX(0); opacity: 1; }
 }
-
+@keyframes slideInFromRight {
+  0% { transform: translateX(100%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
 .float-animation {
   animation: float 6s ease-in-out infinite;
 }
 
-.slide-in {
+.slide-in-left {
   animation: slideInFromLeft 0.6s ease-out forwards;
 }
 
+.slide-in-right {
+  animation: slideInFromRight 0.6s ease-out forwards;
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   header {
     flex-direction: column;
-    padding: 1rem;
+    align-items: center;
+    position: relative;
   }
   
   .logo-container {
     margin: 1rem 0;
+    order: -1;
   }
   
   .mobile-menu-toggle {
     position: absolute;
     right: 1.5rem;
     top: 1.5rem;
+    margin-left: auto;
   }
   
   .nav-buttons {
