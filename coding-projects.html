@@ -48,7 +48,6 @@
         }
       }
     </script>
-    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body class="bg-dark text-light">
     <section id="design-portfolio-content" class="collapsible-section bg-dark">
@@ -57,21 +56,23 @@
             <div class="flex justify-center mb-6">
                 <img src="assets/images/slimdev.png" alt="Logo" class="h-32 w-auto">
             </div>
+
 <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-<div class="navigation-buttons">
-  <button class="nav-button back-button" onclick="window.history.back()">
-    <svg class="icon arrow" viewBox="0 0 24 24">
-      <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
-    </svg>
-    <span class="button-text">Retour</span>
-  </button>
-  
-  <a href="index.html" class="nav-button home-button">
-    <span class="button-text">Accueil</span>
-    <svg class="icon home" viewBox="0 0 24 24">
-      <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/>
-    </svg>
-  </a>
+    <!-- Back Button (left) with reversed arrow -->
+    <a href="index.html#works-section" class="nav-button learn-more order-1 md:order-1">
+        <span class="circle" aria-hidden="true">
+            <span class="icon arrow reversed transform rot"></span>
+        </span>
+        <span class="button-text">Go Back</span>
+    </a>
+    
+    <!-- Home Button (right) -->
+    <a href="index.html#hero" class="nav-button learn-more home order-2 md:order-3">
+        <span class="circle" aria-hidden="true">
+            <span class="icon home"></span>
+        </span>
+        <span class="button-text">Go Home</span>
+    </a>
 </div>
             <!-- Portfolio Header -->
             <div class="flex justify-center mt-4 mb-4">
