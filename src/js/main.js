@@ -8,6 +8,51 @@ document.addEventListener('DOMContentLoaded', () => {
   initAnimations();
   initCardParticles();
 });
+// Initialisation des animations
+function initAnimations() {
+  // Animation des panneaux Works
+  const panels = document.querySelectorAll('#design-panel, #programming-panel');
+  panels.forEach(panel => {
+    panel.addEventListener('mouseenter', () => {
+      gsap.to(panel, {
+        y: -10,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    });
+    panel.addEventListener('mouseleave', () => {
+      gsap.to(panel, {
+        y: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    });
+  });
+
+  // Animation des boutons de navigation
+  const navButtons = document.querySelectorAll('.nav-button');
+  navButtons.forEach(button => {
+    button.addEventListener('mouseenter', () => {
+      const icon = button.querySelector('.icon');
+      if (icon) {
+        gsap.to(icon, {
+          x: button.classList.contains('back-button') ? 10 : -10,
+          duration: 0.4
+        });
+      }
+    });
+    button.addEventListener('mouseleave', () => {
+      const icon = button.querySelector('.icon');
+      if (icon) {
+        gsap.to(icon, {
+          x: 0,
+          duration: 0.4
+        });
+      }
+    });
+  });
+}
+
 
 // Mobile Menu Toggle
 function initMobileMenu() {
