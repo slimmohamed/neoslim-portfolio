@@ -1,3 +1,14 @@
+:root {
+  --dark: #1E1E1E;
+  --light: #F4F4F5;
+  --green: #5EA08C;
+  --beige: #F5DEB3;
+  --blue: #2B6777;
+  --lime: #CFEF00;
+  --orange: #F97316;
+  --yellow: #F59E0B;
+  --border: #3C3C3C;
+}
 /* Base Styles - Optimisé */
 body {
   font-family: 'Montserrat', sans-serif;
@@ -66,7 +77,31 @@ header {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(43, 103, 119, 0.3);
 }
+.panel-button {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
 
+.panel-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.panel-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+
+.panel-button:hover::after {
+  left: 100%;
+}
 /* Boutons de navigation - Révisés */
 .nav-buttons {
   display: flex;
