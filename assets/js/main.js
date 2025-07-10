@@ -1,3 +1,4 @@
+
 // Main JavaScript for Portfolio Website
 
 // Wait for DOM to load
@@ -11,7 +12,6 @@ function init() {
   const menuToggle = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobile-menu');
   const checkbox = document.getElementById('checkbox');
-  const heroBtn = document.getElementById('hero-btn');
   const toggleWorksBtn = document.getElementById('toggle-works-btn');
   const worksSection = document.getElementById('works-section');
 
@@ -86,10 +86,6 @@ function init() {
       hideAllCollapsibleSections();
     });
   });
-
-  initAnimations();
-  initCanvasBackground();
-  handleFormSubmit();
 }
 
 function animatePanelClick(panel, targetUrl) {
@@ -202,7 +198,8 @@ function initAnimations() {
 function initCanvasBackground() {
   const canvas = document.getElementById('background-canvas');
   if (!canvas) return;
-
+  animateCardParticles(canvas);
+} 
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -250,7 +247,6 @@ function initCanvasBackground() {
   });
 
   animate();
-}
 
 function handleFormSubmit() {
   const contactForm = document.querySelector('#contact-section form');
@@ -269,85 +265,35 @@ function handleFormSubmit() {
   });
 }
 
-initGSAPAnimations();
-initCanvasBackground();
-handleFormSubmit();
+
 function initGSAPAnimations() {
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.from('.gsap-fade-in-up', {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    stagger: 0.2,
-    ease: 'power2.out'
-  });
+  const sections = [
+    { selector: '#about', delay: 0.2 },
+    { selector: '#article-section', delay: 0.2 },
+    { selector: '#skills', delay: 0.2 },
+    { selector: '#contact-section', delay: 0.2 }
+  ];
 
-  gsap.from('.gsap-zoom-in', {
-    opacity: 0,
-    scale: 0.8,
-    duration: 1,
-    ease: 'back.out(1.7)'
-  });
+  sections.forEach(({ selector, delay: staggerDelay }) => {
+    const elements = document.querySelectorAll(`${selector} .gsap-fade-in-up, ${selector} .gsap-zoom-in-up`);
+    const stagger = elements.length > 1 ? { each: 0.2, from: 'center' } : {};
 
-  gsap.from('.gsap-line', {
-    scaleX: 0,
-    duration: 1,
-    ease: 'power2.out'
-  });
-
-  gsap.from('.gsap-fade-in-left', {
-    scrollTrigger: {
-      trigger: '#about',
-      start: 'top 80%'
-    },
-    opacity: 0,
-    x: -50,
-    duration: 0.8,
-    stagger: 0.2,
-    ease: 'power2.out'
-  });
-
-  gsap.from('.gsap-zoom-in-up', {
-    scrollTrigger: {
-      trigger: '#article-section',
-      start: 'top 80%'
-    },
-    opacity: 0,
-    y: 50,
-    scale: 0.95,
-    duration: 0.8,
-    ease: 'back.out(1.7)'
-  });
-
-  gsap.from('.chart-container', {
-    scrollTrigger: {
-      trigger: '#skills',
-      start: 'top 80%'
-    },
-    opacity: 0,
-    y: 50,
-    duration: 0.8,
-    stagger: 0.2,
-    ease: 'power2.out'
-  });
-
-  gsap.from('#contact-section form', {
-    scrollTrigger: {
-      trigger: '#contact-section',
-      start: 'top 80%'
-    },
-    opacity: 0,
-    y: 50,
-    duration: 0.8,
-    ease: 'power2.out'
+    gsap.from(elements, {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      stagger,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: selector,
+        start: 'top 80%'
+      }
+    });
   });
 }
-function initCanvasBackground() {
-  const canvas = document.getElementById('background-canvas');
-  if (!canvas) return;
-  animateCardParticles(canvas);
-} 
+
 function animateCardParticles(canvas) {
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
@@ -401,20 +347,18 @@ function animateCardParticles(canvas) {
 
   animate();
 }
-function handleFormSubmit() {
-  const contactForm = document.querySelector('#contact-section form');
-  if (!contactForm) return;
+    function handleFormSubmit() {
+        const contactForm = document.querySelector('#contact-section form');
+        if (!contactForm) return;
 
-  contactForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-
-    console.log('Form submitted:', { name, email, message });
-    alert('Thank you for your message! I will get back to you soon.');
-    contactForm.reset();
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            console.log('Form submitted:', { name, email, message });
+            alert('Thank you for your message! I will get back to you soon.');
+            contactForm.reset();
   });
 }
 // Initialize GSAP animations
@@ -495,4 +439,4 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-})
+});

@@ -138,25 +138,23 @@
 
     <main role="main">
       <!-- Hero Section -->
-        <section id="hero" class="pt-32 min-h-[200vh] flex flex-col justify-center items-center text-center bg-dark">
-          <div class="text-center max-w-3xl">
-                <p class="tracking-widest uppercase text-sm text-green">Bienvenue</p>
-                <span class="block w-16 h-0.5 bg-light mx-auto mt-2 gsap-line"></span>
-                <div class="mt-8 flex justify-center gsap-zoom-in">
-                    <div class="relative w-auto h-auto">
-                        <img src="assets/images/Pre.png" alt="Profil Mohamed Slimani" class="w-full h-full object-cover animate-float-smooth transition duration-500 ease-in-out hover:saturate-100 hover:brightness-10 hover:contrast-125">
-                    </div>
-                </div>
-                <h1 class="sr-only">Hello Mohamed Slimani</h1>
-                <div class="mt-8 mb-6 flex justify-center items-center">
-                  <img
-                    src="/assets/images/hello.png"
-                    alt="Texte Hello Mohamed Slimani"
-                    class="max-w-full h-auto w-[250px] md:w-[320px] lg:w-[420px] xl:w-[520px]
-                           transition-transform duration-300 ease-in-out 
-                           hover:scale-110 hover:rotate-1 drop-shadow-xl"/>
-              </div>   
+      <section id="hero" class="pt-32 min-h-[100vh] flex flex-col justify-center items-center text-center bg-slate-100">
+        <div class="text-center max-w-3xl">
+        <p class="tracking-widest uppercase text-sm text-green">Bienvenue</p>
+        <span class="block w-16 h-0.5 bg-gray-700 mx-auto mt-2 gsap-line"></span>
+        </div>
+        <div class="mt-8 flex justify-center gsap-zoom-in">
+          <div class="relative w-auto h-auto">
+          <img src="/assets/images/Pre.png" alt="Profile Mohamed Slimani"
+            class="w-full h-full object-cover animate-float-smooth transition duration-500 ease-in-out hover:saturate-100 hover:brightness-10 hover:contrast-125">
           </div>
+        </div>
+        
+        <h1 id="hero-title" class="text-5xl md:text-6xl mt-8 mb-4 gsap-fade-in-up text-center">
+          <span class="sr-only">Hello Mohamed Slimani</span>
+          <img src="/assets/images/hello.png" alt="" aria-hidden="true"
+          class="inline-block h-[3.5em] transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"/>
+        </h1>
 <div class="flex justify-center mt-6">
   <button id="toggle-works-btn"
     class="group relative inline-flex items-center justify-center px-6 py-3 rounded-full text-black font-semibold transition-all duration-300 bg-lime-300 hover:bg-lime-400 backdrop-blur-sm shadow-md hover:shadow-xl hover:scale-105 border-2 border-transparent">
