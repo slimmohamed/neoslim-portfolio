@@ -143,8 +143,8 @@ function initPanelInteractions() {
     });
   };
 
-  setupPanel(document.getElementById('design-panel'), '/design-projects.html');
-  setupPanel(document.getElementById('programming-panel'), '/coding-projects.html');
+  setupPanel(document.getElementById('design-panel'), '/design-portfolio');
+  setupPanel(document.getElementById('programming-panel'), '/coding-portfolio');
 }
 
 // Smooth Scrolling
