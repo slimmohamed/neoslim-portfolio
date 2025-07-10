@@ -7,7 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScrolling();
   initAnimations();
   initCardParticles();
+  bondElements();
+  window.addEventListener('resize', bondElements);
 });
+
 // Initialisation des animations
 function initAnimations() {
   // Animation des panneaux Works
@@ -94,11 +97,12 @@ function initWorksSection() {
 
     function showWorksSection() {
       worksSection.classList.remove('hidden');
-      // Force reflow before animation
-      void worksSection.offsetWidth;
       worksSection.style.opacity = '1';
       worksSection.style.transform = 'scaleY(1)';
-      toggleWorksBtn.querySelector('.btn-hero__text').textContent = 'HIDE WORKS';
+      const button = toggleWorksBtn?.querySelector('.btn-hero__text');
+      if (button) {
+        button.textContent = 'HIDE WORKS';
+      }
       
       // Scroll to section after a brief delay
       setTimeout(() => {
@@ -219,73 +223,9 @@ function navigateWithAnimation(url) {
       }, 500);
     }
   });
-  // Charts Initialization
-  // Charts Initialization - Optimized Version
-  // Enhanced Chart Initialization with Animations
-  function initCharts() {
-    if (typeof Chart === 'undefined') return;
-
-  // Radar Chart with Animation
-  const radarCtx = document.getElementById('skillsRadarChart')?.getContext('2d');
-  if (radarCtx) {
-    const radarCanvas = radarCtx.canvas;
-    radarCanvas.setAttribute('aria-hidden', 'false');
-    radarCanvas.removeAttribute('role'); // Remove any existing role
-    
-    new Chart(radarCtx, {
-      type: 'radar',
-      data: {
-        labels: ['Frontend', 'Backend', 'UI/UX', 'DevOps', 'Database'],
-        datasets: [{
-          data: [95, 75, 85, 70, 60],
-          fill: true,
-          backgroundColor: 'rgba(94, 160, 140, 0.2)',
-          borderColor: '#5EA08C',
-          pointBackgroundColor: '#5EA08C',
-          pointBorderColor: '#fff'
-        }]
-      },
-      options: {
-        ...getRadarChartOptions(),
-        animation: {
-          duration: 2000,
-          easing: 'easeOutQuart'
-        }
-      }
-    });
-  }
-
-  // Bar Chart with Animation
-  const barCtx = document.getElementById('skillsBarChart')?.getContext('2d');
-  if (barCtx) {
-    const barCanvas = barCtx.canvas;
-    barCanvas.setAttribute('aria-hidden', 'false');
-    barCanvas.removeAttribute('role'); // Remove any existing role
-    
-    new Chart(barCtx, {
-      type: 'bar',
-      data: {
-        labels: ['React', 'Node.js', 'Python', 'Figma', 'Adobe XD', 'Git'],
-        datasets: [{
-          data: [95, 80, 70, 85, 80, 75],
-          backgroundColor: [
-            '#5EA08C', '#5EA08C', '#5EA08C',
-            '#F5DEB3', '#F5DEB3', '#5EA08C'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        ...getBarChartOptions(),
-        animation: {
-          duration: 1500,
-          easing: 'easeOutElastic',
-          delay: (ctx) => ctx.dataIndex * 150
-        }
-      }
-    });
-  }
 }
+
+// Charts Initialization - Enhanced Chart Initialization with Animations
 function getRadarChartOptions() {
   return {
     responsive: true,
@@ -294,86 +234,27 @@ function getRadarChartOptions() {
       r: {
         angleLines: { color: '#F5DEB3' },
         grid: { color: '#3C3C3C' },
-        pointLabels: { 
-          color: '#F5DEB3', 
-          font: { 
-            size: 14,
-            family: "'Montserrat', sans-serif"
-          }
+        pointLabels: {
+          color: '#F5DEB3',
+          font: { size: 14, family: "'Montserrat', sans-serif" }
         },
-        ticks: { 
-          display: false,
-          backdropColor: 'transparent'
-        }
-      }
-    },
-    plugins: { 
-      legend: { display: false },
-      tooltip: {
-        bodyFont: {
-          family: "'Montserrat', sans-serif",
-          size: 14
-        },
-        titleFont: {
-          family: "'Montserrat', sans-serif",
-          size: 16,
-          weight: 'bold'
-        }
-      }
-    }
-  };
-}
-
-function getBarChartOptions() {
-  return {
-    indexAxis: 'y',
-    responsive: true,
-    maintainAspectRatio: true,
-    scales: {
-      x: { 
-        beginAtZero: true, 
-        max: 100,
-        grid: { color: '#3C3C3C' },
-        ticks: { 
-          color: '#F5DEB3', 
-          font: {
-            size: 14,
-            family: "'Montserrat', sans-serif"
-          }
-        }
-      },
-      y: { 
-        ticks: { 
-          color: '#F5DEB3', 
-          font: {
-            size: 14,
-            family: "'Montserrat', sans-serif"
-          }
-        },
-        grid: { color: '#3C3C3C' }
+        ticks: { display: false, backdropColor: 'transparent' }
       }
     },
     plugins: {
       legend: { display: false },
       tooltip: {
-        bodyFont: {
-          family: "'Montserrat', sans-serif",
-          size: 14
-        },
-        titleFont: {
-          family: "'Montserrat', sans-serif",
-          size: 16,
-          weight: 'bold'
-        }
+        bodyFont: { size: 14, family: "'Montserrat', sans-serif" },
+        titleFont: { size: 16, family: "'Montserrat', sans-serif", weight: 'bold' }
       }
     }
   };
-  
 }
 
-// Card Particle Animations
+// Initialize card background particle animations
 function initCardParticles() {
-  document.querySelectorAll('.card-bg-canvas').forEach(animateCardParticles);
+  const cardCanvasElements = document.querySelectorAll('.card-bg-canvas');
+  cardCanvasElements.forEach(animateCardParticles);
 }
 
 function animateCardParticles(canvas) {
@@ -385,7 +266,6 @@ function animateCardParticles(canvas) {
   let particles = [];
   const PARTICLE_COUNT = 12;
   const COLORS = ['#5EA08C', '#2B6777', '#F5DEB3', '#CFEF00'];
-  const val = Math.random();
   function randomBetween(a, b) {
     return a + Math.random() * (b - a);
   }
@@ -399,22 +279,7 @@ function animateCardParticles(canvas) {
     this.vy = randomBetween(-0.15, 0.15);
     this.alpha = randomBetween(0.2, 0.5);
   }
-// In your main.js file
-document.addEventListener('DOMContentLoaded', () => {
-  // Force separator/section bonding
-  const bondElements = () => {
-    document.querySelectorAll('.separator').forEach(separator => {
-      const nextSection = separator.nextElementSibling;
-      if (nextSection) {
-        separator.style.marginBottom = '-1px';
-        nextSection.style.marginTop = '-1px';
-      }
-    });
-  };
-  
-  bondElements();
-  window.addEventListener('resize', bondElements);
-});
+
   Particle.prototype.update = function() {
     this.x += this.vx;
     this.y += this.vy;
@@ -461,4 +326,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   animate();
 }
+
+// Force separator/section bonding
+function bondElements() {
+  document.querySelectorAll('.separator').forEach(separator => {
+    const nextSection = separator.nextElementSibling;
+    if (nextSection) {
+      separator.style.marginBottom = '-1px';
+      nextSection.style.marginTop = '-1px';
+    }
+  });
 }
+bondElements();
+window.addEventListener('resize', bondElements);
