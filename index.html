@@ -142,7 +142,7 @@
         <div class="text-center max-w-3xl">
         <p class="tracking-widest uppercase text-sm text-green">Bienvenue</p>
         <span class="block w-16 h-0.5 bg-gray-700 mx-auto mt-2 gsap-line"></span>
-        
+        </div>
         <div class="mt-8 flex justify-center gsap-zoom-in">
           <div class="relative w-auto h-auto">
           <img src="/assets/images/Pre.png" alt="Profile Mohamed Slimani"
@@ -155,19 +155,23 @@
           <img src="/assets/images/hello.png" alt="" aria-hidden="true"
           class="inline-block h-[3.5em] transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"/>
         </h1>
-        <div class="flex justify-center mt-4">
-<!-- Hero Button (keep as is, for animation only) -->
-<button id="toggle-works-btn" class="btn btn-panel bg-green hover:bg-lime text-dark font-bold py-2 px-6 rounded-full transition duration-300 transform hover:scale-105">
-  <div class="btn-hero__content">
-    <!-- View My Works States -->
-    <img src="assets/images/vmw.png" class="btn-hero__image vmw" alt="View My Works">
-    <img src="assets/images/vmw-dark.png" class="btn-hero__image vmw-dark" alt="View My Works">
+<div class="flex justify-center mt-6">
+  <button id="toggle-works-btn"
+    class="group relative inline-flex items-center justify-center px-6 py-3 rounded-full text-black font-semibold transition-all duration-300 bg-lime-300 hover:bg-lime-400 backdrop-blur-sm shadow-md hover:shadow-xl hover:scale-105 border-2 border-transparent">
     
-    <!-- Hide Works States --> 
-    <img src="assets/images/hw.png" class="btn-hero__image hw" alt="Hide Works">
-    <img src="assets/images/hw-dark.png" class="btn-hero__image hw-dark" alt="Hide Works">
-  </div>
-  
+    <div class="btn-hero__content relative z-10 flex items-center gap-2">
+      <!-- View My Works -->
+      <img src="assets/images/vmw.png" class="btn-hero__image vmw block dark:hidden" alt="View My Works">
+      <img src="assets/images/vmw-dark.png" class="btn-hero__image vmw-dark hidden dark:block" alt="View My Works">
+
+      <!-- Hide Works -->
+      <img src="assets/images/hw.png" class="btn-hero__image hw hidden dark:hidden" alt="Hide Works">
+      <img src="assets/images/hw-dark.png" class="btn-hero__image hw-dark hidden dark:block" alt="Hide Works">
+    </div>
+
+    <!-- Glow decorative elements -->
+    <span class="absolute inset-0 z-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-lime-300 via-lime-200 to-lime-100 mix-blend-overlay blur-md"></span>
+
   <!-- Decorative Elements -->
   <div class="btn-hero__line"></div>
   <div class="btn-hero__line"></div>
