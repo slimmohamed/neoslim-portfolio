@@ -27,14 +27,13 @@
 }
 
 html, 
+/* Déclaration des polices */
 body {
-  font-family: 'Montserrat', sans-serif; /* Police principale */
-  line-height: 1.6;        /* Interligne confortable */
-  background-color: var(--dark); /* Fond sombre */
-  color: var(--light);     /* Texte clair */
-  overflow-x: hidden;      /* Empêche le défilement horizontal */
-  scroll-behavior: smooth; /* Défilement doux */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400; /* Poids par défaut */
 }
+
+
 
 /* ==================== */
 /* EN-TÊTE */
@@ -97,6 +96,30 @@ header {
   justify-content: center;
   text-align: center;
   padding: 0 2rem;
+}
+h2, h3 {
+  font-weight: 700; /* Plus épais pour les titres */
+}
+
+/* Variantes disponibles (selon votre lien Google Fonts) */
+.font-light {
+  font-weight: 300;
+}
+
+.font-regular {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
 }
 
 .hero-content h1 {
