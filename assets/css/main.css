@@ -719,23 +719,46 @@ header {
   align-items: center;
 }
 
-/* Fixed Image States - Removed nth-child selectors */
 .btn-hero__image {
   position: absolute;
   transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+  width: auto;
+  height: 100%;
 }
 
-.btn-hero__image.vmw { opacity: 1; transform: scale(1); }
-.btn-hero__image.hw { opacity: 0; transform: scale(0.8); }
-.btn-hero__image.vmw-dark { opacity: 0; }
-.btn-hero__image.hw-dark { opacity: 0; }
 
-/* Fixed Active States */
-.btn-hero.active .btn-hero__image.vmw { opacity: 0; transform: scale(0.8); }
-.btn-hero.active .btn-hero__image.hw { opacity: 1; transform: scale(1); }
+.btn-hero__image.vmw {
+  opacity: 1;
+  transform: scale(1);
+}
+.btn-hero__image.hw,
+.btn-hero__image.vmw-dark,
+.btn-hero__image.hw-dark {
+  opacity: 0;
+  transform: scale(0.8);
+}
+.btn-hero.active .btn-hero__image.vmw {
+  opacity: 0;
+  transform: scale(0.8);
+}
 
-/* Fixed Hover States */
-.btn-hero:not(.active):hover .btn-hero__image.vmw { opacity: 0; }
-.btn-hero:not(.active):hover .btn-hero__image.vmw-dark { opacity: 1; }
-.btn-hero.active:hover .btn-hero__image.hw { opacity: 0; }
-.btn-hero.active:hover .btn-hero__image.hw-dark { opacity: 1; }
+.btn-hero.active .btn-hero__image.hw {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hover : montre VMW dark ou HW dark selon l’état */
+.btn-hero:not(.active):hover .btn-hero__image.vmw {
+  opacity: 0;
+}
+.btn-hero:not(.active):hover .btn-hero__image.vmw-dark {
+  opacity: 1;
+}
+
+.btn-hero.active:hover .btn-hero__image.hw {
+  opacity: 0;
+}
+.btn-hero.active:hover .btn-hero__image.hw-dark {
+  opacity: 1;
+}
