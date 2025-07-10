@@ -1,11 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
-<link rel="stylesheet" href="/src/css/preflight.css">
-<link rel="stylesheet" href="/src/css/theme.css">
-<link rel="stylesheet" href="/src/css/utilities.css">
-<link rel="stylesheet" href="/src/css/index.css">
-<link rel="stylesheet" href="/src/css/main.css">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -187,6 +181,7 @@
   </div>
 
 <!-- Works Section -->
+<<<<<<< HEAD
 <div id="works-section">
   <div id="design-panel" class="panel slide-in-left">
     <button onclick="navigateWithAnimation('/design-portfolio')" class="panel-button">
@@ -225,6 +220,35 @@
 
   <div class="pointer-events-none absolute left-0 bottom-0 w-full h-16 z-10 works-section-bottom-gradient"></div>
 </section>
+=======
+                <section id="works-section" class="relative opacity-0 scale-y-0 transform origin-top transition-all duration-500 ease-in-out">
+          <div class="pointer-events-none absolute left-0 top-0 w-full h-16 z-10"
+               style="background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);"></div>
+          
+          <div id="design-panel" class="relative z-0 pt-2 min-h-[400px] bg-gradient-to-br from-amber-500 to-amber-600 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-105 transition-transform duration-300">
+            <div class="max-w-sm">
+              <div class="flex justify-center items-center mb-6">
+                <img src="assets/images/logodp.png" alt="Design Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
+              </div>
+              <p class="mb-8 text-white/90">Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.</p>
+              <a href="design-projects.html" class="inline-block bg-white text-amber-600 font-bold py-3 px-6 rounded-full hover:bg-amber-100 transition-colors duration-300">Voir les projets de design</a>
+            </div>
+          </div>
+          
+          <div id="programming-panel" class="relative z-0 pt-2 min-h-[400px] bg-gradient-to-br from-cyan-600 to-cyan-700 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-105 transition-transform duration-300">
+            <div class="max-w-sm">
+              <div class="flex justify-center items-center mb-6">
+                <img src="assets/images/LOGOCP.png" alt="Coding Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
+              </div>
+              <p class="mb-8 text-white/90">Explorez mes projets techniques, de la conception de sites web aux applications logicielles complexes.</p>
+              <a href="coding-projects.html" class="inline-block bg-white text-cyan-700 font-bold py-3 px-6 rounded-full hover:bg-cyan-100 transition-colors duration-300">Voir les projets de code</a>
+            </div>
+          </div>
+          
+          <div class="pointer-events-none absolute left-0 bottom-0 w-full h-16 z-10"
+               style="background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);"></div>
+        </section>
+>>>>>>> main
 
         <!-- About Section -->
         <section id="about" class="py-20 px-4 bg-dark">
@@ -611,21 +635,7 @@
       // Initialize for all card canvases
       document.querySelectorAll('.card-bg-canvas').forEach(animateCardParticles);
     </script>
-    <script>
-  const toggleBtn = document.getElementById('toggle-works-btn');
-  const worksSection = document.getElementById('works-section');
-  const btnText = toggleBtn.querySelector('.btn-hero__text');
-
-  toggleBtn.addEventListener('click', () => {
-    const isVisible = worksSection.style.display === 'block';
-
-    // Toggle section visibility
-    worksSection.style.display = isVisible ? 'none' : 'block';
-
-    // Update button text
-    btnText.textContent = isVisible ? 'VIEW MY WORKS' : 'HIDE WORKS';
-  });
-</script>
+ 
 <script src="src/js/main.js"></script>
 
 </body>
