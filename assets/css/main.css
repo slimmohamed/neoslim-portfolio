@@ -1,42 +1,54 @@
+/* ==================== */
+/* VARIABLES GLOBALES */
+/* ==================== */
 :root {
-  --dark: #1E1E1E;
-  --light: #F4F4F5;
-  --green: #5EA08C;
-  --beige: #F5DEB3;
-  --blue: #2B6777;
-  --lime: #CFEF00;
-  --orange: #F97316;
-  --yellow: #F59E0B;
-  --border: #3C3C3C;
+  /* Couleurs */
+  --dark: #1E1E1E;         /* Fond principal */
+  --light: #F4F4F5;        /* Texte clair */
+  --green: #5EA08C;        /* Accent vert */
+  --beige: #F5DEB3;        /* Arrière-plan secondaire */
+  --blue: #2B6777;         /* Accent bleu foncé */
+  --lime: #CFEF00;         /* Accent vert vif */
+  --orange: #F97316;       /* Accent orange */
+  --yellow: #F59E0B;       /* Accent jaune */
+  --border: #3C3C3C;       /* Couleur des bordures */
 }
 
-/* Reset & Base Styles */
-*, ::before, ::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* ==================== */
+/* RÉINITIALISATION */
+/* ==================== */
+*, 
+::before, 
+::after {
+  box-sizing: border-box;   /* Modèle de boîte cohérent */
+  margin: 0;               /* Supprime les marges par défaut */
+  padding: 0;              /* Supprime les paddings par défaut */
+  border: 0 solid;         /* Réinitialise les bordures */
 }
 
-html, body {
-  font-family: 'Montserrat', sans-serif;
-  line-height: 1.6;
-  background-color: var(--dark);
-  color: var(--light);
-  overflow-x: hidden;
-  scroll-behavior: smooth;
+html, 
+body {
+  font-family: 'Montserrat', sans-serif; /* Police principale */
+  line-height: 1.6;        /* Interligne confortable */
+  background-color: var(--dark); /* Fond sombre */
+  color: var(--light);     /* Texte clair */
+  overflow-x: hidden;      /* Empêche le défilement horizontal */
+  scroll-behavior: smooth; /* Défilement doux */
 }
 
-/* Header Styles */
+/* ==================== */
+/* EN-TÊTE */
+/* ==================== */
 header {
-  position: fixed;
+  position: fixed;         /* Fixe en haut de page */
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
-  background: rgba(30, 30, 30, 0.9);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 2rem;
+  z-index: 100;            /* S'assure qu'il est au-dessus */
+  background: rgba(30, 30, 30, 0.9); /* Fond semi-transparent */
+  backdrop-filter: blur(10px); /* Effet de flou */
+  border-bottom: 1px solid var(--border); /* Bordure de séparation */
+  padding: 1rem 2rem;      /* Espacement interne */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -49,33 +61,37 @@ header {
   text-decoration: none;
 }
 
-/* Mobile Menu */
+/* ==================== */
+/* MENU MOBILE */
+/* ==================== */
 .mobile-menu-toggle {
-  display: none;
+  display: none;           /* Caché par défaut sur desktop */
 }
 
 #mobile-menu {
-  display: flex;
+  display: flex;           /* Visible sur desktop */
 }
 
 #mobile-menu ul {
   display: flex;
-  gap: 2rem;
+  gap: 2rem;              /* Espace entre les liens */
 }
 
 #mobile-menu a {
   color: var(--light);
   text-decoration: none;
-  transition: color 0.3s;
+  transition: color 0.3s; /* Transition fluide */
 }
 
 #mobile-menu a:hover {
-  color: var(--green);
+  color: var(--green);    /* Couleur au survol */
 }
 
-/* Hero Section */
+/* ==================== */
+/* SECTION HÉROS */
+/* ==================== */
 .hero {
-  height: 100vh;
+  height: 100vh;          /* Pleine hauteur d'écran */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,27 +104,31 @@ header {
   margin-bottom: 1rem;
 }
 
-/* Sections */
+/* ==================== */
+/* SECTIONS GÉNÉRIQUES */
+/* ==================== */
 .section {
-  padding: 6rem 2rem;
+  padding: 6rem 2rem;     /* Grand espacement vertical */
   position: relative;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1200px;      /* Largeur max pour le contenu */
+  margin: 0 auto;         /* Centrage */
 }
 
-/* About Section */
+/* ==================== */
+/* SECTION À PROPOS */
+/* ==================== */
 .about-content {
   display: flex;
-  gap: 3rem;
+  gap: 3rem;              /* Espace entre texte et image */
   align-items: center;
   margin-top: 3rem;
 }
 
 .about-text {
-  flex: 1;
+  flex: 1;                /* Prend l'espace disponible */
 }
 
 .about-image {
@@ -118,14 +138,16 @@ header {
 .about-image img {
   width: 100%;
   border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Ombre portée */
 }
 
-/* Works Section */
+/* ==================== */
+/* SECTION PROJETS */
+/* ==================== */
 .works-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Grille responsive */
+  gap: 2rem;              /* Espace entre les cartes */
   margin-top: 3rem;
 }
 
@@ -134,57 +156,64 @@ header {
   border-radius: 12px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease; /* Animation fluide */
   position: relative;
   overflow: hidden;
 }
 
+/* Panneau Design */
 #design-panel {
   background: linear-gradient(135deg, var(--yellow) 0%, var(--orange) 100%);
 }
 
+/* Panneau Programmation */
 #programming-panel {
   background: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
 }
 
+/* Effet hover */
 .panel-button:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transform: translateY(-5px); /* Légère élévation */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Ombre plus prononcée */
 }
 
-/* Contact Form */
+/* ==================== */
+/* FORMULAIRE DE CONTACT */
+/* ==================== */
 .contact-form {
   max-width: 600px;
   margin: 0 auto;
   padding: 2rem;
   border-radius: 12px;
-  background: rgba(30, 30, 30, 0.7);
-  backdrop-filter: blur(10px);
+  background: rgba(30, 30, 30, 0.7); /* Fond semi-transparent */
+  backdrop-filter: blur(10px);        /* Effet de flou */
   border: 1px solid var(--border);
 }
 
 .form-group {
-  position: relative;
+  position: relative;     /* Pour le positionnement des labels */
   margin-bottom: 2rem;
 }
 
 .form-input {
   width: 100%;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Bordure subtile */
   border-radius: 8px;
   color: white;
   transition: all 0.3s ease;
 }
 
+/* Style des champs au focus */
 .form-input:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 0 3px var(--green);
+  box-shadow: 0 0 0 3px var(--green); /* Bordure colorée */
   border-color: var(--green);
 }
 
+/* Labels animés */
 .form-label {
   position: absolute;
   left: 1rem;
@@ -192,45 +221,53 @@ header {
   padding: 0 0.25rem;
   background: var(--dark);
   color: var(--light);
-  pointer-events: none;
+  pointer-events: none;   /* Permet de cliquer à travers */
   transition: all 0.2s ease;
 }
 
+/* Animation des labels */
 .form-input:focus ~ .form-label,
 .form-input:not(:placeholder-shown) ~ .form-label {
-  top: -0.6rem;
-  font-size: 0.875rem;
+  top: -0.6rem;          /* Monte le label */
+  font-size: 0.875rem;   /* Réduit la taille */
   background: var(--dark);
   color: var(--blue);
 }
 
-/* Separators */
+/* ==================== */
+/* SÉPARATEURS */
+/* ==================== */
 .separator {
   height: 100px;
   width: 100%;
   margin: 2rem 0;
 }
 
+/* Variante swirl (dégradé orange/jaune) */
 .swirl {
   background: linear-gradient(to right, var(--orange), var(--yellow));
 }
 
+/* Variante vagues bleues */
 .wave-layers {
   background: linear-gradient(to bottom, #7bdff2, var(--dark));
 }
 
+/* Variante bleu-vert */
 .wave-blue {
   background: linear-gradient(to right, var(--blue), var(--green));
 }
 
-/* Responsive Design */
+/* ==================== */
+/* DESIGN RESPONSIVE */
+/* ==================== */
 @media (max-width: 768px) {
   header {
     padding: 1rem;
   }
 
   .mobile-menu-toggle {
-    display: block;
+    display: block;       /* Affiche le bouton menu */
   }
 
   #mobile-menu {
@@ -241,12 +278,12 @@ header {
     background: var(--dark);
     flex-direction: column;
     padding: 2rem;
-    transform: translateY(-100%);
+    transform: translateY(-100%); /* Cache le menu */
     transition: transform 0.3s ease;
   }
 
   #mobile-menu.block {
-    transform: translateY(0);
+    transform: translateY(0); /* Affiche le menu */
   }
 
   #mobile-menu ul {
@@ -255,24 +292,26 @@ header {
   }
 
   .about-content {
-    flex-direction: column;
+    flex-direction: column; /* Empile texte et image */
   }
 
   .section {
-    padding: 4rem 1rem;
+    padding: 4rem 1rem;   /* Réduit l'espacement */
   }
 
   .separator {
-    height: 60px;
+    height: 60px;         /* Réduit la hauteur */
   }
 }
 
-/* Animations */
+/* ==================== */
+/* ANIMATIONS */
+/* ==================== */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-10px); } /* Effet de flottement */
 }
 
 .float-animation {
-  animation: float 6s ease-in-out infinite;
+  animation: float 6s ease-in-out infinite; /* Application de l'animation */
 }
