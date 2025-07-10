@@ -9,519 +9,150 @@
   --yellow: #F59E0B;
   --border: #3C3C3C;
 }
-/*
-  1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
-  2. Remove default margins and padding
-  3. Reset all borders.
-*/
 
-*,
-::after,
-::before,
-::backdrop,
-::file-selector-button {
-  box-sizing: border-box; /* 1 */
-  margin: 0; /* 2 */
-  padding: 0; /* 2 */
-  border: 0 solid; /* 3 */
-}
-
-/*
-  1. Use a consistent sensible line-height in all browsers.
-  2. Prevent adjustments of font size after orientation changes in iOS.
-  3. Use a more readable tab size.
-  4. Use the user's configured `sans` font-family by default.
-  5. Use the user's configured `sans` font-feature-settings by default.
-  6. Use the user's configured `sans` font-variation-settings by default.
-  7. Disable tap highlights on iOS.
-*/
-
-html,
-:host {
-  line-height: 1.5; /* 1 */
-  tab-size: 4; /* 3 */
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
-  font-feature-settings: normal; /* 5 */
-  font-variation-settings: normal; /* 6 */
-  -webkit-tap-highlight-color: transparent; /* 7 */
-}
-
-/*
-  1. Add the correct height in Firefox.
-  2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
-  3. Reset the default border style to a 1px solid border.
-*/
-
-hr {
-  height: 0; /* 1 */
-  color: inherit; /* 2 */
-  border-top-width: 1px; /* 3 */
-}
-
-/*
-  Add the correct text decoration in Chrome, Edge, and Safari.
-*/
-
-abbr:where([title]) {
-  -webkit-text-decoration: underline dotted;
-  text-decoration: underline dotted;
-}
-
-/*
-  Remove the default font size and weight for headings.
-*/
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: inherit;
-  font-weight: inherit;
-}
-
-/*
-  Reset links to optimize for opt-in styling instead of opt-out.
-*/
-
-a {
-  color: inherit;
-  -webkit-text-decoration: inherit;
-  text-decoration: inherit;
-}
-
-/*
-  Add the correct font weight in Edge and Safari.
-*/
-
-b,
-strong {
-  font-weight: bolder;
-}
-
-/*
-  1. Use the user's configured `mono` font-family by default.
-  2. Use the user's configured `mono` font-feature-settings by default.
-  3. Use the user's configured `mono` font-variation-settings by default.
-  4. Correct the odd `em` font sizing in all browsers.
-*/
-
-code,
-kbd,
-samp,
-pre {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; /* 1 */
-  font-feature-settings: normal; /* 2 */
-  font-variation-settings: normal; /* 3 */
-  font-size: 1em; /* 4 */
-}
-
-/*
-  Add the correct font size in all browsers.
-*/
-
-small {
-  font-size: 80%;
-}
-
-/*
-  Prevent `sub` and `sup` elements from affecting the line height in all browsers.
-*/
-
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-sub {
-  bottom: -0.25em;
-}
-
-sup {
-  top: -0.5em;
-}
-
-/*
-  1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
-  2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
-  3. Remove gaps between table borders by default.
-*/
-
-table {
-  text-indent: 0; /* 1 */
-  border-color: inherit; /* 2 */
-  border-collapse: collapse; /* 3 */
-}
-
-/*
-  Use the modern Firefox focus style for all focusable elements.
-*/
-
-:-moz-focusring {
-  outline: auto;
-}
-
-/*
-  Add the correct vertical alignment in Chrome and Firefox.
-*/
-
-progress {
-  vertical-align: baseline;
-}
-
-/*
-  Add the correct display in Chrome and Safari.
-*/
-
-summary {
-  display: list-item;
-}
-
-/*
-  Make lists unstyled by default.
-*/
-
-ol,
-ul,
-menu {
-  list-style: none;
-}
-
-/*
-  1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
-  2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
-      This can trigger a poorly considered lint error in some tools but is included by design.
-*/
-
-img,
-svg,
-video,
-canvas,
-audio,
-iframe,
-embed,
-object {
-  display: block; /* 1 */
-}
-
-/*
-  Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
-*/
-
-img,
-video {
-  max-width: 100%;
-  height: auto;
-}
-
-/*
-  1. Inherit font styles in all browsers.
-  2. Remove border radius in all browsers.
-  3. Remove background color in all browsers.
-  4. Ensure consistent opacity for disabled states in all browsers.
-*/
-
-button,
-input,
-select,
-optgroup,
-textarea,
-::file-selector-button {
-  font: inherit; /* 1 */
-  font-feature-settings: inherit; /* 1 */
-  font-variation-settings: inherit; /* 1 */
-  letter-spacing: inherit; /* 1 */
-  color: inherit; /* 1 */
-  border-radius: 0; /* 2 */
-  background-color: transparent; /* 3 */
-  opacity: 1; /* 4 */
-}
-
-/*
-  Restore default font weight.
-*/
-
-:where(select:is([multiple], [size])) optgroup {
-  font-weight: bolder;
-}
-
-/*
-  Restore indentation.
-*/
-
-:where(select:is([multiple], [size])) optgroup option {
-  padding-inline-start: 20px;
-}
-
-/*
-  Restore space after button.
-*/
-
-::file-selector-button {
-  margin-inline-end: 4px;
-}
-
-/*
-  Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
-*/
-
-::placeholder {
-  opacity: 1;
-}
-
-/*
-  Set the default placeholder color to a semi-transparent version of the current text color in browsers that do not
-  crash when using `color-mix(…)` with `currentcolor`. (https://github.com/tailwindlabs/tailwindcss/issues/17194)
-*/
-
-@supports (not (-webkit-appearance: -apple-pay-button)) /* Not Safari */ or
-  (contain-intrinsic-size: 1px) /* Safari 17+ */ {
-  ::placeholder {
-    color: rgba(0, 0, 0, 0.5);
-  }
-}
-
-/*
-  Prevent resizing textareas horizontally by default.
-*/
-
-textarea {
-  resize: vertical;
-}
-
-/*
-  Remove the inner padding in Chrome and Safari on macOS.
-*/
-
-::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-/*
-  1. Ensure date/time inputs have the same height when empty in iOS Safari.
-  2. Ensure text alignment can be changed on date/time inputs in iOS Safari.
-*/
-
-::-webkit-date-and-time-value {
-  min-height: 1lh; /* 1 */
-  text-align: inherit; /* 2 */
-}
-
-/*
-  Prevent height from changing on date/time inputs in macOS Safari when the input is set to `display: block`.
-*/
-
-::-webkit-datetime-edit {
-  display: inline-flex;
-}
-
-/*
-  Remove excess padding from pseudo-elements in date/time inputs to ensure consistent height across browsers.
-*/
-
-::-webkit-datetime-edit-fields-wrapper {
+/* Reset & Base Styles */
+*, ::before, ::after {
+  box-sizing: border-box;
+  margin: 0;
   padding: 0;
 }
 
-::-webkit-datetime-edit,
-::-webkit-datetime-edit-year-field,
-::-webkit-datetime-edit-month-field,
-::-webkit-datetime-edit-day-field,
-::-webkit-datetime-edit-hour-field,
-::-webkit-datetime-edit-minute-field,
-::-webkit-datetime-edit-second-field,
-::-webkit-datetime-edit-millisecond-field,
-::-webkit-datetime-edit-meridiem-field {
-  padding-block: 0;
-}
-
-/*
-  Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
-*/
-
-:-moz-ui-invalid {
-  box-shadow: none;
-}
-
-/*
-  Correct the inability to style the border radius in iOS Safari.
-*/
-
-button,
-input:where([type='button'], [type='reset'], [type='submit']),
-::file-selector-button {
-  appearance: button;
-}
-
-/*
-  Correct the cursor style of increment and decrement buttons in Safari.
-*/
-
-::-webkit-inner-spin-button,
-::-webkit-outer-spin-button {
-  height: auto;
-}
-
-/*
-  Make elements with the HTML hidden attribute stay hidden by default.
-*/
-
-[hidden]:where(:not([hidden='until-found'])) {
-  display: none !important;
-}
-
-/* Base Styles - Optimisé */
-body {
+html, body {
   font-family: 'Montserrat', sans-serif;
   line-height: 1.6;
-  margin: 0;
-  background-color: #1E1E1E;
-  color: #F4F4F5;
+  background-color: var(--dark);
+  color: var(--light);
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-/* Header & Navigation - Réorganisé */
+/* Header Styles */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 20;
-  background: rgba(30, 30, 30, 0.7);
+  z-index: 100;
+  background: rgba(30, 30, 30, 0.9);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid #3C3C3C;
-  transition: all 0.3s ease;
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
 }
 
-/* Logo centré */
-.logo-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+.logo {
+  color: var(--light);
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-decoration: none;
 }
 
-/* Menu mobile à droite */
+/* Mobile Menu */
 .mobile-menu-toggle {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
+  display: none;
 }
 
+#mobile-menu {
+  display: flex;
+}
 
+#mobile-menu ul {
+  display: flex;
+  gap: 2rem;
+}
+
+#mobile-menu a {
+  color: var(--light);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+#mobile-menu a:hover {
+  color: var(--green);
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* Sections */
+.section {
+  padding: 6rem 2rem;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* About Section */
+.about-content {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-image {
+  flex: 1;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Works Section */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.panel-button {
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
 
 #design-panel {
   background: linear-gradient(135deg, var(--yellow) 0%, var(--orange) 100%);
-  color: #fff;
 }
 
 #programming-panel {
   background: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
-  color: #fff;
-}
-
-/* Effets hover des panneaux */
-#design-panel:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
-}
-
-#programming-panel:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(43, 103, 119, 0.3);
-}
-.panel-button {
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  position: relative;
-  overflow: hidden;
 }
 
 .panel-button:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-.panel-button::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: 0.5s;
-}
-
-.panel-button:hover::after {
-  left: 100%;
-}
-/* Boutons de navigation - Révisés */
-.navigation-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin: 2rem 0;
-  padding: 0 2rem;
-}
-.nav-button {
-  position: relative;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.65, 0, 0.076, 1);
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: white;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.nav-button .icon {
-  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.nav-button .button-text {
-  transform: translateX(-0.75rem);
-  opacity: 0;
-  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-}
-
-.nav-button.back-button .icon {
-  left: 1.5rem;
-}
-
-.nav-button.home-button .icon {
-  right: 1.5rem;
-}
-
-.nav-button:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.nav-button:hover .icon.arrow {
-  transform: translate(0.5rem, -50%);
-}
-
-.nav-button:hover .button-text {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.nav-button:hover .icon.home {
-  transform: translate(-0.5rem, -50%);
-}
-
+/* Contact Form */
 .contact-form {
   max-width: 600px;
   margin: 0 auto;
@@ -559,206 +190,89 @@ header {
   left: 1rem;
   top: 0.75rem;
   padding: 0 0.25rem;
-  background: #fff;
-  color: #6b7280;
+  background: var(--dark);
+  color: var(--light);
   pointer-events: none;
   transition: all 0.2s ease;
 }
 
-.peer:focus ~ .form-label,
-.peer:not(:placeholder-shown) ~ .form-label {
+.form-input:focus ~ .form-label,
+.form-input:not(:placeholder-shown) ~ .form-label {
   top: -0.6rem;
   font-size: 0.875rem;
-  background: #fff;
+  background: var(--dark);
   color: var(--blue);
 }
 
-.btn-submit {
-  background: linear-gradient(135deg, var(--green) 0%, var(--blue) 100%);
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  color: white;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
+/* Separators */
+.separator {
+  height: 100px;
+  width: 100%;
+  margin: 2rem 0;
 }
 
-.btn-submit:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(94, 160, 140, 0.4);
-}
-/* Séparateurs - Améliorés */
-.separator {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-  margin: 0 !important;
-  z-index: 10;
-}
-.separator.swirl {
+.swirl {
   background: linear-gradient(to right, var(--orange), var(--yellow));
 }
 
-.separator.wave-layers {
-  background: linear-gradient(to bottom, #7bdff2, #1e1e1e);
+.wave-layers {
+  background: linear-gradient(to bottom, #7bdff2, var(--dark));
 }
 
-.separator.wave-blue {
-  background: linear-gradient(to right, #2b6777, #5ea08c);
+.wave-blue {
+  background: linear-gradient(to right, var(--blue), var(--green));
 }
-/* Animations - Optimisées */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header {
+    padding: 1rem;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  #mobile-menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background: var(--dark);
+    flex-direction: column;
+    padding: 2rem;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  #mobile-menu.block {
+    transform: translateY(0);
+  }
+
+  #mobile-menu ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-content {
+    flex-direction: column;
+  }
+
+  .section {
+    padding: 4rem 1rem;
+  }
+
+  .separator {
+    height: 60px;
+  }
+}
+
+/* Animations */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
 
-@keyframes slideInFromLeft {
-  0% { transform: translateX(-100%); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
-}
-@keyframes slideInFromRight {
-  0% { transform: translateX(100%); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
-}
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
 .float-animation {
   animation: float 6s ease-in-out infinite;
-}
-
-.slide-in-left {
-  animation: slideInFromLeft 0.6s ease-out forwards;
-}
-
-.slide-in-right {
-  animation: slideInFromRight 0.6s ease-out forwards;
-}
-
-.fade-in {
-  animation: fadeIn 0.8s ease-out forwards;
-}
-/* Responsive Design */
-@media (max-width: 768px) {
-  header {
-    position: relative;
-    padding: 1rem;
-  }
-
-  .logo-container {
-    flex: 1;
-    justify-content: center;
-    margin: 0;
-  }
-
-  .mobile-menu-toggle {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-  }
-  
-  .nav-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .separator {
-    height: 80px !important;
-  }
-}
-
-/* Chart Animations */
-.chart-container {
-  perspective: 1000px;
-}
-
-.chart-container canvas {
-  animation: fadeInBars 0.5s ease-out forwards;
-}
-
-@keyframes fadeInBars {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Loader Styles */
-.pl {
-  width: 6em;
-  height: 6em;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10000;
-}
-.btn-hero {
-  position: relative;
-  z-index: 0;
-  width: 240px;
-  height: 56px;
-  font: bold 20px 'Montserrat', sans-serif;
-  color: rgba(255, 228, 160, 0.7);
-  letter-spacing: 2px;
-  transition: all 0.3s ease;
-  display: inline-block;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.btn-hero__content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.btn-hero__image {
-  position: absolute;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  pointer-events: none;
-  width: auto;
-  height: 100%;
-}
-
-
-.btn-hero__image.vmw {
-  opacity: 1;
-  transform: scale(1);
-}
-.btn-hero__image.hw,
-.btn-hero__image.vmw-dark,
-.btn-hero__image.hw-dark {
-  opacity: 0;
-  transform: scale(0.8);
-}
-.btn-hero.active .btn-hero__image.vmw {
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-.btn-hero.active .btn-hero__image.hw {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Hover : montre VMW dark ou HW dark selon l’état */
-.btn-hero:not(.active):hover .btn-hero__image.vmw {
-  opacity: 0;
-}
-.btn-hero:not(.active):hover .btn-hero__image.vmw-dark {
-  opacity: 1;
-}
-
-.btn-hero.active:hover .btn-hero__image.hw {
-  opacity: 0;
-}
-.btn-hero.active:hover .btn-hero__image.hw-dark {
-  opacity: 1;
 }
