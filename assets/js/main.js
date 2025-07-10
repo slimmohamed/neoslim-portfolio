@@ -219,52 +219,11 @@ function navigateWithAnimation(url) {
       }, 500);
     }
   });
-}
-
-// Animations
-function initAnimations() {
-  // Only initialize if GSAP is loaded
-if (typeof ScrollTrigger !== 'undefined') {
-    ScrollTrigger.create({
-      trigger: '#skills',
-      start: 'top 80%',
-      onEnter: initCharts,
-      once: true
-    });
-    }
-    gsap.registerPlugin(ScrollTrigger);
-    
-    // Animate elements with .gsap-fade-in-up class
-    gsap.utils.toArray('.gsap-fade-in-up').forEach(el => {
-      gsap.from(el, {
-        opacity: 0,
-        y: 50,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 80%',
-          toggleActions: 'play none none none'
-        }
-      });
-    });
-
-    // Initialize charts when skills section comes into view
-    const skillsSection = document.getElementById('skills');
-    if (skillsSection) {
-      ScrollTrigger.create({
-        trigger: skillsSection,
-        start: 'top 80%',
-        onEnter: initCharts
-      });
-    }
-  }
-
-// Charts Initialization
-// Charts Initialization - Optimized Version
-// Enhanced Chart Initialization with Animations
-function initCharts() {
-  if (typeof Chart === 'undefined') return;
+  // Charts Initialization
+  // Charts Initialization - Optimized Version
+  // Enhanced Chart Initialization with Animations
+  function initCharts() {
+    if (typeof Chart === 'undefined') return;
 
   // Radar Chart with Animation
   const radarCtx = document.getElementById('skillsRadarChart')?.getContext('2d');
@@ -426,7 +385,7 @@ function animateCardParticles(canvas) {
   let particles = [];
   const PARTICLE_COUNT = 12;
   const COLORS = ['#5EA08C', '#2B6777', '#F5DEB3', '#CFEF00'];
-
+  const val = Math.random();
   function randomBetween(a, b) {
     return a + Math.random() * (b - a);
   }
@@ -501,4 +460,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   animate();
+}
 }
