@@ -762,3 +762,16 @@ header {
 .btn-hero.active:hover .btn-hero__image.hw-dark {
   opacity: 1;
 }
+
+/* Loader Animation */
+.pl:before, .pl:after {     
+
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 0.5em solid transparent;
+}

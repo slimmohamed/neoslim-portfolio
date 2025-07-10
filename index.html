@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/neoslim-portfolio-fix.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
     <script>
       tailwind.config = {
         theme: {
@@ -68,7 +68,7 @@
                       transition-all duration-700 ease-out ms6-hover-shadow">
         </div>
       </div>
-              
+</div>              
         <nav class="hidden md:block" role="navigation" aria-label="Main Navigation">
           <ul id="desktop-nav-menu" class="flex items-center gap-2">
             <li><a href="#hero" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">HOME</a></li>
@@ -80,19 +80,19 @@
         </nav>
         
         <!-- Mobile Menu Toggle -->
-        <div class="md:hidden">
-          <label class="hamburger">
-            <input id="mobile-menu-toggle" type="checkbox" aria-label="Toggle mobile menu" />
-            <svg viewBox="0 0 32 32">
-              <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
-              <path class="line" d="M7 16 27 16"></path>
-            </svg>
-          </label>
-        </div>
-      </div>
+      <div class="mobile-menu-toggle hamburger">
+      <label>
+        <input type="checkbox" id="checkbox" />
+        <svg viewBox="0 0 100 100" width="60">
+          <path class="line line-top-bottom" d="M 20,29 H 80 C 80,29 85,29 85,35 C 85,41 80,41 80,41 H 20" />
+          <path class="line" d="M 20,50 H 80" />
+          <path class="line line-top-bottom" d="M 20,71 H 80 C 80,71 85,71 85,65 C 85,59 80,59 80,59 H 20" />
+        </svg>
+      </label>
+    </div>
       
       <!-- Mobile Menu -->
-      <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 bg-dark border-t border-border z-30">
+      <div id="mobile-menu" class="absolute top-[72px] left-0 w-full bg-[#1E1E1E] text-white text-center p-6 hidden">
         <ul class="space-y-1 p-4">
           <li>
             <a href="#hero" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors">
@@ -159,13 +159,14 @@
           class="inline-block h-[3.5em] transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"/>
         </h1>
         
-        <button id="toggle-works-btn" class="btn-hero">
-          <div class="btn-hero__line"></div>
-          <div class="btn-hero__line"></div>
-          <span class="btn-hero__text">VIEW MY WORKS</span>
-          <div class="btn-hero__drow1"></div>
-          <div class="btn-hero__drow2"></div>
-        </button>
+    <button id="toggleWorksBtn" class="btn-hero">
+      <div class="btn-hero__content">
+        <img src="vmw.png" class="btn-hero__image vmw" alt="View My Works" />
+        <img src="hw.png" class="btn-hero__image hw" alt="Hide Works" />
+        <img src="vmw-dark.png" class="btn-hero__image vmw-dark" alt="View My Works Dark" />
+        <img src="hw-dark.png" class="btn-hero__image hw-dark" alt="Hide Works Dark" />
+      </div>
+    </button>
         </div>
       </section>    
 <!-- After Hero Section -->
@@ -596,6 +597,34 @@
     </script>
  
 <script src="src/js/main.js"></script>
+ <script>
+    const toggleBtn = document.getElementById("toggleWorksBtn");
+    const worksSection = document.getElementById("works-section");
+    const menuToggle = document.getElementById("checkbox");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    // Hero works toggle
+    toggleBtn.addEventListener("click", () => {
+      toggleBtn.classList.toggle("active");
+      worksSection.classList.toggle("opened");
+    });
+
+    // Mobile menu toggle
+    menuToggle.addEventListener("change", () => {
+      mobileMenu.classList.toggle("hidden");
+      document.body.classList.toggle("overflow-hidden");
+    });
+
+    // Close mobile menu on link click
+    const links = mobileMenu.querySelectorAll("a");
+    links.forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+        menuToggle.checked = false;
+        document.body.classList.remove("overflow-hidden");
+      });
+    });
+  </script>
 
 </body>
 </html>
