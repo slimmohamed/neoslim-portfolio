@@ -562,7 +562,7 @@
         const PARTICLE_COUNT = 12;
         const COLORS = ['#5EA08C', '#2B6777', '#F5DEB3', '#CFEF00'];
 
-        const randomGenerator = new Math.seedrandom();
+        const randomGenerator = new Math.seedrandom('particle animation');
         function randomBetween(a, b) {
           return a + randomGenerator() * (b - a);
         }
