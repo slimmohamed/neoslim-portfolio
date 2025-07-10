@@ -333,7 +333,23 @@ heroBtn.addEventListener('click', function() {
                 hidePortfolioContent(type);
             });
         });
-        
+            function revealWorksSection() {
+                const worksSectionElement = document.getElementById('works-section');
+                const toggleWorksButton = document.getElementById('toggle-works-btn');
+                const buttonTextElement = toggleWorksButton?.querySelector('.btn-hero__text');
+
+                worksSectionElement.classList.remove('hidden');
+                worksSectionElement.style.opacity = '1';
+                worksSectionElement.style.transform = 'scaleY(1)';
+                buttonTextElement?.textContent = 'HIDE WORKS';
+
+                // Scroll to section after a brief delay
+                setTimeout(() => {
+                    worksSectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
+            }
+        function toggleWorksSection() {
+            const worksSectionElement = document.getElementById('works-section');
         // Home buttons in portfolio sections
         document.querySelectorAll('[onclick="hideAllCollapsibleSections()"]').forEach(btn => {
             btn.addEventListener('click', function(e) {
@@ -347,5 +363,6 @@ heroBtn.addEventListener('click', function() {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
+    }
     }
 });
