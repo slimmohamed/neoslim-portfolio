@@ -10,9 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- GSAP for animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script>
@@ -145,10 +142,10 @@
         <div class="text-center max-w-3xl">
         <p class="tracking-widest uppercase text-sm text-green">Bienvenue</p>
         <span class="block w-16 h-0.5 bg-gray-700 mx-auto mt-2 gsap-line"></span>
-        
+        </div>
         <div class="mt-8 flex justify-center gsap-zoom-in">
           <div class="relative w-auto h-auto">
-          <img src="/assets/images/Pre.png" alt="Profil Mohamed Slimani"
+          <img src="/assets/images/Pre.png" alt="Profile Mohamed Slimani"
             class="w-full h-full object-cover animate-float-smooth transition duration-500 ease-in-out hover:saturate-100 hover:brightness-10 hover:contrast-125">
           </div>
         </div>
@@ -158,16 +155,32 @@
           <img src="/assets/images/hello.png" alt="" aria-hidden="true"
           class="inline-block h-[3.5em] transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"/>
         </h1>
-        <div class="container">
-      <a href="#works-section" id="toggle-works-btn" class="button type--C">
-        <div class="button__line"></div>
-        <div class="button__line"></div>
-        <span class="button__text btn-hero__text">VIEW MY WORKS</span>
-        <div class="button__drow1"></div>
-        <div class="button__drow2"></div>
-      </a>
+<div class="flex justify-center mt-6">
+  <button id="toggle-works-btn"
+    class="group relative inline-flex items-center justify-center px-6 py-3 rounded-full text-black font-semibold transition-all duration-300 bg-lime-300 hover:bg-lime-400 backdrop-blur-sm shadow-md hover:shadow-xl hover:scale-105 border-2 border-transparent">
+    
+    <div class="btn-hero__content relative z-10 flex items-center gap-2">
+      <!-- View My Works -->
+      <img src="assets/images/vmw.png" class="btn-hero__image vmw block dark:hidden" alt="View My Works">
+      <img src="assets/images/vmw-dark.png" class="btn-hero__image vmw-dark hidden dark:block" alt="View My Works">
+
+      <!-- Hide Works -->
+      <img src="assets/images/hw.png" class="btn-hero__image hw hidden dark:hidden" alt="Hide Works">
+      <img src="assets/images/hw-dark.png" class="btn-hero__image hw-dark hidden dark:block" alt="Hide Works">
     </div>
-  </div>
+
+    <!-- Glow decorative elements -->
+    <span class="absolute inset-0 z-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-lime-300 via-lime-200 to-lime-100 mix-blend-overlay blur-md"></span>
+
+  <!-- Decorative Elements -->
+  <div class="btn-hero__line"></div>
+  <div class="btn-hero__line"></div>
+  <div class="btn-hero__drow1"></div>
+  <div class="btn-hero__drow2"></div>
+
+</button>
+
+        </div>
 </section>
   
 <!-- After Hero Section -->
@@ -194,11 +207,11 @@
         <img src="/assets/images/logodp.png" alt="Design Logo"
           class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
       </div>
-      <p class="mb-8 text-white/90">Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.</p>
+      <p class="mb-8 text-white/90">Discover my creative work including graphic design, UI/UX, and visual arts projects.</p>
       <button
-        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-amber-600 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg"
-        onclick="navigateWithAnimation('/design-projects.html')">
-        Voir les projets de design
+        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-amber-600 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg navigate-btn"
+        data-url="design-projects.html">
+        View design projects
       </button>
     </div>
   </div>
@@ -210,11 +223,11 @@
         <img src="/assets/images/LOGOCP.png" alt="Coding Logo"
           class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
       </div>
-      <p class="mb-8 text-white/90">Explorez mes projets techniques, de la conception de sites web aux applications logicielles complexes.</p>
+      <p class="mb-8 text-white/90">Explore my technical projects, from website development to complex software applications.</p>
       <button
-        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-slate-800 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg"
-        onclick="navigateWithAnimation('/coding-projects.html')">
-        Voir les projets de code
+        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-slate-800 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg navigate-btn"
+        data-url="coding-projects.html">
+        View coding projects
       </button>
     </div>
   </div>
@@ -227,21 +240,21 @@
           <div class="max-w-4xl mx-auto text-center gsap-fade-in-up">
                 <img 
                 src="/assets/images/am2.png"
-                alt="Bannière Design Mohamed Slimani"
+                alt="Design Banner Mohamed Slimani"
                 class="h-[250px] mx-auto mb-6 
                 drop-shadow-full max-w-[0_8px_8px_rgba(0,0,0,0.2)] 
                 transition duration-700 ease-in-out
                 hover:invert hover:grayscale hover:scale-105 hover:drop-shadow-full"
                 />
                 <p class="text-gray leading-relaxed text-lg mb-8">
-                    Je suis un développeur Full-Stack et un designer passionné avec une solide expérience en création d'applications web robustes et d'expériences utilisateur intuitives. Mon parcours m'a permis de maîtriser un large éventail de technologies, du front-end au back-end, tout en affinant mes compétences en design graphique et UI/UX. J'aime résoudre des problèmes complexes et construire des solutions élégantes qui ont un impact réel.
+                    I am a passionate Full-Stack developer and designer with solid experience in creating robust web applications and intuitive user experiences. My journey has allowed me to master a wide range of technologies, from front-end to back-end, while refining my skills in graphic and UI/UX design. I enjoy solving complex problems and building elegant solutions that have real impact.
                 </p>
                 <div class="grid md:grid-cols-2 gap-8 text-left">
                     <div class="bg-border p-6 rounded-lg shadow-md gsap-fade-in-left group relative overflow-hidden">
                       <canvas class="card-bg-canvas absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
                       <div class="relative z-10">
                         <h3 class="text-2xl md:text-4xl font-light text-light mb-6 flex justify-center items-center gap-4">
-                            <span class="sr-only">Compétences Techniques</span>
+                            <span class="sr-only">Technical Skills</span>
                             <span aria-hidden="true">
                               <img src="/assets/images/ct2.png" 
                                   alt="" 
@@ -249,8 +262,8 @@
                             </span>
                         </h3>
                         <ul class="space-y-3 text-gray">
-                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Développement Web (React, Next.js, Node.js)</li>
-                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Bases de Données (PostgreSQL, MongoDB, Firebase)</li>
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Web Development (React, Next.js, Node.js)</li>
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Databases (PostgreSQL, MongoDB, Firebase)</li>
                             <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Cloud Computing (AWS, GCP)</li>
                             <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Version Control (Git, GitHub)</li>
                         </ul>
@@ -260,16 +273,16 @@
                       <canvas class="card-bg-canvas absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
                       <div class="relative z-10">
                         <h3 class="text-2xl md:text-4xl font-light text-light mb-6 flex justify-center items-center gap-4">
-                            <span class="sr-only">Compétences en Design</span>
+                            <span class="sr-only">Design Skills</span>
                             <img src="/assets/images/cd.png" 
-                                 alt="Compétences en Design Mohamed Slimani" 
+                                 alt="Design Skills Mohamed Slimani" 
                                  class="h-[190px] transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:rotate-3" />
                         </h3>
                         <ul class="space-y-3 text-gray">
                             <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>UI/UX Design (Figma, Sketch)</li>
-                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Design Graphique (Photoshop, Illustrator)</li>
-                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Branding & Identité Visuelle</li>
-                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Modélisation 3D (Blender, AutoCAD)</li>
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Graphic Design (Photoshop, Illustrator)</li>
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Branding & Visual Identity</li>
+                            <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>3D Modeling (Blender, AutoCAD)</li>
                         </ul>
                       </div>
                     </div>
@@ -364,7 +377,7 @@
     <path class="wave3" d="M0,80 C150,120 350,40 500,80 C650,120 850,40 1000,80 C1150,120 1350,40 1500,80 L1500,120 L0,120 Z" />
   </svg>
 </div>
-<section id="contact" class="py-20 bg-gradient-to-br from-transparent via-dark/20 to-blue/20 relative overflow-hidden">
+<section id="contact-section" class="py-20 bg-gradient-to-br from-transparent via-dark/20 to-blue/20 relative overflow-hidden">
   <div class="absolute inset-0 bg-[url('assets/images/grid.svg')] opacity-10"></div>
   <div class="absolute w-96 h-96 bg-green/20 rounded-full -top-10 -left-40"></div>
   <div class="absolute w-72 h-72 bg-green/20 rounded-full -bottom-20 -right-20"></div>
@@ -375,14 +388,14 @@
         src="/assets/images/contact.png"
         alt="Contact"
         class="h-[220px] mx-auto mb-6 opacity-80 hover:opacity-100 hover:scale-105 hover:brightness-110 transition-all duration-700 ease-in-out drop-shadow-xl" />
-      <h2 class="text-4xl font-bold text-blue-600 mb-4">Contactez-moi</h2>
-      <h3 class="text-2xl font-bold text-gray-800 text-center mb-8">Disponible pour de nouvelles opportunités et collaborations</h3>
+      <h2 class="text-4xl font-bold text-blue-600 mb-4">Contact Me</h2>
+      <h3 class="text-2xl font-bold text-gray-800 text-center mb-8">Available for new opportunities and collaborations</h3>
     </div>
 
     <form>
       <div class="relative">
         <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 bg-white text-gray-800 peer" placeholder=" ">
-        <label for="name" class="absolute left-4 top-3 text-gray-500 transition-all duration-200 pointer-events-none px-1 bg-white peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600 peer-focus:bg-white peer-focus:px-2 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-blue-600 peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-2">Nom complet</label>
+        <label for="name" class="absolute left-4 top-3 text-gray-500 transition-all duration-200 pointer-events-none px-1 bg-white peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600 peer-focus:bg-white peer-focus:px-2 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-blue-600 peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-2">Full Name</label>
       </div>
       
       <div class="relative">
@@ -397,14 +410,14 @@
     
       <div class="flex justify-center">
         <button type="submit" class="w-full flex justify-center items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg font-medium text-lg transition-all duration-300 hover:from-blue-700 hover:to-blue-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 active:scale-95">
-          Envoyer
+          Send
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
           </svg>
         </button>
       </div>
       <p class="text-sm text-gray mt-4">
-        En soumettant ce formulaire, vous acceptez que vos données soient utilisées pour répondre à votre demande. Consultez notre <a href="#" class="text-blue hover:underline">Politique de Confidentialité</a> pour plus d'informations.
+        By submitting this form, you agree that your data will be used to respond to your request. See our <a href="#" class="text-blue hover:underline">Privacy Policy</a> for more information.
       </p>
     </form>
   </div>
@@ -445,9 +458,14 @@
           </div>
         </footer>
     </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
+<script
+  src="https://cdn.example.com/v5.3.6/script.js"
+  integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+<script>
       // Radar Chart
       const radarCtx = document.getElementById('skillsRadarChart').getContext('2d');
       const radarChart = new Chart(radarCtx, {
@@ -543,8 +561,9 @@
         const PARTICLE_COUNT = 12;
         const COLORS = ['#5EA08C', '#2B6777', '#F5DEB3', '#CFEF00'];
 
+        const randomGenerator = new Math.seedrandom();
         function randomBetween(a, b) {
-          return a + Math.random() * (b - a);
+          return a + randomGenerator() * (b - a);
         }
 
         function Particle() {
@@ -609,6 +628,18 @@
     </script>
  
 <script src="assets/js/main.js"></script>
-
+<script>
+  // Attach navigation handler for works section buttons
+  document.querySelectorAll('.navigate-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (typeof navigateWithAnimation === 'function') {
+        navigateWithAnimation(this.getAttribute('data-url'));
+      } else {
+        window.location.href = this.getAttribute('data-url');
+      }
+    });
+  });
+</script>
 </body>
 </html>
