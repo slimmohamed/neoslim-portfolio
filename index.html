@@ -193,8 +193,8 @@
       </div>
       <p class="mb-8 text-white/90">Discover my creative work including graphic design, UI/UX, and visual arts projects.</p>
       <button
-        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-amber-600 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg"
-        onclick="navigateWithAnimation('pages/design-projects.html')">
+        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-amber-600 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg navigate-btn"
+        data-url="pages/design-projects.html">
         View design projects
       </button>
     </div>
@@ -209,8 +209,8 @@
       </div>
       <p class="mb-8 text-white/90">Explore my technical projects, from website development to complex software applications.</p>
       <button
-        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-slate-800 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg"
-        onclick="navigateWithAnimation('pages/coding-projects.html')">
+        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-slate-800 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg navigate-btn"
+        data-url="pages/coding-projects.html">
         View coding projects
       </button>
     </div>
@@ -612,5 +612,18 @@
     </script>
  
 <script src="assets/js/main.js"></script>
+<script>
+  // Attach navigation handler for works section buttons
+  document.querySelectorAll('.navigate-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (typeof navigateWithAnimation === 'function') {
+        navigateWithAnimation(this.getAttribute('data-url'));
+      } else {
+        window.location.href = this.getAttribute('data-url');
+      }
+    });
+  });
+</script>
 </body>
 </html>

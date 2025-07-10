@@ -3,7 +3,8 @@
         "agrandir",
         "drow",
         "GSAP",
-        "incluant"
+        "incluant",
+        "Retour"
     ],
     "sonarlint.connectedMode.project": {
         "connectionId": "slimmohamed",
