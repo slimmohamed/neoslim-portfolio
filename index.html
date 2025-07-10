@@ -155,16 +155,33 @@
           <img src="/assets/images/hello.png" alt="" aria-hidden="true"
           class="inline-block h-[3.5em] transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"/>
         </h1>
-        <div class="container">
-      <a href="#works-section" id="toggle-works-btn" class="button type--C">
-        <div class="button__line"></div>
-        <div class="button__line"></div>
-        <span class="button__text btn-hero__text">VIEW MY WORKS</span>
-        <div class="button__drow1"></div>
-        <div class="button__drow2"></div>
-      </a>
-    </div>
+        <div class="flex justify-center mt-4">
+  <button id="toggle-works-btn" class="btn btn-panel bg-green hover:bg-lime text-dark font-bold py-2 px-6 rounded-full transition duration-300 transform hover:scale-105">
+    View My Works
+  </button>
+</div>
+
+<!-- Hero Button (keep as is, for animation only) -->
+<button id="hero-btn" class="btn-hero">
+  <div class="btn-hero__content">
+    <!-- View My Works States -->
+    <img src="assets/images/vmw.png" class="btn-hero__image vmw" alt="View My Works">
+    <img src="assets/images/vmw-dark.png" class="btn-hero__image vmw-dark" alt="View My Works">
+    
+    <!-- Hide Works States --> 
+    <img src="assets/images/hw.png" class="btn-hero__image hw" alt="Hide Works">
+    <img src="assets/images/hw-dark.png" class="btn-hero__image hw-dark" alt="Hide Works">
   </div>
+  
+  <!-- Decorative Elements -->
+  <div class="btn-hero__line"></div>
+  <div class="btn-hero__line"></div>
+  <div class="btn-hero__drow1"></div>
+  <div class="btn-hero__drow2"></div>
+
+</button>
+    
+        </div>
 </section>
   
 <!-- After Hero Section -->
@@ -194,7 +211,7 @@
       <p class="mb-8 text-white/90">Discover my creative work including graphic design, UI/UX, and visual arts projects.</p>
       <button
         class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-amber-600 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg navigate-btn"
-        data-url="pages/design-projects.html">
+        data-url="design-projects.html">
         View design projects
       </button>
     </div>
@@ -210,7 +227,7 @@
       <p class="mb-8 text-white/90">Explore my technical projects, from website development to complex software applications.</p>
       <button
         class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-slate-800 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg navigate-btn"
-        data-url="pages/coding-projects.html">
+        data-url="coding-projects.html">
         View coding projects
       </button>
     </div>
