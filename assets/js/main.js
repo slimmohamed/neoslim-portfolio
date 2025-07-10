@@ -99,7 +99,7 @@ function initWorksSection() {
       worksSection.classList.remove('hidden');
       worksSection.style.opacity = '1';
       worksSection.style.transform = 'scaleY(1)';
-      const button = toggleWorksBtn?.querySelector('.btn-hero__text');
+      const button = toggleWorksBtn?.querySelector('.button__text');
       if (button) {
         button.textContent = 'HIDE WORKS';
       }
@@ -113,7 +113,7 @@ function initWorksSection() {
     function hideWorksSection() {
       worksSection.style.opacity = '0';
       worksSection.style.transform = 'scaleY(0)';
-      toggleWorksBtn.querySelector('.btn-hero__text').textContent = 'VIEW MY WORKS';
+      toggleWorksBtn.querySelector('.button__text').textContent = 'VIEW MY WORKS';
       
       // Hide after animation completes
       setTimeout(() => {
