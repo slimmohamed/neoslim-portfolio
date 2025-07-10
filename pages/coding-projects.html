@@ -79,22 +79,23 @@
                 </div>
             </div>
 
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-                <div class="navigation-buttons">
-                    <a href="index.html#works-section" class="nav-button learn-more order-1 md:order-1">
-                        <span class="circle" aria-hidden="true">
-                            <span class="icon arrow reversed transform rot"></span>
-                        </span>
-                        <span class="button-text">Go Back</span>
-                    </a>
-                    <a href="index.html#hero" class="nav-button learn-more home order-2 md:order-3">
-                        <span class="circle" aria-hidden="true">
-                            <span class="icon home"></span>
-                        </span>
-                        <span class="button-text">Go Home</span>
-                    </a>
-                </div>
-            </div>
+   <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0 mb-8">
+        <a href="index.html#works-section" class="btn btn-back group flex items-center space-x-2 bg-border hover:bg-blue text-light font-bold py-2 px-4 rounded-2xl transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-light transition-transform duration-300 group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm">Go Back</span>
+        </a>
+  
+        <a href="index.html#hero" class="group flex items-center space-x-2 text-green hover:text-lime transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-4 0v-4a1 1 0 011-1h2a1 1 0 011 1v4" />
+          </svg>
+          <div class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-sm">Home</span>
+          </div>
+        </a>
+      </div>
 
 <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
     <!-- Back Button (left) with reversed arrow -->
