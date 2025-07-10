@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
-    <link rel="stylesheet" href="css/preflight.css">
-<link rel="stylesheet" href="css/index.css">
-<link rel="stylesheet" href="css/main.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,47 +53,30 @@
         <div class="container mx-auto px-6 py-12">
             <!-- Logo -->
             <div class="flex justify-center mb-6">
-                <img src="assets/images/slimdev.png" alt="Logo" class="h-32 w-auto">
+                <img src="assets/images/nvlogo.png" alt="Logo" class="h-32 w-auto">
             </div>
 
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-                <div class="navigation-buttons">
-                    <button class="nav-button back-button" onclick="window.history.back()">
-                        <svg class="icon arrow" viewBox="0 0 24 24">
-                            <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
-                        </svg>
-                        <span class="button-text">Retour</span>
-                    </button>
-                    <a href="index.html" class="nav-button home-button">
-                        <span class="button-text">Accueil</span>
-                        <svg class="icon home" viewBox="0 0 24 24">
-                            <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/>
-                        </svg>
-                    </a>
-                </div>
-                <!-- Portfolio Header -->
-                <div class="flex justify-center mt-4 mb-4">
-                    <img src="assets/images/pp.png" alt="Coding Portfolio" class="h-32 transition duration-500 hover:brightness-125 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
-                </div>
-            </div>
-
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-                <div class="navigation-buttons">
-                    <a href="index.html#works-section" class="nav-button learn-more order-1 md:order-1">
-                        <span class="circle" aria-hidden="true">
-                            <span class="icon arrow reversed transform rot"></span>
-                        </span>
-                        <span class="button-text">Go Back</span>
-                    </a>
-                    <a href="index.html#hero" class="nav-button learn-more home order-2 md:order-3">
-                        <span class="circle" aria-hidden="true">
-                            <span class="icon home"></span>
-                        </span>
-                        <span class="button-text">Go Home</span>
-                    </a>
-                </div>
-            </div>
-
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
+    <!-- Back Button (left) with reversed arrow -->
+    <button type="button" onclick="window.history.back()" class="nav-button back-button order-1 md:order-1">
+        <span class="circle" aria-hidden="true">
+            <span class="icon arrow reversed transform rot"></span>
+        </span>
+        <span class="button-text">Go Back</span>
+    </button>
+    
+    <!-- Home Button (right) -->
+    <a href="/" class="nav-button home-button order-2 md:order-3">
+        <span class="circle" aria-hidden="true">
+            <span class="icon home"></span>
+        </span>
+        <span class="button-text">Go Home</span>
+    </a>
+</div>
+      <div class="flex justify-center mt-4 mb-4">
+        <img src="assets/images/pp.png" alt="Coding Portfolio Logo" class="h-32 transition duration-500 hover:brightness-125 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+      </div>
+  
             <p class="text-center text-gray mb-12 max-w-2xl mx-auto">
                 Showcasing my technical projects, from web applications to complex algorithms.
             </p>
