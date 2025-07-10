@@ -11,7 +11,6 @@ function init() {
   const menuToggle = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobile-menu');
   const checkbox = document.getElementById('checkbox');
-  const heroBtn = document.getElementById('hero-btn');
   const toggleWorksBtn = document.getElementById('toggle-works-btn');
   const worksSection = document.getElementById('works-section');
 
@@ -427,23 +426,21 @@ function animateCardParticles(canvas) {
     particles.push(createParticle());
   }
 
-  function animate() {
+  function updateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (const p of particles) {
-      p.x += p.speedX;
-      p.y += p.speedY;
+    for (const particle of particles) {
+      particle.x += particle.velocityX;
+      particle.y += particle.velocityY;
 
-      if (p.x > canvas.width) p.x = 0;
-      if (p.x < 0) p.x = canvas.width;
-      if (p.y > canvas.height) p.y = 0;
-      if (p.y < 0) p.y = canvas.height;
+      if (particle.x > canvas.width || particle.x < 0) particle.x = canvas.width - particle.x;
+      if (particle.y > canvas.height || particle.y < 0) particle.y = canvas.height - particle.y;
 
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
+      ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+      ctx.fillStyle = particle.color;
       ctx.fill();
     }
-    requestAnimationFrame(animate);
+    requestAnimationFrame(updateParticles);
   }
 
   window.addEventListener('resize', () => {
@@ -457,45 +454,13 @@ function animateCardParticles(canvas) {
 
   animate();
 }
-function handleContactFormSubmission() {
-  const form = document.querySelector('#contact-section form');
 
-  if (!form) return;
-
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const message = formData.get('message');
-
-    alert(`Thank you for your message, ${name}! I will get back to you soon.`);
-    form.reset();
-  });
-}
 // Initialize GSAP animations
 initGSAPAnimations();
 initCanvasBackground();
 handleFormSubmit();
 // Function to initialize GSAP animations
-function initGSAPAnimations() {
-  gsap.from('.gsap-fade-in-up', {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    stagger: 0.2,
-    ease: 'power2.out'
-  });
 
-  gsap.from('.gsap-fade-in-right', {
-    opacity: 0,
-    x: 50,
-    duration: 1,
-    stagger: 0.2,
-    ease: 'power2.out'
-  });
-}
 document.addEventListener('DOMContentLoaded', () => {
   initGSAPAnimations();
   initCanvasBackground();
@@ -544,7 +509,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-const windsurfCommand = document.getElementById('windsurf-command');
   document.querySelectorAll('.collapsible-section').forEach(section => {
     section.addEventListener('click', function (e) {
       if (!e.target.closest('button')) {
