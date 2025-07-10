@@ -142,7 +142,7 @@
         <div class="text-center max-w-3xl">
         <p class="tracking-widest uppercase text-sm text-green">Bienvenue</p>
         <span class="block w-16 h-0.5 bg-gray-700 mx-auto mt-2 gsap-line"></span>
-        </div>
+        
         <div class="mt-8 flex justify-center gsap-zoom-in">
           <div class="relative w-auto h-auto">
           <img src="/assets/images/Pre.png" alt="Profile Mohamed Slimani"
@@ -155,32 +155,16 @@
           <img src="/assets/images/hello.png" alt="" aria-hidden="true"
           class="inline-block h-[3.5em] transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"/>
         </h1>
-<div class="flex justify-center mt-6">
-  <button id="toggle-works-btn"
-    class="group relative inline-flex items-center justify-center px-6 py-3 rounded-full text-black font-semibold transition-all duration-300 bg-lime-300 hover:bg-lime-400 backdrop-blur-sm shadow-md hover:shadow-xl hover:scale-105 border-2 border-transparent">
-    
-    <div class="btn-hero__content relative z-10 flex items-center gap-2">
-      <!-- View My Works -->
-      <img src="assets/images/vmw.png" class="btn-hero__image vmw block dark:hidden" alt="View My Works">
-      <img src="assets/images/vmw-dark.png" class="btn-hero__image vmw-dark hidden dark:block" alt="View My Works">
-
-      <!-- Hide Works -->
-      <img src="assets/images/hw.png" class="btn-hero__image hw hidden dark:hidden" alt="Hide Works">
-      <img src="assets/images/hw-dark.png" class="btn-hero__image hw-dark hidden dark:block" alt="Hide Works">
+        <div class="container">
+      <a href="#works-section" id="toggle-works-btn" class="button type--C">
+        <div class="button__line"></div>
+        <div class="button__line"></div>
+        <span class="button__text btn-hero__text">VIEW MY WORKS</span>
+        <div class="button__drow1"></div>
+        <div class="button__drow2"></div>
+      </a>
     </div>
-
-    <!-- Glow decorative elements -->
-    <span class="absolute inset-0 z-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-lime-300 via-lime-200 to-lime-100 mix-blend-overlay blur-md"></span>
-
-  <!-- Decorative Elements -->
-  <div class="btn-hero__line"></div>
-  <div class="btn-hero__line"></div>
-  <div class="btn-hero__drow1"></div>
-  <div class="btn-hero__drow2"></div>
-
-</button>
-
-        </div>
+  </div>
 </section>
   
 <!-- After Hero Section -->
@@ -209,8 +193,8 @@
       </div>
       <p class="mb-8 text-white/90">Discover my creative work including graphic design, UI/UX, and visual arts projects.</p>
       <button
-        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-amber-600 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg navigate-btn"
-        data-url="design-projects.html">
+        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-amber-600 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg"
+        onclick="navigateWithAnimation('pages/design-projects.html')">
         View design projects
       </button>
     </div>
@@ -225,8 +209,8 @@
       </div>
       <p class="mb-8 text-white/90">Explore my technical projects, from website development to complex software applications.</p>
       <button
-        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-slate-800 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg navigate-btn"
-        data-url="coding-projects.html">
+        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-slate-800 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg"
+        onclick="navigateWithAnimation('pages/coding-projects.html')">
         View coding projects
       </button>
     </div>
@@ -628,18 +612,5 @@
     </script>
  
 <script src="assets/js/main.js"></script>
-<script>
-  // Attach navigation handler for works section buttons
-  document.querySelectorAll('.navigate-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (typeof navigateWithAnimation === 'function') {
-        navigateWithAnimation(this.getAttribute('data-url'));
-      } else {
-        window.location.href = this.getAttribute('data-url');
-      }
-    });
-  });
-</script>
 </body>
 </html>
