@@ -275,79 +275,128 @@ handleFormSubmit();
 function initGSAPAnimations() {
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.from('.gsap-fade-in-up', {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    stagger: 0.2,
-    ease: 'power2.out'
-  });
+  const selectors = {
+    fadeInUp: '.gsap-fade-in-up',
+    zoomIn: '.gsap-zoom-in',
+    line: '.gsap-line',
+    fadeInLeft: '.gsap-fade-in-left',
+    zoomInUp: '.gsap-zoom-in-up',
+    chartContainer: '.chart-container',
+    contactForm: '#contact-section form'
+  };
 
-  gsap.from('.gsap-zoom-in', {
-    opacity: 0,
-    scale: 0.8,
-    duration: 1,
-    ease: 'back.out(1.7)'
-  });
-
-  gsap.from('.gsap-line', {
-    scaleX: 0,
+  const animationOptions = {
     duration: 1,
     ease: 'power2.out'
-  });
+  };
 
-  gsap.from('.gsap-fade-in-left', {
-    scrollTrigger: {
+  const triggers = {
+    line: {},
+    fadeInLeft: {
       trigger: '#about',
       start: 'top 80%'
     },
-    opacity: 0,
-    x: -50,
-    duration: 0.8,
-    stagger: 0.2,
-    ease: 'power2.out'
-  });
-
-  gsap.from('.gsap-zoom-in-up', {
-    scrollTrigger: {
+    zoomInUp: {
       trigger: '#article-section',
       start: 'top 80%'
     },
-    opacity: 0,
-    y: 50,
-    scale: 0.95,
-    duration: 0.8,
-    ease: 'back.out(1.7)'
-  });
-
-  gsap.from('.chart-container', {
-    scrollTrigger: {
+    chartContainer: {
       trigger: '#skills',
       start: 'top 80%'
     },
-    opacity: 0,
-    y: 50,
-    duration: 0.8,
-    stagger: 0.2,
-    ease: 'power2.out'
-  });
-
-  gsap.from('#contact-section form', {
-    scrollTrigger: {
+    contactForm: {
       trigger: '#contact-section',
       start: 'top 80%'
-    },
-    opacity: 0,
-    y: 50,
-    duration: 0.8,
-    ease: 'power2.out'
+    }
+  };
+
+  Object.entries(selectors).forEach(([selector, trigger]) => {
+    const options = {
+      ...animationOptions,
+      ...triggers[trigger]
+    };
+
+    switch (trigger) {
+      case 'fadeInUp':
+        options.opacity = 0;
+        options.y = 50;
+        options.stagger = 0.2;
+        break;
+      case 'zoomIn':
+        options.opacity = 0;
+        options.scale = 0.8;
+        options.ease = 'back.out(1.7)';
+        break;
+      case 'line':
+        options.scaleX = 0;
+        break;
+      default:
+        options.opacity = 0;
+        options.y = 50;
+    }
+
+    gsap.from(selector, options);
   });
 }
-function initCanvasBackground() {
-  const canvas = document.getElementById('background-canvas');
-  if (!canvas) return;
-  animateCardParticles(canvas);
-} 
+function initializeBackgroundCanvas() {
+  const backgroundCanvas = document.getElementById('background-canvas');
+  if (!backgroundCanvas) return;
+
+  animateParticles(backgroundCanvas);
+}
+
+function animateParticles(canvas) {
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  const particleCount = window.innerWidth < 768 ? 30 : 60;
+
+  const colors = [
+    '#5EA08C',
+    '#2B6777',
+    '#F5DEB3',
+    '#CFEF00'
+  ];
+
+  function createParticle() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 3 + 1,
+      vx: Math.random() * 1 - 0.5,
+      vy: Math.random() * 1 - 0.5,
+      color: colors[Math.floor(Math.random() * colors.length)]
+    };
+  }
+
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(createParticle());
+  }
+
+  function updateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const particle of particles) {
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+
+      if (particle.x > canvas.width) particle.x = 0;
+      if (particle.x < 0) particle.x = canvas.width;
+      if (particle.y > canvas.height) particle.y = 0;
+      if (particle.y < 0) particle.y = canvas.height;
+
+      ctx.beginPath();
+      ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+      ctx.fillStyle = particle.color;
+      ctx.fill();
+    }
+    requestAnimationFrame(updateParticles);
+  }
+
+  updateParticles();
+}
 function animateCardParticles(canvas) {
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
@@ -356,14 +405,21 @@ function animateCardParticles(canvas) {
   const particles = [];
   const particleCount = window.innerWidth < 768 ? 30 : 60;
 
+  const particleColors = [
+    '#5EA08C',
+    '#2B6777',
+    '#F5DEB3',
+    '#CFEF00'
+  ];
+
   function createParticle() {
     return {
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      size: Math.random() * 3 + 1,
-      speedX: Math.random() * 1 - 0.5,
-      speedY: Math.random() * 1 - 0.5,
-      color: `rgba(94, 160, 140, ${Math.random() * 0.5 + 0.1})`
+      radius: Math.random() * 3 + 1,
+      velocityX: Math.random() * 1 - 0.5,
+      velocityY: Math.random() * 1 - 0.5,
+      color: particleColors[Math.floor(Math.random() * particleColors.length)]
     };
   }
 
@@ -401,20 +457,21 @@ function animateCardParticles(canvas) {
 
   animate();
 }
-function handleFormSubmit() {
-  const contactForm = document.querySelector('#contact-section form');
-  if (!contactForm) return;
+function handleContactFormSubmission() {
+  const form = document.querySelector('#contact-section form');
 
-  contactForm.addEventListener('submit', function (e) {
-    e.preventDefault();
+  if (!form) return;
 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-    console.log('Form submitted:', { name, email, message });
-    alert('Thank you for your message! I will get back to you soon.');
-    contactForm.reset();
+    const formData = new FormData(event.target);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const message = formData.get('message');
+
+    alert(`Thank you for your message, ${name}! I will get back to you soon.`);
+    form.reset();
   });
 }
 // Initialize GSAP animations
@@ -487,6 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+const windsurfCommand = document.getElementById('windsurf-command');
   document.querySelectorAll('.collapsible-section').forEach(section => {
     section.addEventListener('click', function (e) {
       if (!e.target.closest('button')) {

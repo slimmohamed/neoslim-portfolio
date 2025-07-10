@@ -4,6 +4,7 @@
         "drow",
         "GSAP",
         "incluant",
+        "neoslim",
         "Retour"
     ],
     "sonarlint.connectedMode.project": {
