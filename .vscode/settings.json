@@ -1,5 +1,9 @@
 {
     "cSpell.words": [
         "agrandir"
-    ]
+    ],
+    "sonarlint.connectedMode.project": {
+        "connectionId": "slimmohamed",
+        "projectKey": "slimmohamed_neoslim-portfolio"
+    }
 }

@@ -334,3 +334,64 @@ header {
   transform: translate(-50%, -50%);
   z-index: 10000;
 }
+.btn-hero {
+  position: relative;
+  padding: 1rem 2.5rem;
+  background: var(--lime);
+  color: #1e1e1e;
+  font-weight: 600;
+  border: none;
+  border-radius: 40px;
+  text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 10;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-hero:hover {
+  background: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(249, 115, 22, 0.4);
+}
+
+.btn-hero__text {
+  color: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+  z-index: 1;
+  position: relative;
+  display: inline-block;
+}
+.btn-hero__line,
+.btn-hero__drow1,
+.btn-hero__drow2 {
+  display: none; /* ou stylise-les selon ton effet visuel */
+}
+#toggle-works-btn {
+  background: var(--lime);
+  color: black;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#toggle-works-btn:hover {
+  background: var(--orange);
+}
+#toggle-works-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--green);
+}
