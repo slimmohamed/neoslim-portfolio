@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // Check if the document is still loading
 
-
+        
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
@@ -72,7 +72,7 @@ function init() {
 
   // Panel click animations
   document.getElementById('design-panel')?.addEventListener('click', function (e) {
-    if (!e.target.closest('navigate-btn')) {
+    if (!e.target.closest('button')) {
       e.preventDefault();
       animatePanelClick(this, '/design-projects.html');
     }
@@ -278,7 +278,7 @@ function handleFormSubmit() {
   });
 }
 document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.navigate-btn').forEach(button => {
+  document.querySelectorAll('.nav-button').forEach(button => {
     button.addEventListener('click', () => {
       const url = button.getAttribute('data-url');
       if (url) window.location.href = url;
