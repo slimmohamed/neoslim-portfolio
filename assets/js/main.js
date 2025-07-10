@@ -1,7 +1,20 @@
 
 // Main JavaScript for Portfolio Website
-
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';       
 // Wait for DOM to load
+gsap.registerPlugin(ScrollTrigger);
+document.addEventListener('DOMContentLoaded', () => {
+  initAnimations();
+  initCanvasBackground();
+  handleFormSubmit();
+
+  initGSAPAnimations();
+  handleContactFormSubmit();
+});
+// Check if the document is still loading
+
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
@@ -59,7 +72,7 @@ function init() {
 
   // Panel click animations
   document.getElementById('design-panel')?.addEventListener('click', function (e) {
-    if (!e.target.closest('button')) {
+    if (!e.target.closest('navigate-btn')) {
       e.preventDefault();
       animatePanelClick(this, '/design-projects.html');
     }
