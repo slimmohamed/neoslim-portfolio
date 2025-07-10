@@ -181,44 +181,33 @@
   </div>
 
 <!-- Works Section -->
-<div id="works-section">
-  <div id="design-panel" class="panel slide-in-left">
-    <button onclick="navigateWithAnimation('design-projects.html')" class="panel-button">
-      Voir les projets de design
-      <svg class="icon" viewBox="0 0 24 24">
-        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
-      </svg>
-    </button>
-  </div>
-  
-  <div id="programming-panel" class="panel slide-in-right">
-    <button onclick="navigateWithAnimation('coding-projects.html')" class="panel-button">
-      Voir les projets de code
-      <svg class="icon" viewBox="0 0 24 24">
-        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
-      </svg>
-    </button>
-  </div>
-</div>
-
-  <div id="programming-panel" 
-       class="relative z-0 pt-2 min-h-[400px] bg-gradient-to-br from-slate-800 via-cyan-800 to-teal-700 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:brightness-105 transition duration-300 focus:outline-none focus:ring-4 focus:ring-slate-300">
-    <div class="max-w-sm">
-      <div class="flex justify-center items-center mb-6">
-        <img src="/assets/images/LOGOCP.png" alt="Coding Logo"
-          class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
-      </div>
-      <p class="mb-8 text-white/90">Explorez mes projets techniques, de la conception de sites web aux applications logicielles complexes.</p>
-      <button
-        class="relative z-10 px-6 py-2 rounded-full font-semibold text-white bg-gradient-to-r from-white/10 via-white/20 to-white/10 hover:from-white hover:to-white hover:text-slate-800 border border-white transition-all duration-300 backdrop-blur-sm shadow-md hover:shadow-lg"
-        onclick="navigateWithAnimation('/design-portfolio')" class="panel-button">
-        Voir les projets de code
-      </button>
-    </div>
-  </div>
-
-  <div class="pointer-events-none absolute left-0 bottom-0 w-full h-16 z-10 works-section-bottom-gradient"></div>
-</section>
+                <section id="works-section" class="relative opacity-0 scale-y-0 transform origin-top transition-all duration-500 ease-in-out">
+          <div class="pointer-events-none absolute left-0 top-0 w-full h-16 z-10"
+               style="background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);"></div>
+          
+          <div id="design-panel" class="relative z-0 pt-2 min-h-[400px] bg-gradient-to-br from-amber-500 to-amber-600 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-105 transition-transform duration-300">
+            <div class="max-w-sm">
+              <div class="flex justify-center items-center mb-6">
+                <img src="assets/images/logodp.png" alt="Design Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
+              </div>
+              <p class="mb-8 text-white/90">Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.</p>
+              <a href="design-projects.html" class="inline-block bg-white text-amber-600 font-bold py-3 px-6 rounded-full hover:bg-amber-100 transition-colors duration-300">Voir les projets de design</a>
+            </div>
+          </div>
+          
+          <div id="programming-panel" class="relative z-0 pt-2 min-h-[400px] bg-gradient-to-br from-cyan-600 to-cyan-700 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-105 transition-transform duration-300">
+            <div class="max-w-sm">
+              <div class="flex justify-center items-center mb-6">
+                <img src="assets/images/LOGOCP.png" alt="Coding Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
+              </div>
+              <p class="mb-8 text-white/90">Explorez mes projets techniques, de la conception de sites web aux applications logicielles complexes.</p>
+              <a href="coding-projects.html" class="inline-block bg-white text-cyan-700 font-bold py-3 px-6 rounded-full hover:bg-cyan-100 transition-colors duration-300">Voir les projets de code</a>
+            </div>
+          </div>
+          
+          <div class="pointer-events-none absolute left-0 bottom-0 w-full h-16 z-10"
+               style="background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);"></div>
+        </section>
 
         <!-- About Section -->
         <section id="about" class="py-20 px-4 bg-dark">
