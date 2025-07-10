@@ -264,6 +264,14 @@ function handleFormSubmit() {
     contactForm.reset();
   });
 }
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.navigate-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const url = button.getAttribute('data-url');
+      if (url) window.location.href = url;
+    });
+  });
+});
 
 
 function initGSAPAnimations() {
@@ -303,38 +311,42 @@ function animateCardParticles(canvas) {
   const particleCount = window.innerWidth < 768 ? 30 : 60;
 
   function createParticle() {
-    return {
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 3 + 1,
-      speedX: Math.random() * 1 - 0.5,
-      speedY: Math.random() * 1 - 0.5,
-      color: `rgba(94, 160, 140, ${Math.random() * 0.5 + 0.1})`
-    };
-  }
+  const x = Math.random() * canvas.width;
+  const y = Math.random() * canvas.height;
+  const size = Math.random() * 3 + 1;
+  const velocityX = Math.random() * 1 - 0.5;
+  const velocityY = Math.random() * 1 - 0.5;
+  const color = `rgba(94, 160, 140, ${Math.random() * 0.5 + 0.1})`;
+
+  return { x, y, size, velocityX, velocityY, color };
+}
 
   for (let i = 0; i < particleCount; i++) {
     particles.push(createParticle());
   }
 
-  function animate() {
+  function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (const p of particles) {
-      p.x += p.speedX;
-      p.y += p.speedY;
 
-      if (p.x > canvas.width) p.x = 0;
-      if (p.x < 0) p.x = canvas.width;
-      if (p.y > canvas.height) p.y = 0;
-      if (p.y < 0) p.y = canvas.height;
+    for (const particle of particles) {
+      particle.x += particle.velocityX;
+      particle.y += particle.velocityY;
+
+      if (particle.x > canvas.width) particle.x = 0;
+      if (particle.x < 0) particle.x = canvas.width;
+      if (particle.y > canvas.height) particle.y = 0;
+      if (particle.y < 0) particle.y = canvas.height;
 
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
+      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      ctx.fillStyle = particle.color;
       ctx.fill();
     }
-    requestAnimationFrame(animate);
+
+    requestAnimationFrame(draw);
   }
+
+  draw();
 
   window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
@@ -347,26 +359,23 @@ function animateCardParticles(canvas) {
 
   animate();
 }
-    function handleFormSubmit() {
-        const contactForm = document.querySelector('#contact-section form');
-        if (!contactForm) return;
+    function handleContactFormSubmit() {
+      const form = document.querySelector('#contact-section form');
+      if (!form) return;
 
-        contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            console.log('Form submitted:', { name, email, message });
-            alert('Thank you for your message! I will get back to you soon.');
-            contactForm.reset();
-  });
-}
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+
+        alert('Thank you for your message! I will get back to you soon.');
+        form.reset();
+      });
+    }
 // Initialize GSAP animations
 initGSAPAnimations();
 initCanvasBackground();
 handleFormSubmit();
-// Function to initialize GSAP animations
-function initGSAPAnimations() {
+// Initialize GSAP animations
+function initGsapAnimations() {
   gsap.from('.gsap-fade-in-up', {
     opacity: 0,
     y: 50,
