@@ -8,13 +8,11 @@ if (document.readyState === 'loading') {
 }
 
 function init() {
+  // Menu toggle functionality
   const menuToggle = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobile-menu');
   const checkbox = document.getElementById('checkbox');
-  const toggleWorksBtn = document.getElementById('toggle-works-btn');
-  const worksSection = document.getElementById('works-section');
-
-  // Mobile menu toggle
+  
   menuToggle?.addEventListener('click', () => {
     mobileMenu?.classList.toggle('block');
     mobileMenu?.classList.toggle('hidden');
@@ -32,7 +30,7 @@ function init() {
 
   // Smooth scrolling
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function(e) {
       e.preventDefault();
       const targetId = this.getAttribute('href');
       const targetElement = document.querySelector(targetId);
@@ -45,7 +43,10 @@ function init() {
     });
   });
 
-  // Works button click logic
+  // Works section toggle
+  const toggleWorksBtn = document.getElementById('toggle-works-btn');
+  const worksSection = document.getElementById('works-section');
+  
   toggleWorksBtn?.addEventListener('click', () => {
     toggleWorksBtn.classList.toggle('active');
     worksSection.classList.toggle('opened');
@@ -57,22 +58,23 @@ function init() {
   });
 
   // Panel click animations
-  document.getElementById('design-panel')?.addEventListener('click', function (e) {
+  document.getElementById('design-panel')?.addEventListener('click', function(e) {
     if (!e.target.closest('button')) {
       e.preventDefault();
       animatePanelClick(this, '/design-projects.html');
     }
   });
 
-  document.getElementById('programming-panel')?.addEventListener('click', function (e) {
+  document.getElementById('programming-panel')?.addEventListener('click', function(e) {
     if (!e.target.closest('button')) {
       e.preventDefault();
       animatePanelClick(this, '/coding-projects.html');
     }
   });
 
+  // Portfolio content toggles
   document.querySelectorAll('[onclick^="hidePortfolioContent"]').forEach(btn => {
-    btn.addEventListener('click', function (e) {
+    btn.addEventListener('click', function(e) {
       e.stopPropagation();
       const type = this.getAttribute('onclick').match(/'([^']+)'/)[1];
       hidePortfolioContent(type);
@@ -80,13 +82,14 @@ function init() {
   });
 
   document.querySelectorAll('[onclick="hideAllCollapsibleSections()"]')?.forEach(btn => {
-    btn.addEventListener('click', function (e) {
+    btn.addEventListener('click', function(e) {
       e.stopPropagation();
       hideAllCollapsibleSections();
     });
   });
 
-  initAnimations();
+  // Initialize animations and effects
+  initGSAPAnimations();
   initCanvasBackground();
   handleFormSubmit();
 }
@@ -99,11 +102,11 @@ function animatePanelClick(panel, targetUrl) {
     repeatDelay: 0,
     yoyoEase: true,
     ease: 'power1.inOut',
-    onComplete: function () {
+    onComplete: function() {
       gsap.to('body', {
         opacity: 0,
         duration: 0.5,
-        onComplete: function () {
+        onComplete: function() {
           window.location.href = targetUrl;
         }
       });
@@ -126,9 +129,10 @@ function hideAllCollapsibleSections() {
   document.body.classList.remove('overflow-hidden');
 }
 
-function initAnimations() {
+function initGSAPAnimations() {
   gsap.registerPlugin(ScrollTrigger);
 
+  // Fade in up animation
   gsap.from('.gsap-fade-in-up', {
     opacity: 0,
     y: 50,
@@ -137,6 +141,7 @@ function initAnimations() {
     ease: 'power2.out'
   });
 
+  // Zoom in animation
   gsap.from('.gsap-zoom-in', {
     opacity: 0,
     scale: 0.8,
@@ -144,12 +149,14 @@ function initAnimations() {
     ease: 'back.out(1.7)'
   });
 
+  // Line animation
   gsap.from('.gsap-line', {
     scaleX: 0,
     duration: 1,
     ease: 'power2.out'
   });
 
+  // About section animations
   gsap.from('.gsap-fade-in-left', {
     scrollTrigger: {
       trigger: '#about',
@@ -162,6 +169,7 @@ function initAnimations() {
     ease: 'power2.out'
   });
 
+  // Article section animations
   gsap.from('.gsap-zoom-in-up', {
     scrollTrigger: {
       trigger: '#article-section',
@@ -174,6 +182,7 @@ function initAnimations() {
     ease: 'back.out(1.7)'
   });
 
+  // Skills section animations
   gsap.from('.chart-container', {
     scrollTrigger: {
       trigger: '#skills',
@@ -186,6 +195,7 @@ function initAnimations() {
     ease: 'power2.out'
   });
 
+  // Contact form animation
   gsap.from('#contact-section form', {
     scrollTrigger: {
       trigger: '#contact-section',
@@ -208,156 +218,7 @@ function initCanvasBackground() {
 
   const particles = [];
   const particleCount = window.innerWidth < 768 ? 30 : 60;
-
-  function createParticle() {
-    return {
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 3 + 1,
-      speedX: Math.random() * 1 - 0.5,
-      speedY: Math.random() * 1 - 0.5,
-      color: `rgba(94, 160, 140, ${Math.random() * 0.5 + 0.1})`
-    };
-  }
-
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(createParticle());
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (const p of particles) {
-      p.x += p.speedX;
-      p.y += p.speedY;
-
-      if (p.x > canvas.width) p.x = 0;
-      if (p.x < 0) p.x = canvas.width;
-      if (p.y > canvas.height) p.y = 0;
-      if (p.y < 0) p.y = canvas.height;
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.fill();
-    }
-    requestAnimationFrame(animate);
-  }
-
-  window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
-
-  animate();
-}
-
-function handleFormSubmit() {
-  const contactForm = document.querySelector('#contact-section form');
-  if (!contactForm) return;
-
-  contactForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-
-    console.log('Form submitted:', { name, email, message });
-    alert('Thank you for your message! I will get back to you soon.');
-    contactForm.reset();
-  });
-}
-
-initGSAPAnimations();
-initCanvasBackground();
-handleFormSubmit();
-function initGSAPAnimations() {
-  gsap.registerPlugin(ScrollTrigger);
-
-  const selectors = {
-    fadeInUp: '.gsap-fade-in-up',
-    zoomIn: '.gsap-zoom-in',
-    line: '.gsap-line',
-    fadeInLeft: '.gsap-fade-in-left',
-    zoomInUp: '.gsap-zoom-in-up',
-    chartContainer: '.chart-container',
-    contactForm: '#contact-section form'
-  };
-
-  const animationOptions = {
-    duration: 1,
-    ease: 'power2.out'
-  };
-
-  const triggers = {
-    line: {},
-    fadeInLeft: {
-      trigger: '#about',
-      start: 'top 80%'
-    },
-    zoomInUp: {
-      trigger: '#article-section',
-      start: 'top 80%'
-    },
-    chartContainer: {
-      trigger: '#skills',
-      start: 'top 80%'
-    },
-    contactForm: {
-      trigger: '#contact-section',
-      start: 'top 80%'
-    }
-  };
-
-  Object.entries(selectors).forEach(([selector, trigger]) => {
-    const options = {
-      ...animationOptions,
-      ...triggers[trigger]
-    };
-
-    switch (trigger) {
-      case 'fadeInUp':
-        options.opacity = 0;
-        options.y = 50;
-        options.stagger = 0.2;
-        break;
-      case 'zoomIn':
-        options.opacity = 0;
-        options.scale = 0.8;
-        options.ease = 'back.out(1.7)';
-        break;
-      case 'line':
-        options.scaleX = 0;
-        break;
-      default:
-        options.opacity = 0;
-        options.y = 50;
-    }
-
-    gsap.from(selector, options);
-  });
-}
-function initializeBackgroundCanvas() {
-  const backgroundCanvas = document.getElementById('background-canvas');
-  if (!backgroundCanvas) return;
-
-  animateParticles(backgroundCanvas);
-}
-
-function animateParticles(canvas) {
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const particles = [];
-  const particleCount = window.innerWidth < 768 ? 30 : 60;
-
-  const colors = [
-    '#5EA08C',
-    '#2B6777',
-    '#F5DEB3',
-    '#CFEF00'
-  ];
+  const colors = ['#5EA08C', '#2B6777', '#F5DEB3', '#CFEF00'];
 
   function createParticle() {
     return {
@@ -374,147 +235,51 @@ function animateParticles(canvas) {
     particles.push(createParticle());
   }
 
-  function updateParticles() {
+  function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
 
-    for (const particle of particles) {
-      particle.x += particle.vx;
-      particle.y += particle.vy;
+      // Boundary checks
+      if (p.x > canvas.width) p.x = 0;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.y > canvas.height) p.y = 0;
+      if (p.y < 0) p.y = canvas.height;
 
-      if (particle.x > canvas.width) particle.x = 0;
-      if (particle.x < 0) particle.x = canvas.width;
-      if (particle.y > canvas.height) particle.y = 0;
-      if (particle.y < 0) particle.y = canvas.height;
-
+      // Draw particle
       ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-      ctx.fillStyle = particle.color;
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
       ctx.fill();
     }
-    requestAnimationFrame(updateParticles);
+    
+    requestAnimationFrame(animate);
   }
 
-  updateParticles();
-}
-function animateCardParticles(canvas) {
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const particles = [];
-  const particleCount = window.innerWidth < 768 ? 30 : 60;
-
-  const particleColors = [
-    '#5EA08C',
-    '#2B6777',
-    '#F5DEB3',
-    '#CFEF00'
-  ];
-
-  function createParticle() {
-    return {
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 3 + 1,
-      velocityX: Math.random() * 1 - 0.5,
-      velocityY: Math.random() * 1 - 0.5,
-      color: particleColors[Math.floor(Math.random() * particleColors.length)]
-    };
-  }
-
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(createParticle());
-  }
-
-  function updateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (const particle of particles) {
-      particle.x += particle.velocityX;
-      particle.y += particle.velocityY;
-
-      if (particle.x > canvas.width || particle.x < 0) particle.x = canvas.width - particle.x;
-      if (particle.y > canvas.height || particle.y < 0) particle.y = canvas.height - particle.y;
-
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-      ctx.fillStyle = particle.color;
-      ctx.fill();
-    }
-    requestAnimationFrame(updateParticles);
-  }
-
+  // Handle window resize
   window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    particles.length = 0; // Clear existing particles
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(createParticle());
-    }
   });
 
   animate();
 }
 
-// Initialize GSAP animations
-initGSAPAnimations();
-initCanvasBackground();
-handleFormSubmit();
-// Function to initialize GSAP animations
+function handleFormSubmit() {
+  const contactForm = document.querySelector('#contact-section form');
+  if (!contactForm) return;
 
-document.addEventListener('DOMContentLoaded', () => {
-  initGSAPAnimations();
-  initCanvasBackground();
-  handleFormSubmit();
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileMenu = document.getElementById('mobile-menu');
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
 
-  menuToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-  });
-  mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      document.getElementById('checkbox').checked = false;
-      document.body.classList.remove('overflow-hidden');
-    });
-  });
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 80,
-          behavior: 'smooth'
-        });
-      }
-    });
-  });
-  document.getElementById('toggle-works-btn')?.addEventListener('click', () => {
-    const worksSection = document.getElementById('works-section');
-    worksSection.classList.toggle('opened');
-    if (worksSection.classList.contains('opened')) {
-      setTimeout(() => {
-        worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    }
-  });
-  document.querySelectorAll('.collapsible-section').forEach(section => {
-    section.addEventListener('click', function (e) {
-      if (!e.target.closest('button')) {
-        e.preventDefault();
-        this.classList.toggle('hidden');
-      }
-    });
-  });
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
 
-  document.querySelectorAll('.collapsible-section').forEach(section => {
-    section.addEventListener('click', function (e) {
-      if (!e.target.closest('button')) {
-        e.preventDefault();
-        this.classList.toggle('hidden');
-      }
-    });
+    console.log('Form submitted:', { name, email, message });
+    alert('Thank you for your message! I will get back to you soon.');
+    contactForm.reset();
   });
-})
+}
