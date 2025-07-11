@@ -9,12 +9,23 @@
   --yellow: #F59E0B;     /* Accent jaune */
   --border: #3C3C3C;     /* Bordures */
 }
+#background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -10;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: transparent;
+}
 
 /* Reset & Base */
 *, ::before, ::after {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 /* Focus Accessible */
@@ -72,10 +83,11 @@ a:focus, button:focus {
   font-size: 1.5rem;
   text-decoration: none;
 }
-.body {
-  background-color: #0d1117;
-  color: white;
-  font-family: 'Montserrat', sans-serif;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #1e1e1e;
+  color: #f4f4f5;
+  overflow-x: hidden;
 }
 
 /* === Hamburger Button === */
@@ -215,21 +227,33 @@ a:focus, button:focus {
 /* Hero */
 .hero {
   height: 100vh;
+  min-height: 750px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 0 2rem !important;
+  padding: 2rem;
+  position: relative;
 }
+.hero::after {
+  content: '';
+  display: block;
+  height: 80px;
+}
+
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
 }
 
 /* Sections */
-.section {
-  padding: 6rem 2rem;
-  position: relative;
+section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+section + section {
+  margin-top: -80px;
 }
 .container {
   max-width: 1200px;
@@ -359,14 +383,31 @@ a:focus, button:focus {
   background: linear-gradient(to right, var(--blue), var(--green));
 }
 
-/* Chart */
 .chart-container {
-  perspective: 1000px;
-}
-.chart-container canvas {
-  animation: fadeInBars 0.5s ease-out forwards;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
+.animate-fade-in {
+  opacity: 1 !important;
+  transform: translateY(0px) !important;
+}
+
+canvas {
+  animation: fadeInBars 0.8s ease-out forwards;
+}
+
+@keyframes fadeInBars {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
 /* Loader */
 .pl {
   width: 6em;
@@ -444,6 +485,82 @@ a:focus, button:focus {
 .bottom-gradient {
   background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
 }
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@500&display=swap');
+
+.button {
+  cursor: pointer;
+  position: relative;
+  padding: 14px 36px;
+  font-size: 18px;
+  color: rgb(193, 163, 98);
+  border: 2px solid rgb(193, 163, 98);
+  border-radius: 34px;
+  background-color: transparent;
+  font-weight: 600;
+  font-family: 'Playfair Display', serif;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  width: 100%;
+  max-width: 320px;
+  z-index: 1;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+  background-color: rgb(193, 163, 98);
+  border-radius: inherit;
+}
+
+.button:hover::before {
+  transform: scaleX(1);
+}
+.button:hover {
+  color: #212121;
+  transform: scale(1.05);
+  box-shadow: 0 0px 20px rgba(193, 163, 98, 0.4);
+}
+.button:active {
+  transform: scale(0.98);
+}
+
+/* Specific styles for DESIGN button */
+.btn-design {
+  color: rgb(193, 163, 98);
+  border: 2px solid rgb(193, 163, 98);
+}
+
+.btn-design::before {
+  background-color: rgb(193, 163, 98);
+}
+
+.btn-design:hover {
+  color: #1E1E1E;
+  box-shadow: 0 0px 20px rgba(193, 163, 98, 0.4);
+}
+
+/* Specific styles for CODE button */
+.btn-code {
+  color: #5EA08C;
+  border: 2px solid #5EA08C;
+}
+
+.btn-code::before {
+  background-color: #5EA08C;
+}
+
+.btn-code:hover {
+  color: #1E1E1E;
+  box-shadow: 0 0px 20px rgba(94, 160, 140, 0.4);
+}
 
 /* Hero Button Styles */
 .btn-hero {
@@ -461,7 +578,7 @@ a:focus, button:focus {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   background: transparent;
   border: none;
   cursor: pointer;

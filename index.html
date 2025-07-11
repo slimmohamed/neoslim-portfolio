@@ -52,10 +52,10 @@
 </head>
 <body class="relative overflow-x-hidden">
   <a href="#hero" class="sr-only focus:not-sr-only">Skip to main content</a>
-  <canvas id="background-canvas"></canvas>
+  <canvas id="background-canvas" class="fixed inset-0 -z-10 w-full h-full"></canvas>
   
-  <header class="fixed top-0 left-0 w-full z-20 bg-dark/70 backdrop-blur shadow-sm border-b border-border flex items-center justify-center">
-    <div class="relative flex justify-end">
+  <header class="fixed top-0 left-0 w-full z-20 h-24 md:h-28 bg-dark/70 backdrop-blur shadow-sm border-b border-border flex items-center justify-between px-6">
+    <div class="flex items-center justify-start order-1">
       <label class="hamburger">
         <span class="sr-only">Ouvrir le menu</span>
         <input type="checkbox" id="menuToggle">
@@ -78,7 +78,7 @@
   
     <div class="flex-1 flex justify-center items-center order-2">
       <a href="#hero" class="transform transition duration-300 hover:scale-105">
-        <img src="/assets/images/ms6.png" alt="Logo Mohamed Slimani" class="h-24 w-auto mx-auto">
+        <img src="/assets/images/ms6.png" alt="Logo Mohamed Slimani" class="h-28 w-auto mx-auto">
       </a>
     </div>
 
@@ -137,8 +137,11 @@
                 <img src="assets/images/logodp.png" alt="Design Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
               </div>
               <p class="mb-8 text-white/90">Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.</p>
-              <button onclick="window.location.href='design-projects.html'" class="inline-block bg-white text-amber-600 font-bold py-3 px-6 rounded-full hover:bg-amber-100 transition-colors duration-300">Voir les projets de design</button>
-            </div>
+              <button class="button btn-design" onclick="redirectWithEffect('design-projects.html', 'fade')">
+                Voir les projets de design
+              </button>
+              
+                          </div>
           </div>
           
           <div id="programming-panel" class="relative z-0 pt-2 min-h-[400px] bg-gradient-to-br from-cyan-600 to-cyan-700 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-105 transition-transform duration-300">
@@ -146,9 +149,11 @@
               <div class="flex justify-center items-center mb-6">
                 <img src="assets/images/LOGOCP.png" alt="Coding Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
               </div>
-              <p class="mb-8 text-white/90">Explorez mes projets techniques, de la conception de sites web aux applications logicielles complexes.</p>
-              <a href="coding-projects.html" class="inline-block bg-white text-cyan-700 font-bold py-3 px-6 rounded-full hover:bg-cyan-100 transition-colors duration-300">Voir les projets de code</a>
-            </div>
+              <button class="button btn-code" onclick="location.href='pages/coding-projects.html'">
+                Voir les projets de code
+              </button>
+              
+              </div>
           </div>
           
           <div class="pointer-events-none absolute left-0 bottom-0 w-full h-16 z-10 bottom-gradient">
@@ -263,31 +268,26 @@
            class="w-64 md:w-80 transform transition duration-500 hover:scale-105 hover:rotate-1">
     </div>
   </div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-  <!-- Column 1 -->
-  <div class="flex flex-col items-center">
-    <img
-      src="/assets/images/core.png"
-      alt="Core Competencies"
-      class="w-64 md:w-80 mb-6 transform transition duration-500 hover:scale-105 hover:rotate-1"
-    />
-    <div class="chart-container w-full">
-      <canvas id="skillsRadarChart"></canvas>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+    <!-- Column 1 -->
+    <div class="flex flex-col items-center slide-in-left relative">
+      <canvas class="absolute inset-0 z-[-1]" id="particlesRadar"></canvas>
+      <img src="/assets/images/core.png" alt="Core" class="w-64 md:w-80 mb-6 transform transition duration-500 hover:scale-105 hover:rotate-1" />
+      <div class="chart-container w-full">
+        <canvas id="skillsRadarChart"></canvas>
+      </div>
+    </div>
+  
+    <!-- Column 2 -->
+    <div class="flex flex-col items-center slide-in-right relative">
+      <canvas class="absolute inset-0 z-[-1]" id="particlesBar"></canvas>
+      <img src="/assets/images/tool.png" alt="Tool" class="w-80 md:w-[28rem] mb-6 transform transition duration-500 hover:scale-105 hover:rotate-1" />
+      <div class="chart-container w-full">
+        <canvas id="skillsBarChart"></canvas>
+      </div>
     </div>
   </div>
-
-  <!-- Column 2 -->
-  <div class="flex flex-col items-center">
-    <img
-      src="/assets/images/tool.png"
-      alt="Tool & Technology Proficiency"
-      class="w-80 md:w-[28rem] mb-6 transform transition duration-500 hover:scale-105 hover:rotate-1"
-    />
-    <div class="chart-container w-full">
-      <canvas id="skillsBarChart"></canvas>
-    </div>
-  </div>
-</div>
+  
 
 </section>
 <div class="separator wave-flow wave-blue -mb-px">
@@ -297,54 +297,51 @@
     <path class="wave3" d="M0,80 C150,120 350,40 500,80 C650,120 850,40 1000,80 C1150,120 1350,40 1500,80 L1500,120 L0,120 Z" />
   </svg>
 </div>
-<section id="contact" class="py-20 bg-gradient-to-br from-transparent via-dark/20 to-blue/20 relative overflow-hidden">
-  <div class="absolute inset-0 bg-[url('assets/images/grid.svg')] opacity-10"></div>
-              <div class="absolute w-96 h-96 bg-green/20 rounded-full -top-10 -left-40"></div>
-              <div class="absolute w-72 h-72 bg-green/20 rounded-full -bottom-20 -right-20"></div>
-          
-            <div class="relative z-10 max-w-3xl mx-auto text-center">
-              <div class="max-w-4xl mx-auto text-center">
-                <img 
-                  src="/assets/images/contact.png"
-                  alt="Contact"
-                  class="h-[220px] mx-auto mb-6 opacity-80 hover:opacity-100 hover:scale-105 hover:brightness-110 transition-all duration-700 ease-in-out drop-shadow-xl" />
-          
-                  <h2 class="text-4xl font-bold text-blue-600 mb-4">Contactez-moi</h2>
-                  <h3 class="text-2xl font-bold text-gray-800 text-center mb-8">Disponible pour de nouvelles opportunités et collaborations</h3>              </div>
-            </div>
-            <form>
-            <div class="relative">
-              <input type="text" id="name" class="form-input peer" placeholder=" ">
-              <label for="name" class="form-label">Nom complet</label>
-            </div>
-            
-              <div class="relative">
-                <input type="email" id="email" class="form-input peer" placeholder=" ">
-                <label for="email" class="form-label">Email</label>
-              </div>
-            
-              <div class="relative">
-                <textarea id="message" rows="4" class="form-input peer pt-4" placeholder=" "></textarea>
-                <label for="message" class="form-label">Message</label>
-              </div>
-            
-              <div class="flex justify-center">
-                <button type="submit" class="w-full flex justify-center items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg font-medium text-lg transition-all duration-300 hover:from-blue-700 hover:to-blue-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 active:scale-95">
-                  Envoyer
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </button>
-              </div>
-              <p class="text-sm text-gray mt-4">
-                En soumettant ce formulaire, vous acceptez que vos données soient utilisées pour répondre à votre demande. Consultez notre <a href="#" class="text-blue hover:underline">Politique de Confidentialité</a> pour plus d'informations.
-              </p>
-            </form>
-        </section>
+<section id="contact" class="py-24 bg-dark relative overflow-hidden">
+  <div class="absolute inset-0 bg-[url('assets/images/grid.svg')] opacity-10 pointer-events-none z-0"></div>
+  <div class="absolute w-96 h-96 bg-green/20 rounded-full -top-10 -left-40 blur-3xl"></div>
+  <div class="absolute w-72 h-72 bg-blue/20 rounded-full -bottom-20 -right-20 blur-2xl"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto text-center">
+    <img src="/assets/images/contact.png" alt="Contact" class="h-52 mx-auto mb-6 opacity-90 hover:scale-105 transition duration-500" />
+
+    <h2 class="text-4xl font-bold text-beige mb-2">Contactez-moi</h2>
+    <p class="text-lg text-gray mb-10">Disponible pour vos projets, collaborations ou opportunités.</p>
+
+    <form id="contact-form" class="contact-form shadow-lg">
+      <div class="form-group">
+        <input type="text" id="name" name="name" class="form-input peer" placeholder=" " required>
+        <label for="name" class="form-label">Nom complet</label>
+      </div>
+
+      <div class="form-group">
+        <input type="email" id="email" name="email" class="form-input peer" placeholder=" " required>
+        <label for="email" class="form-label">Adresse e-mail</label>
+      </div>
+
+      <div class="form-group">
+        <textarea id="message" name="message" rows="4" class="form-input peer pt-4" placeholder=" " required></textarea>
+        <label for="message" class="form-label">Message</label>
+      </div>
+
+      <button type="submit" class="w-full flex justify-center items-center px-6 py-3 bg-gradient-to-r from-green to-blue text-white font-semibold rounded-lg shadow-lg transition hover:scale-105 hover:from-green-600 hover:to-blue-700">
+        Envoyer
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+
+      <p class="text-sm text-gray mt-6">
+        En soumettant ce formulaire, vous acceptez notre <a href="#" class="text-green hover:underline">politique de confidentialité</a>.
+      </p>
+    </form>
+  </div>
+</section>
+
 
         <footer class="bg-dark text-light py-8 px-4 mt-12 shadow-inner border-t border-border">
           <div class="max-w-6xl mx-auto flex flex-col items-center gap-6">
-            <img src="/assets/images/ms3.png" alt="Logo Mohamed Slimani" class="h-12 w-auto rounded-full shadow-lg border-2 border-border mb-2" />
+            <img src="/assets/images/ms6.png" alt="Logo Mohamed Slimani" class="h-12 w-auto rounded-full shadow-lg border-2 border-border mb-2" />
             <ul class="flex flex-wrap items-center gap-6 text-sm font-medium justify-center">
               <li>
                 <a href="#" class="hover:text-beige transition-colors">About</a>
@@ -380,161 +377,108 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-      // Radar Chart
-      const radarCtx = document.getElementById('skillsRadarChart').getContext('2d');
-      const radarChart = new Chart(radarCtx, {
-        type: 'radar',
-        data: {
-          labels: ['Frontend', 'Backend', 'UI/UX', 'DevOps', 'Database'],
-          datasets: [{
-            label: 'Skill Level',
-            data: [95, 75, 85, 70, 60],
-            fill: true,
-            backgroundColor: 'rgba(94, 160, 140, 0.2)',
-            borderColor: '#5EA08C',
-            pointBackgroundColor: '#5EA08C',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#5EA08C'
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            r: {
-              angleLines: { color: '#F5DEB3' },
-              grid: { color: '#3C3C3C' },
-              pointLabels: { color: '#F5DEB3', font: { size: 14 } },
-              ticks: { 
-                display: false,
-                backdropColor: 'transparent'
-              }
-            }
+      let radarChart, barChart;
+    
+      function createRadarChart() {
+        const ctx = document.getElementById('skillsRadarChart').getContext('2d');
+        radarChart = new Chart(ctx, {
+          type: 'radar',
+          data: {
+            labels: ['Frontend', 'Backend', 'UI/UX', 'DevOps', 'Database'],
+            datasets: [{
+              label: 'Skill Level',
+              data: [95, 75, 85, 70, 60],
+              fill: true,
+              backgroundColor: 'rgba(94, 160, 140, 0.2)',
+              borderColor: '#5EA08C',
+              pointBackgroundColor: '#5EA08C',
+              pointBorderColor: '#fff',
+              pointHoverBackgroundColor: '#fff',
+              pointHoverBorderColor: '#5EA08C'
+            }]
           },
-          plugins: { 
-            legend: { display: false }
+          options: {
+            responsive: true,
+            animation: {
+              duration: 1000
+            },
+            scales: {
+              r: {
+                angleLines: { color: '#F5DEB3' },
+                grid: { color: '#3C3C3C' },
+                pointLabels: { color: '#F5DEB3', font: { size: 14 } },
+                ticks: { display: false, backdropColor: 'transparent' }
+              }
+            },
+            plugins: {
+              legend: { display: false }
+            }
           }
-        }
+        });
+      }
+    
+      function createBarChart() {
+        const ctx = document.getElementById('skillsBarChart').getContext('2d');
+        barChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['React', 'Node.js', 'Python', 'Figma', 'Adobe XD', 'Git'],
+            datasets: [{
+              label: 'Proficiency',
+              data: [0, 0, 0, 0, 0, 0], // Start at 0
+              backgroundColor: ['#5EA08C', '#5EA08C', '#5EA08C', '#F5DEB3', '#F5DEB3', '#5EA08C'],
+              borderColor: ['#5EA08C', '#5EA08C', '#5EA08C', '#F5DEB3', '#F5DEB3', '#5EA08C'],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            animation: {
+              duration: 1000,
+              onProgress: function(animation) {
+                const dataset = this.data.datasets[0];
+                const finalData = [95, 80, 70, 85, 80, 75];
+                dataset.data = finalData.map((val, idx) => val * animation.currentStep / animation.numSteps);
+              }
+            },
+            scales: {
+              x: {
+                beginAtZero: true,
+                max: 100,
+                grid: { color: '#3C3C3C' },
+                ticks: { color: '#F5DEB3', font: { size: 14 } }
+              },
+              y: {
+                ticks: { color: '#F5DEB3', font: { size: 14 } },
+                grid: { color: '#3C3C3C' }
+              }
+            },
+            plugins: {
+              legend: { display: false }
+            }
+          }
+        });
+      }
+
+      // Observer to trigger animation
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (!radarChart) createRadarChart();
+            if (!barChart) createBarChart();
+    
+            entry.target.classList.add('animate-fade-in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+    
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.chart-container').forEach(container => {
+          observer.observe(container);
+        });
       });
     
-      // Bar Chart
-      const barCtx = document.getElementById('skillsBarChart').getContext('2d');
-      const barChart = new Chart(barCtx, {
-        type: 'bar',
-        data: {
-          labels: ['React', 'Node.js', 'Python', 'Figma', 'Adobe XD', 'Git'],
-          datasets: [{
-            label: 'Proficiency',
-            data: [95, 80, 70, 85, 80, 75],
-            backgroundColor: [
-              '#5EA08C', // React
-              '#5EA08C', // Node.js
-              '#5EA08C', // Python
-              '#F5DEB3', // Figma
-              '#F5DEB3', // Adobe XD
-              '#5EA08C'  // Git
-            ],
-            borderColor: [
-              '#5EA08C',
-              '#5EA08C',
-              '#5EA08C',
-              '#F5DEB3',
-              '#F5DEB3',
-              '#5EA08C'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          indexAxis: 'y',
-          scales: {
-            x: { 
-              beginAtZero: true, 
-              max: 100,
-              grid: { color: '#3C3C3C' },
-              ticks: { color: '#F5DEB3', font: { size: 14 } }
-            },
-            y: { 
-              ticks: { color: '#F5DEB3', font: { size: 14 } },
-              grid: { color: '#3C3C3C' }
-            }
-          },
-          plugins: {
-            legend: { display: false }
-          }
-        }
-      });
-
-      // Card particle animations
-      function animateCardParticles(canvas) {
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = canvas.offsetWidth;
-        let height = canvas.height = canvas.offsetHeight;
-        let particles = [];
-        const PARTICLE_COUNT = 12;
-        const COLORS = ['#5EA08C', '#2B6777', '#F5DEB3', '#CFEF00'];
-
-        function randomBetween(a, b) {
-          return a + Math.random() * (b - a);
-        }
-
-        function Particle() {
-          this.x = randomBetween(0, width);
-          this.y = randomBetween(0, height);
-          this.radius = randomBetween(1, 2.5);
-          this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
-          this.vx = randomBetween(-0.15, 0.15);
-          this.vy = randomBetween(-0.15, 0.15);
-          this.alpha = randomBetween(0.2, 0.5);
-        }
-
-        Particle.prototype.update = function() {
-          this.x += this.vx;
-          this.y += this.vy;
-          if (this.x < 0 || this.x > width) this.vx *= -1;
-          if (this.y < 0 || this.y > height) this.vy *= -1;
-        };
-
-        Particle.prototype.draw = function(ctx) {
-          ctx.save();
-          ctx.globalAlpha = this.alpha;
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-          ctx.fillStyle = this.color;
-          ctx.shadowColor = this.color;
-          ctx.shadowBlur = 8;
-          ctx.fill();
-          ctx.restore();
-        };
-
-        function createParticles() {
-          particles = [];
-          for (let i = 0; i < PARTICLE_COUNT; i++) {
-            particles.push(new Particle());
-          }
-        }
-
-        function resize() {
-          width = canvas.width = canvas.offsetWidth;
-          height = canvas.height = canvas.offsetHeight;
-          createParticles();
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
-
-        function animate() {
-          ctx.clearRect(0, 0, width, height);
-          for (let p of particles) {
-            p.update();
-            p.draw(ctx);
-          }
-          requestAnimationFrame(animate);
-        }
-
-        animate();
-      }
 
       // Initialize for all card canvases
       document.querySelectorAll('.card-bg-canvas').forEach(animateCardParticles);
@@ -575,6 +519,30 @@
         btnText.textContent = isVisible ? 'VIEW MY WORKS' : 'HIDE WORKS';
       });
     </script>
+    <script>
+      function redirectWithEffect(url, type) {
+        const body = document.body;
+    
+        if (type === 'fade') {
+          gsap.to(body, {
+            opacity: 0,
+            duration: 0.6,
+            onComplete: () => window.location.href = url
+          });
+        } else if (type === 'slide') {
+          gsap.to(body, {
+            x: '-100%',
+            opacity: 0,
+            duration: 0.6,
+            ease: 'power1.inOut',
+            onComplete: () => window.location.href = url
+          });
+        } else {
+          window.location.href = url;
+        }
+      }
+    </script>
+    
 <script src="assets/js/main.js"></script>
 
 </body>
