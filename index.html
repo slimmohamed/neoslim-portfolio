@@ -55,92 +55,56 @@
   <a href="#hero" class="sr-only focus:not-sr-only">Skip to main content</a>
   <canvas id="background-canvas"></canvas>
   
-  <header class="fixed top-0 left-0 w-full z-20 bg-dark/70 backdrop-blur shadow-sm border-b border-border">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center space-x-4 group"> <!-- Added 'group' class here -->
-        <a href="#hero" class="transform transition duration-300 hover:scale-105">
-          <img src="/assets/images/ms6.png" alt="Logo Mohamed Slimani" class="h-24 w-auto">
-        </a>
-        <div class="hidden md:block overflow-hidden h-10">
-          <img src="/assets/images/ms6-txt.png" 
-               alt="Mohamed Slimani"
-               class="h-full w-auto transform -translate-x-full opacity-0 
-                      group-hover:translate-x-4 group-hover:opacity-100
-                      transition-all duration-700 ease-out ms6-hover-shadow">
-        </div>
+<header class="fixed top-0 left-0 w-full z-20 bg-dark/70 backdrop-blur shadow-sm border-b border-border">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <!-- Logo + Text -->
+    <div class="flex items-center space-x-4 group">
+      <a href="#hero" class="transform transition duration-300 hover:scale-105">
+        <img src="/assets/images/ms6.png" alt="Logo Mohamed Slimani" class="h-24 w-auto">
+      </a>
+      <div class="hidden md:block overflow-hidden h-10">
+        <img src="/assets/images/ms6-txt.png"
+             alt="Mohamed Slimani"
+             class="h-full w-auto transform -translate-x-full opacity-0 
+                    group-hover:translate-x-4 group-hover:opacity-100
+                    transition-all duration-700 ease-out ms6-hover-shadow">
       </div>
-              
-        <nav class="hidden md:block" role="navigation" aria-label="Main Navigation">
-          <ul id="desktop-nav-menu" class="flex items-center gap-2">
-            <li><a href="#hero" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">HOME</a></li>
-            <li><a href="#about" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">ABOUT ME</a></li>
-            <li><a href="#works-section" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">WORKS</a></li>
-            <li><a href="#article-section" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">ARTICLE</a></li>
-            <li><a href="#contact-section" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">CONTACT</a></li>
-          </ul>
-        </nav>
-        
-        <!-- Mobile Menu Toggle -->
-        <div class="md:hidden">
-<!-- From Uiverse.io by JulanDeAlb --> 
-<label class="hamburger">
-  <input type="checkbox">
-  <svg viewBox="0 0 32 32">
-    <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
-    <path class="line" d="M7 16 27 16"></path>
-  </svg>
-</label>
-        </div>
-      </div>
-      
-      <!-- Mobile Menu -->
-      <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 bg-dark border-t border-border z-30">
-        <ul class="space-y-1 p-4">
-          <li>
-            <a href="#hero" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-4 0v-4a1 1 0 011-1h2a1 1 0 011 1v4" />
-              </svg>
-              <span class="text-sm font-medium">Home</span>
-            </a>
-          </li>
-          <li>
-            <a href="#about" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A3 3 0 018.293 17h7.414a3 3 0 013.172.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span class="text-sm font-medium">About Me</span>
-            </a>
-          </li>
-          <li>
-            <a href="#works-section" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-              </svg>
-              <span class="text-sm font-medium">Works</span>
-            </a>
-          </li>
-          <li>
-            <a href="#article-section" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 5h16M4 10h16M4 15h16M4 20h16" />
-              </svg>
-              <span class="text-sm font-medium">Article</span>
-            </a>
-          </li>
-          <li>
-            <a href="#contact-section" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 10a3.38 3.38 0 01-1.016 2.438A3.38 3.38 0 0117.5 13H6.5a3.38 3.38 0 01-2.484-1.016A3.38 3.38 0 013 10V6.5A3.5 3.5 0 016.5 3h11A3.5 3.5 0 0121 6.5V10z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 19h18M3 19v2h18v-2" />
-              </svg>
-              <span class="text-sm font-medium">Contact</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </header>
+    </div>
 
+    <!-- Desktop Menu -->
+    <nav class="hidden md:block" role="navigation" aria-label="Main Navigation">
+      <ul id="desktop-nav-menu" class="flex items-center gap-2">
+        <li><a href="#hero" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">HOME</a></li>
+        <li><a href="#about" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">ABOUT ME</a></li>
+        <li><a href="#works-section" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">WORKS</a></li>
+        <li><a href="#article-section" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">ARTICLE</a></li>
+        <li><a href="#contact-section" class="nav-link px-4 py-2 text-sm text-light hover:text-green rounded-full transition-colors">CONTACT</a></li>
+      </ul>
+    </nav>
+
+    <!-- Mobile Menu Toggle -->
+    <div class="md:hidden" id="menuToggle">
+      <label class="hamburger">
+        <input type="checkbox" id="checkbox">
+        <svg viewBox="0 0 32 32">
+          <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+          <path class="line" d="M7 16 27 16"></path>
+        </svg>
+      </label>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 bg-dark border-t border-border z-30">
+    <ul class="space-y-1 p-4">
+      <li><a href="#hero" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors"><i class="fas fa-home w-5"></i> <span class="text-sm font-medium">Home</span></a></li>
+      <li><a href="#about" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors"><i class="fas fa-user w-5"></i> <span class="text-sm font-medium">About Me</span></a></li>
+      <li><a href="#works-section" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors"><i class="fas fa-briefcase w-5"></i> <span class="text-sm font-medium">Works</span></a></li>
+      <li><a href="#article-section" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors"><i class="fas fa-newspaper w-5"></i> <span class="text-sm font-medium">Article</span></a></li>
+      <li><a href="#contact-section" class="flex items-center gap-2 rounded-lg px-4 py-2 text-light hover:bg-border transition-colors"><i class="fas fa-envelope w-5"></i> <span class="text-sm font-medium">Contact</span></a></li>
+    </ul>
+  </div>
+</header>
     <main role="main">
       <!-- Hero Section -->
       <section id="hero" class="pt-32 min-h-[100vh] flex flex-col justify-center items-center text-center bg-slate-100">
