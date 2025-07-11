@@ -49,17 +49,17 @@
       </label>
       <div id="menuBox" class="menu-box">
         <div class="input">
-          <button class="value">Public Profile</button>
-          <button class="value">Account</button>
-          <button class="value">Appearance</button>
-          <button class="value">Accessibility</button>
-          <button class="value">Notifications</button>
+          <a href="#about" class="value">About</a>
+          <a href="#works-section" class="value">Works</a>
+          <a href="#skills" class="value">Skills</a>
+          <a href="#contact" class="value">Contact</a>
+          <a href="#blog" class="value">Blog</a>
         </div>
       </div>
     </div>
     <div class="flex-1 flex justify-center items-center order-2">
       <a href="#hero" title="Go to Hero Section">
-        <img src="/assets/images/neoslim-logo.gif"
+        <img src="/assets/images/neoslim-logo.gif" class="drop-shadow-lg hover:drop-shadow-2xl transition duration-500"
         alt="Logo Mohamed Slimani"
         class="h-28 w-auto mx-auto drop-shadow-xl">
        </div>
@@ -76,7 +76,6 @@
       <span class="floating-word top-1/4 right-1/4">Java</span>
 
       <div class="text-center max-w-3xl z-10">
-        <img src="/assets/images/neoslim-logo.gif" alt="Logo Neoslim" class="w-20 mx-auto mb-4 hero-glow">
         <p class="tracking-widest uppercase text-sm text-green">Bienvenue</p>
         <span class="block w-16 h-0.5 bg-gray-700 mx-auto mt-2 gsap-line"></span>
 
@@ -124,7 +123,7 @@
                 <img src="assets/images/logodp.png" alt="Design Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
               </div>
               <p class="mb-8 text-white/90">Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.</p>
-              <button class="button btn-design" onclick="redirectWithEffect('design-projects.html', 'fade')">
+              <button class="button btn-design" onclick="redirectWithEffect('/pages/design-projects.html', 'fade')">
                 Voir les projets de design
               </button>
               
@@ -136,9 +135,10 @@
               <div class="flex justify-center items-center mb-6">
                 <img src="assets/images/LOGOCP.png" alt="Coding Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
               </div>
-              <button class="button btn-code" onclick="location.href='pages/coding-projects.html'">
+              <button class="button btn-code" onclick="redirectWithEffect('/pages/programming-projects.html', 'fade')">
                 Voir les projets de code
               </button>
+              
               
               </div>
           </div>
@@ -509,7 +509,7 @@
     <script>
       function redirectWithEffect(url, type) {
         const body = document.body;
-    
+      
         if (type === 'fade') {
           gsap.to(body, {
             opacity: 0,
@@ -528,6 +528,7 @@
           window.location.href = url;
         }
       }
+      
     </script>
     <script>
       gsap.from("#hero .gsap-line", { scaleX: 0, duration: 1, ease: "power2.out" });

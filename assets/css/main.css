@@ -135,11 +135,20 @@ body {
 
 /* === Menu Box === */
 .menu-box {
+  display: none;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.3s ease;
   background-color: #0d1117;
   padding: 10px;
   border-radius: 12px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.4);
   transition: all 0.5s ease;
+}
+.menu-box.show {
+  display: block;
+  opacity: 1;
+  transform: scale(1);
 }
 .menu-box.show .value {
   animation: fadeUp 0.4s ease-in-out;
@@ -191,13 +200,14 @@ body {
 .value {
   font-size: 15px;
   background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   border: none;
   padding: 10px;
   color: white;
   position: relative;
   cursor: pointer;
-  display: flex;
-  gap: 5px;
   border-radius: 10px;
   transition: 1s;
   box-sizing: border-box;

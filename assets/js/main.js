@@ -239,6 +239,13 @@ function animatePanelClick(panel, targetUrl) {
     }
   });
 }
+document.querySelectorAll('.menu-box .value').forEach(btn => {
+  btn.addEventListener('click', () => {
+    toggle.checked = false;
+    menu.classList.remove('show');
+    document.body.classList.remove('overflow-hidden');
+  });
+});
 
 function initAnchorNavigation() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -57,23 +57,22 @@
         <img src="/assets/images/slimdev.png" alt="Logo" class="h-32 w-auto">
     </div>
 
-    <!-- Back and Home buttons on the same line -->
     <div class="flex justify-between items-center mb-4 px-2">
-        <a href="index.html#works-section" class="btn btn-back group flex items-center space-x-2 bg-border hover:bg-blue text-light font-bold py-2 px-4 rounded-2xl transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-light transition-transform duration-300 group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      <button type="button" onclick="history.back()" class="btn btn-back group flex items-center space-x-2 bg-border hover:bg-blue text-light font-bold py-2 px-4 rounded-2xl transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-light transition-transform duration-300 group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm">Go Back</span>
+      </button>
+      <a href="#hero" class="group flex items-center space-x-2 text-green hover:text-lime transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-4 0v-4a1 1 0 011-1h2a1 1 0 011 1v4" />
           </svg>
-          <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm">Go Back</span>
-        </a>
-        <a href="index.html#hero" class="group flex items-center space-x-2 text-green hover:text-lime transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-4 0v-4a1 1 0 011-1h2a1 1 0 011 1v4" />
-            </svg>
-            <div class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span class="text-sm">Home</span>
-            </div>
-        </a>
-    </div>
+          <div class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="text-sm">Home</span>
+          </div>
+      </a>
+  </div>
 
     <!-- pp.png image below the buttons -->
     <div class="flex justify-center mt-2 mb-4">
