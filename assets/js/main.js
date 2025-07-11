@@ -10,13 +10,20 @@ if (document.readyState === 'loading') {
 document.addEventListener('DOMContentLoaded', () => {
   const menuToggle = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobile-menu');
-  const checkbox = document.getElementById('checkbox');
+  const checkbox = menuToggle?.querySelector('input');
 
   menuToggle?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
-    document.body.classList.toggle('overflow-hidden');
+    const isOpen = checkbox?.checked;
+    if (isOpen) {
+      mobileMenu?.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    } else {
+      mobileMenu?.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
   });
 
+  // Ferme le menu lorsqu'on clique sur un lien
   mobileMenu?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       mobileMenu.classList.add('hidden');
