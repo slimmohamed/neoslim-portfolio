@@ -36,24 +36,33 @@
 <body class="relative overflow-x-hidden">
   <a href="#hero" class="sr-only focus:not-sr-only">Skip to main content</a>
   <canvas id="background-canvas" class="fixed inset-0 -z-10 w-full h-full"></canvas>
-
   <header class="fixed top-0 left-0 w-full z-50 h-40 md:h-44 bg-dark/90 backdrop-blur shadow-lg border-b border-border flex items-center justify-between px-6">
-    <div class="flex items-center justify-start order-1">
-      <label class="hamburger">
+    <div class="relative flex items-start gap-4">
+      
+      <!-- ✅ Bouton menu hamburger -->
+      <label class="hamburger" for="menuToggle" aria-label="Ouvrir le menu">
         <input type="checkbox" id="menuToggle" />
-        <svg class="drop-shadow-md h-7 w-7" viewBox="0 0 32 32">
+        <svg class="drop-shadow-md h-7 w-7" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
           <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6..." />
           <path class="line" d="M7 16 27 16" />
         </svg>
       </label>
-      <div id="menuBox" class="menu-box absolute top-20 left-4 z-40"></div>
+  
+      <!-- ✅ Menu déroulant lié au bouton -->
+      <div id="menuBox" class="menu-box hidden absolute top-12 left-0 z-40 input">
+        <button class="value"><svg>...</svg> Accueil</button>
+        <button class="value"><svg>...</svg> Projets</button>
+        <button class="value"><svg>...</svg> Contact</button>
+      </div>
+  
     </div>
-    <div class="flex-1 flex justify-center items-center order-2">
-      <img src="/assets/images/neoslim-logo.gif" alt="Logo" class="h-32 drop-shadow-xl">
+  
+    <!-- ✅ Logo ou autre contenu du header -->
+    <div class="mx-auto">
+      <img src="/assets/images/neoslim-logo.gif" alt="Logo" class="h-20 w-auto drop-shadow-xl">
     </div>
   </header>
   
-
   <main class="pt-44">
     <!-- Hero Section -->
     <section id="hero" class="pt-32 min-h-[100vh] flex flex-col justify-center items-center text-center bg-slate-100 relative overflow-hidden">
@@ -214,7 +223,7 @@
               <span class="text-sm text-gray-400 mt-2 block">Publié le 11 juillet 2025</span>
             </div>
           </div>
-                class="mt-12 bg-border backdrop-blur-md rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 ease-in-out p-8 max-w-2xl mx-auto group relative overflow-hidden 
+                <div class="mt-12 bg-border backdrop-blur-md rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 ease-in-out p-8 max-w-2xl mx-auto group relative overflow-hidden 
                 gsap-zoom-in-up">
                 <div class="absolute -top-10 -left-10 w-40 h-40 bg-gradient-to-tr from-green/20 to-blue/30 rounded-full blur-2xl opacity-40 pointer-events-none group-hover:opacity-60 transition-opacity duration-300"></div>
 
@@ -526,6 +535,7 @@
       gsap.from("#hero .gsap-fade-in-up", { y: 40, opacity: 0, duration: 1, delay: 0.8 });
     </script>
 <script src="assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>
 </html>

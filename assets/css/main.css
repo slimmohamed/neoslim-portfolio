@@ -234,18 +234,20 @@ body {
 .input {
   display: flex;
   flex-direction: column;
-  width: 230px;
-  justify-content: center;
-  border-radius: 10px;
-  transition: 1s;
-  padding: 10px;
-  overflow: hidden;
-  max-width: 260px;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  align-items: flex-start;
+  gap: 1rem;
   background: rgba(13, 17, 23, 0.95);
+  padding: 1rem;
+  border-radius: 12px;
+  position: relative;
+  z-index: 10;
 }
-
+.input .hamburger {
+  align-self: flex-end;
+  z-index: 50;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 .value {
   font-size: 15px;
   background-color: transparent;
@@ -464,7 +466,7 @@ section + section {
 .chart-container {
   opacity: 0;
   transform: translateY(40px);
-  transition: all 1s ease-out;
+  transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .animate-fade-in {

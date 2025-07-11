@@ -13,8 +13,132 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigationButtons();
   initCollapsibleSections();
   handleFormSubmit();
+  createBarChart();
+  createRadarChart();
+});
+document.addEventListener('DOMContentLoaded', () => {
+  const radarCanvas = document.getElementById('skillsRadarChart');
+  const barCanvas = document.getElementById('skillsBarChart');
+
+  if (!radarCanvas || !barCanvas) {
+    console.warn("Chart canvases not found in DOM!");
+    return;
+  }
 });
 
+function createRadarChart() {
+  const ctx = document.getElementById('skillsRadarChart');
+  if (!ctx) return;
+
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['Frontend', 'Backend', 'UI/UX', 'DevOps', 'Database'],
+      datasets: [{
+        label: 'Skill Level',
+        data: [95, 75, 85, 70, 60],
+        backgroundColor: 'rgba(94, 160, 140, 0.2)',
+        borderColor: '#5EA08C',
+        pointBackgroundColor: '#5EA08C'
+      }]
+    },
+    options: {
+      responsive: true,
+      animation: {
+        duration: 1200
+      },
+      scales: {
+        r: {
+          angleLines: { color: '#F5DEB3' },
+          grid: { color: '#3C3C3C' },
+          pointLabels: {
+            color: '#F5DEB3',
+            font: { size: 14 }
+          },
+          ticks: { display: false }
+        }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+function createBarChart() {
+  const ctx = document.getElementById('skillsBarChart');
+  if (!ctx) return;
+
+  const finalData = [95, 80, 70, 85, 80, 75];
+  const labels = ['React', 'Node.js', 'Python', 'Figma', 'Adobe XD', 'Git'];
+
+  const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Proficiency',
+        data: finalData.map(() => 0), // start at 0
+        backgroundColor: ['#5EA08C', '#5EA08C', '#5EA08C', '#F5DEB3', '#F5DEB3', '#5EA08C'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      animation: {
+        duration: 1000,
+        onComplete: function () {
+          // Replace data after animation ends
+          chart.data.datasets[0].data = finalData;
+          chart.update();
+        }
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          max: 100,
+          grid: { color: '#3C3C3C' },
+          ticks: {
+            color: '#F5DEB3',
+            font: { size: 14 }
+          }
+        },
+        y: {
+          ticks: {
+            color: '#F5DEB3',
+            font: { size: 14 }
+          },
+          grid: { color: '#3C3C3C' }
+        }
+      },
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+
+  // Delay animation of the values
+  setTimeout(() => {
+    chart.data.datasets[0].data = finalData;
+    chart.update();
+  }, 200); // 200ms after canvas becomes visible
+}
+
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      if (entry.target.querySelector('#skillsRadarChart')) createRadarChart();
+      if (entry.target.querySelector('#skillsBarChart')) createBarChart();
+
+      entry.target.classList.add('animate-fade-in');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.chart-container').forEach(container => {
+  observer.observe(container);
+});
 function initMenuToggle() {
   const toggle = document.getElementById('menuToggle');
   const menu = document.getElementById('menuBox');
@@ -24,12 +148,25 @@ function initMenuToggle() {
   toggle.addEventListener('change', () => {
     if (toggle.checked) {
       menu.classList.add('show');
+      menu.classList.remove('hidden');
       document.body.classList.add('overflow-hidden');
     } else {
       menu.classList.remove('show');
+      menu.classList.add('hidden');
       document.body.classList.remove('overflow-hidden');
     }
   });
+
+  // Fermer le menu lorsqu’un bouton est cliqué
+  menu.querySelectorAll('.value').forEach(button => {
+    button.addEventListener('click', () => {
+      toggle.checked = false;
+      menu.classList.remove('show');
+      menu.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    });
+  });
+}
 
   document.querySelectorAll('.value').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -52,7 +189,6 @@ function initMenuToggle() {
       hideMenu();
     }
   });
-}
 
 function initWorksSection() {
   const toggleWorksButton = document.getElementById('toggle-works-btn');
