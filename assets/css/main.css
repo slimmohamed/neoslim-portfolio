@@ -78,15 +78,16 @@ a:focus, button:focus {
 }
 
 .logo {
-  color: var(--light);
-  font-weight: 700;
-  font-size: 1.5rem;
-  text-decoration: none;
+  width: 4.5rem;
+  height: auto;
+  display: block;
+  filter: drop-shadow(2px 6px 6px rgba(0, 0, 0, 5.5));
 }
+
 body {
   font-family: 'Poppins', sans-serif;
   background: #1e1e1e;
-  color: #f4f4f5;
+  color: #ffd7d7;
   overflow-x: hidden;
 }
 
@@ -105,11 +106,13 @@ body {
   height: 2.2em;
   width: 2.2em;
   transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(2px 6px 6px rgba(0, 0, 0, 5.5));
 }
+
 
 .line {
   fill: none;
-  stroke: white;
+  stroke: rgb(255, 255, 255);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 3;
@@ -132,12 +135,25 @@ body {
 
 /* === Menu Box === */
 .menu-box {
-  display: none;
-  position: absolute;
-  top: 60px;
-  right: 20px;
-  z-index: 40;
-  transform-origin: top right;
+  background-color: #0d1117;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  transition: all 0.5s ease;
+}
+.menu-box.show .value {
+  animation: fadeUp 0.4s ease-in-out;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .menu-box.show {
@@ -161,12 +177,15 @@ body {
   display: flex;
   flex-direction: column;
   width: 230px;
-  background-color: #0d1117;
   justify-content: center;
   border-radius: 10px;
   transition: 1s;
   padding: 10px;
   overflow: hidden;
+  max-width: 260px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: rgba(13, 17, 23, 0.95);
 }
 
 .value {
@@ -175,10 +194,10 @@ body {
   border: none;
   padding: 10px;
   color: white;
-  display: flex;
   position: relative;
-  gap: 8px;
   cursor: pointer;
+  display: flex;
+  gap: 5px;
   border-radius: 10px;
   transition: 1s;
   box-sizing: border-box;
