@@ -7,41 +7,24 @@ if (document.readyState === 'loading') {
   init();
 }
 
-function init() {
-  // Menu toggle functionality
+document.addEventListener('DOMContentLoaded', () => {
   const menuToggle = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobile-menu');
   const checkbox = document.getElementById('checkbox');
-  
+
   menuToggle?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('block');
     mobileMenu?.classList.toggle('hidden');
     document.body.classList.toggle('overflow-hidden');
   });
 
-  // Close mobile menu on link click
   mobileMenu?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       mobileMenu.classList.add('hidden');
-      checkbox.checked = false;
+      if (checkbox) checkbox.checked = false;
       document.body.classList.remove('overflow-hidden');
     });
   });
-
-  // Smooth scrolling
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 80,
-          behavior: 'smooth'
-        });
-      }
-    });
-  });
+});
 
   // Works section toggle
   const toggleWorksBtn = document.getElementById('toggle-works-btn');
