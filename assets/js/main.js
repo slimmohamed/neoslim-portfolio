@@ -1,7 +1,6 @@
 // Main JavaScript for Portfolio Website
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize components
   initMenuToggle();
   initWorksSection();
   initSmoothScrolling();
@@ -16,15 +15,19 @@ document.addEventListener('DOMContentLoaded', () => {
   createBarChart();
   createRadarChart();
 });
+
+// CHARTS INITIALIZATION VALIDATION
+
 document.addEventListener('DOMContentLoaded', () => {
   const radarCanvas = document.getElementById('skillsRadarChart');
   const barCanvas = document.getElementById('skillsBarChart');
-
   if (!radarCanvas || !barCanvas) {
     console.warn("Chart canvases not found in DOM!");
     return;
   }
 });
+
+// CHARTS
 
 function createRadarChart() {
   const ctx = document.getElementById('skillsRadarChart');
@@ -44,9 +47,7 @@ function createRadarChart() {
     },
     options: {
       responsive: true,
-      animation: {
-        duration: 1200
-      },
+      animation: { duration: 1200 },
       scales: {
         r: {
           angleLines: { color: '#F5DEB3' },
@@ -76,7 +77,7 @@ function createBarChart() {
       labels: labels,
       datasets: [{
         label: 'Proficiency',
-        data: finalData.map(() => 0), // start at 0
+        data: finalData.map(() => 0),
         backgroundColor: ['#5EA08C', '#5EA08C', '#5EA08C', '#F5DEB3', '#F5DEB3', '#5EA08C'],
         borderWidth: 1
       }]
@@ -87,7 +88,6 @@ function createBarChart() {
       animation: {
         duration: 1000,
         onComplete: function () {
-          // Replace data after animation ends
           chart.data.datasets[0].data = finalData;
           chart.update();
         }
@@ -97,39 +97,30 @@ function createBarChart() {
           beginAtZero: true,
           max: 100,
           grid: { color: '#3C3C3C' },
-          ticks: {
-            color: '#F5DEB3',
-            font: { size: 14 }
-          }
+          ticks: { color: '#F5DEB3', font: { size: 14 } }
         },
         y: {
-          ticks: {
-            color: '#F5DEB3',
-            font: { size: 14 }
-          },
+          ticks: { color: '#F5DEB3', font: { size: 14 } },
           grid: { color: '#3C3C3C' }
         }
       },
-      plugins: {
-        legend: { display: false }
-      }
+      plugins: { legend: { display: false } }
     }
   });
 
-  // Delay animation of the values
   setTimeout(() => {
     chart.data.datasets[0].data = finalData;
     chart.update();
-  }, 200); // 200ms after canvas becomes visible
+  }, 200);
 }
 
+// OBSERVER FOR CHART CONTAINERS
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       if (entry.target.querySelector('#skillsRadarChart')) createRadarChart();
       if (entry.target.querySelector('#skillsBarChart')) createBarChart();
-
       entry.target.classList.add('animate-fade-in');
       observer.unobserve(entry.target);
     }
@@ -139,61 +130,47 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll('.chart-container').forEach(container => {
   observer.observe(container);
 });
+
+// MENU TOGGLE
+
 function initMenuToggle() {
   const toggle = document.getElementById('menuToggle');
   const menu = document.getElementById('menuBox');
-
   if (!toggle || !menu) return;
 
-  toggle.addEventListener('change', () => {
-    if (toggle.checked) {
-      menu.classList.add('show');
-      menu.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
-    } else {
-      menu.classList.remove('show');
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', !isExpanded);
+    menu.classList.toggle('hidden');
+    menu.classList.toggle('show');
+    document.body.classList.toggle('overflow-hidden');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && e.target !== toggle) {
+      toggle.setAttribute('aria-expanded', 'false');
       menu.classList.add('hidden');
+      menu.classList.remove('show');
       document.body.classList.remove('overflow-hidden');
     }
   });
 
-  // Fermer le menu lorsqu’un bouton est cliqué
-  menu.querySelectorAll('.value').forEach(button => {
+  document.querySelectorAll('.value').forEach(button => {
     button.addEventListener('click', () => {
-      toggle.checked = false;
-      menu.classList.remove('show');
+      toggle.setAttribute('aria-expanded', 'false');
       menu.classList.add('hidden');
+      menu.classList.remove('show');
       document.body.classList.remove('overflow-hidden');
     });
   });
 }
 
-  document.querySelectorAll('.value').forEach(btn => {
-    btn.addEventListener('click', () => {
-      toggle.checked = false;
-      menu.classList.remove('show');
-      document.body.classList.remove('overflow-hidden');
-    });
-  });
-
-  function hideMenu() {
-    toggle.checked = false;
-    menu.classList.remove('show');
-    document.body.classList.remove('overflow-hidden');
-  }
-
-  document.addEventListener('click', (e) => {
-    const isInsideMenu = menu.contains(e.target);
-    const isToggle = toggle === e.target || e.target.closest('#menuToggle') !== null;
-    if (!isInsideMenu && !isToggle) {
-      hideMenu();
-    }
-  });
+// WORKS SECTION TOGGLE
 
 function initWorksSection() {
   const toggleWorksButton = document.getElementById('toggle-works-btn');
   const worksSection = document.getElementById('works-section');
-
   if (toggleWorksButton && worksSection) {
     let isWorksVisible = false;
 
@@ -204,11 +181,8 @@ function initWorksSection() {
 
     function toggleWorksVisibility() {
       isWorksVisible = !isWorksVisible;
-      if (isWorksVisible) {
-        showWorksSection();
-      } else {
-        hideWorksSection();
-      }
+      if (isWorksVisible) showWorksSection();
+      else hideWorksSection();
     }
 
     function showWorksSection() {
@@ -216,7 +190,6 @@ function initWorksSection() {
       worksSection.style.opacity = '1';
       worksSection.style.transform = 'scaleY(1)';
       toggleWorksButton.querySelector('.btn-hero__text').textContent = 'HIDE WORKS';
-
       setTimeout(() => {
         worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 50);
@@ -226,18 +199,18 @@ function initWorksSection() {
       worksSection.style.opacity = '0';
       worksSection.style.transform = 'scaleY(0)';
       toggleWorksButton.querySelector('.btn-hero__text').textContent = 'VIEW MY WORKS';
-
       setTimeout(() => {
         worksSection.classList.add('hidden');
       }, 500);
     }
 
-    // Initialize as hidden
     worksSection.classList.add('hidden');
     worksSection.style.opacity = '0';
     worksSection.style.transform = 'scaleY(0)';
   }
 }
+
+// SCROLL ANIMATIONS (GSAP)
 
 function initGSAPAnimations() {
   if (!window.gsap || !window.ScrollTrigger) return;
@@ -250,6 +223,7 @@ function initGSAPAnimations() {
     delay: 0.3,
     ease: 'power2.out'
   });
+
   gsap.from('.gsap-fade-in-up', {
     scrollTrigger: {
       trigger: '.gsap-fade-in-up',
@@ -261,7 +235,7 @@ function initGSAPAnimations() {
     duration: 0.8,
     ease: 'power2.out'
   });
-  
+
   gsap.utils.toArray('section').forEach((section, i) => {
     gsap.from(section, {
       scrollTrigger: {
@@ -277,6 +251,8 @@ function initGSAPAnimations() {
     });
   });
 }
+
+// CANVAS BACKGROUND ANIMATION
 
 function initCanvasBackground() {
   const canvas = document.getElementById('background-canvas');
@@ -332,6 +308,8 @@ function initCanvasBackground() {
   });
 }
 
+// CONTACT FORM HANDLING
+
 function handleFormSubmit() {
   const contactForm = document.querySelector('#contact-section form');
   if (!contactForm) return;
@@ -344,9 +322,7 @@ function handleFormSubmit() {
     try {
       submitBtn.disabled = true;
       submitBtn.innerHTML = 'Sending...';
-
       await new Promise(resolve => setTimeout(resolve, 1500));
-
       contactForm.reset();
       showNotification('Message sent successfully!');
     } catch (error) {
@@ -370,29 +346,7 @@ function showNotification(message, type = 'success') {
   }, 3000);
 }
 
-function animatePanelClick(panel, targetUrl) {
-  gsap.to(panel, {
-    scale: 0.95,
-    duration: 0.2,
-    repeat: 1,
-    yoyo: true,
-    ease: 'power1.inOut',
-    onComplete: () => {
-      gsap.to('body', {
-        opacity: 0,
-        duration: 0.5,
-        onComplete: () => window.location.href = targetUrl
-      });
-    }
-  });
-}
-document.querySelectorAll('.menu-box .value').forEach(btn => {
-  btn.addEventListener('click', () => {
-    toggle.checked = false;
-    menu.classList.remove('show');
-    document.body.classList.remove('overflow-hidden');
-  });
-});
+// ANCHOR SCROLLING
 
 function initAnchorNavigation() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -401,14 +355,13 @@ function initAnchorNavigation() {
       const targetId = this.getAttribute('href');
       const target = document.querySelector(targetId);
       if (target) {
-        window.scrollTo({
-          top: target.offsetTop - 80,
-          behavior: 'smooth'
-        });
+        window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
       }
     });
   });
 }
+
+// NAVIGATION BUTTON REDIRECT
 
 function initNavigationButtons() {
   document.querySelectorAll('.navigate-btn').forEach(btn => {
@@ -418,6 +371,8 @@ function initNavigationButtons() {
     });
   });
 }
+
+// COLLAPSIBLE SECTIONS
 
 function initCollapsibleSections() {
   document.querySelectorAll('.collapsible-section').forEach(section => {
@@ -430,8 +385,9 @@ function initCollapsibleSections() {
   });
 }
 
+// SIMPLE SCROLLING ANIMATION
+
 function initAnimations() {
-  // Example: Fade in .about-content on scroll
   const about = document.querySelector('.about-content');
   if (about) {
     const onScroll = () => {
@@ -450,8 +406,9 @@ function initAnimations() {
   }
 }
 
+// PARTICLE HOVER EFFECT ON CARDS
+
 function initCardParticles() {
-  // Placeholder for card particle effect if needed
   document.querySelectorAll('.bg-border').forEach(card => {
     card.addEventListener('mousemove', e => {
       let rect = card.getBoundingClientRect();
@@ -479,11 +436,13 @@ function initCardParticles() {
       }, 700);
     });
   });
-  
 }
+
+// DUPLICATED SCROLL FIX
 
 function initSmoothScrolling() {
   document.querySelectorAll('a[href^="#"]').forEach(link => {
+    if (!link.hash || link.hash === '#') return;
     link.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href').slice(1);
       const target = document.getElementById(targetId);
@@ -493,5 +452,4 @@ function initSmoothScrolling() {
       }
     });
   });
-  // Placeholder if native scroll-behavior is not enough or polyfill needed
 }

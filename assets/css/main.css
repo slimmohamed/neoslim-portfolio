@@ -145,10 +145,11 @@ body {
   cursor: pointer;
   position: relative;
   z-index: 50;
-}
-
-.hamburger input {
-  display: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
 }
 
 .hamburger svg {
@@ -157,7 +158,6 @@ body {
   transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
   filter: drop-shadow(2px 6px 6px rgba(0, 0, 0, 5.5));
 }
-
 
 .line {
   fill: none;
@@ -181,83 +181,50 @@ body {
   stroke-dasharray: 20 300;
   stroke-dashoffset: -32.42;
 }
-
 .menu-box {
   display: none;
   min-width: 200px;
   background: #0d1117;
   padding: 10px;
   border-radius: 10px;
-  top: 100px !important;
-  left: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform-origin: top left;
+  transition: all 0.3s ease;
 }
+
 .menu-box.show {
   display: block;
   animation: fadeIn 0.3s ease-out forwards;
 }
-.menu-box.show .value {
-  animation: fadeUp 0.4s ease-in-out;
-}
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-@keyframes appearFromBtn {
-  0% {
-    opacity: 0;
-    transform: scale(0.4) translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-@import url('https://fonts.googleapis.com/css2?family=Miltonian&display=swap');
-
-.fantasy-button {
-  font-family: 'Miltonian', cursive;
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.4s ease;
-}
-
-.fantasy-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-}
+/* === Menu Box === */
 
 /* === Menu Buttons (from your design) === */
 .input {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  background: rgba(13, 17, 23, 0.95);
-  padding: 1rem;
-  border-radius: 12px;
-  position: relative;
-  z-index: 10;
+  width: 230px;
+  background-color: #0d1117;
+  justify-content: center;
+  border-radius: 10px;
+  transition: 1s;
+  padding: 10px;
+  overflow: hidden;
 }
-.input .hamburger {
-  align-self: flex-end;
-  z-index: 50;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+
 .value {
   font-size: 15px;
   background-color: transparent;
-  display: flex;
-  align-items: center;
-  gap: 10px;
   border: none;
   padding: 10px;
   color: white;
+  display: flex;
   position: relative;
+  gap: 8px;
   cursor: pointer;
   border-radius: 10px;
   transition: 1s;
@@ -304,6 +271,45 @@ body {
   filter: blur(1.5px);
   transform: scale(0.95, 0.95);
 }
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes appearFromBtn {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@import url('https://fonts.googleapis.com/css2?family=Miltonian&display=swap');
+
+.fantasy-button {
+  font-family: 'Miltonian', cursive;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+}
+
+.fantasy-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+
+.input .hamburger {
+  align-self: flex-end;
+  z-index: 50;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
 /* Hero */
 .hero {
   height: 100vh;

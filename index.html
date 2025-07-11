@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mohamed Slimani - Portfolio</title>
+
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Tailwind & Animations -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
   <style>
     .floating-word {
       position: absolute;
@@ -20,9 +28,8 @@
       animation: floatWord 12s ease-in-out infinite;
     }
     @keyframes floatWord {
-      0% { transform: translateY(0px) translateX(0px); }
+      0%, 100% { transform: translateY(0) translateX(0); }
       50% { transform: translateY(-20px) translateX(10px); }
-      100% { transform: translateY(0px) translateX(0px); }
     }
     .hero-glow {
       animation: pulseGlow 4s ease-in-out infinite;
@@ -33,37 +40,37 @@
     }
   </style>
 </head>
-<body class="relative overflow-x-hidden">
-  <a href="#hero" class="sr-only focus:not-sr-only">Skip to main content</a>
+
+<body class="bg-dark text-light font-montserrat overflow-x-hidden relative">
+  <!-- Skip Link -->
+  <a href="#hero" class="sr-only focus:not-sr-only">Aller au contenu principal</a>
+
+  <!-- Background Canvas -->
   <canvas id="background-canvas" class="fixed inset-0 -z-10 w-full h-full"></canvas>
+
+  <!-- Header -->
   <header class="fixed top-0 left-0 w-full z-50 h-40 md:h-44 bg-dark/90 backdrop-blur shadow-lg border-b border-border flex items-center justify-between px-6">
-    <div class="relative flex items-start gap-4">
-      
-      <!-- ✅ Bouton menu hamburger -->
-      <label class="hamburger" for="menuToggle" aria-label="Ouvrir le menu">
-        <input type="checkbox" id="menuToggle" />
-        <svg class="drop-shadow-md h-7 w-7" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-          <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6..." />
-          <path class="line" d="M7 16 27 16" />
-        </svg>
-      </label>
-  
-      <!-- ✅ Menu déroulant lié au bouton -->
-      <div id="menuBox" class="menu-box hidden absolute top-12 left-0 z-40 input">
-        <button class="value"><svg>...</svg> Accueil</button>
-        <button class="value"><svg>...</svg> Projets</button>
-        <button class="value"><svg>...</svg> Contact</button>
-      </div>
-  
-    </div>
-  
-    <!-- ✅ Logo ou autre contenu du header -->
+    <button id="menuToggle" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <svg class="drop-shadow-md h-7 w-7" viewBox="0 0 32 32" aria-hidden="true">
+        <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6..." />
+        <path class="line" d="M7 16 27 16" />
+      </svg>
+    </button>
+
     <div class="mx-auto">
-      <img src="/assets/images/neoslim-logo.gif" alt="Logo" class="h-20 w-auto drop-shadow-xl">
+      <img src="/assets/images/neoslim-logo.gif" alt="Logo" class="h-32 w-auto drop-shadow-xl">
+    </div>
+
+    <div id="menuBox" class="menu-box hidden absolute top-20 left-6 z-40">
+      <a href="#hero"><button class="value">Accueil</button></a>
+      <a href="#works-section"><button class="value">Projets</button></a>
+      <a href="#contact"><button class="value">Contact</button></a>
     </div>
   </header>
-  
+
+  <!-- Main Content -->
   <main class="pt-44">
+
     <!-- Hero Section -->
     <section id="hero" class="pt-32 min-h-[100vh] flex flex-col justify-center items-center text-center bg-slate-100 relative overflow-hidden">
       <!-- Floating keywords -->
@@ -121,7 +128,7 @@
                 <img src="assets/images/logodp.png" alt="Design Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
               </div>
               <p class="mb-8 text-white/90">Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.</p>
-              <button type="button" class="fantasy-button bg-yellow-400 hover:bg-yellow-500 text-dark" onclick="redirectWithEffect('/pages/design-projects.html', 'fade')">
+              <button type="button" class="fantasy-button bg-yellow-400 hover:bg-yellow-500 text-dark" onclick="redirectWithEffect('pages/design-projects.html', 'fade')">
                 Voir les projets de design
               </button>
               
@@ -134,7 +141,7 @@
               <div class="flex justify-center items-center mb-6">
                 <img src="assets/images/LOGOCP.png" alt="Coding Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
               </div>
-              <button class="fantasy-button bg-green-400 hover:bg-green-500 text-dark" onclick="redirectWithEffect('/pages/programming-projects.html', 'fade')">
+              <button type= "button" class= "fantasy-button bg-green-400 hover:bg-green-500 text-dark" onclick="redirectWithEffect('/pages/coding-projects.html', 'fade')">
                 Voir les projets de code
               </button>
               
@@ -361,181 +368,37 @@
         </footer>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-      let radarChart, barChart;
-    
-      function createRadarChart() {
-        const ctx = document.getElementById('skillsRadarChart').getContext('2d');
-        radarChart = new Chart(ctx, {
-          type: 'radar',
-          data: {
-            labels: ['Frontend', 'Backend', 'UI/UX', 'DevOps', 'Database'],
-            datasets: [{
-              label: 'Skill Level',
-              data: [95, 75, 85, 70, 60],
-              fill: true,
-              backgroundColor: 'rgba(94, 160, 140, 0.2)',
-              borderColor: '#5EA08C',
-              pointBackgroundColor: '#5EA08C',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: '#5EA08C'
-            }]
-          },
-          options: {
-            responsive: true,
-            animation: {
-              duration: 1000
-            },
-            scales: {
-              r: {
-                angleLines: { color: '#F5DEB3' },
-                grid: { color: '#3C3C3C' },
-                pointLabels: { color: '#F5DEB3', font: { size: 14 } },
-                ticks: { display: false, backdropColor: 'transparent' }
-              }
-            },
-            plugins: {
-              legend: { display: false }
-            }
-          }
-        });
-      }
-    
-      function createBarChart() {
-        const ctx = document.getElementById('skillsBarChart').getContext('2d');
-        barChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: ['React', 'Node.js', 'Python', 'Figma', 'Adobe XD', 'Git'],
-            datasets: [{
-              label: 'Proficiency',
-              data: [0, 0, 0, 0, 0, 0], // Start at 0
-              backgroundColor: ['#5EA08C', '#5EA08C', '#5EA08C', '#F5DEB3', '#F5DEB3', '#5EA08C'],
-              borderColor: ['#5EA08C', '#5EA08C', '#5EA08C', '#F5DEB3', '#F5DEB3', '#5EA08C'],
-              borderWidth: 1
-            }]
-          },
-          options: {
-            indexAxis: 'y',
-            animation: {
-              duration: 1000,
-              onProgress: function(animation) {
-                const dataset = this.data.datasets[0];
-                const finalData = [95, 80, 70, 85, 80, 75];
-                dataset.data = finalData.map((val, idx) => val * animation.currentStep / animation.numSteps);
-              }
-            },
-            scales: {
-              x: {
-                beginAtZero: true,
-                max: 100,
-                grid: { color: '#3C3C3C' },
-                ticks: { color: '#F5DEB3', font: { size: 14 } }
-              },
-              y: {
-                ticks: { color: '#F5DEB3', font: { size: 14 } },
-                grid: { color: '#3C3C3C' }
-              }
-            },
-            plugins: {
-              legend: { display: false }
-            }
-          }
-        });
-      }
-
-      // Observer to trigger animation
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (!radarChart) createRadarChart();
-            if (!barChart) createBarChart();
-    
-            entry.target.classList.add('animate-fade-in');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.3 });
-    
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.chart-container').forEach(container => {
-          observer.observe(container);
-        });
+ <!-- Scripts -->
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <script src="/assets/js/main.js"></script>
+ <script>
+   gsap.from("#hero .gsap-line", { scaleX: 0, duration: 1, ease: "power2.out" });
+   gsap.from("#hero .gsap-zoom-in", { scale: 0.6, opacity: 0, duration: 1, delay: 0.5 });
+   gsap.from("#hero .gsap-fade-in-up", { y: 40, opacity: 0, duration: 1, delay: 0.8 });
+ </script>
+ <script>
+  function redirectWithEffect(url, type) {
+    const body = document.body;
+  
+    if (type === 'fade') {
+      gsap.to(body, {
+        opacity: 0,
+        duration: 0.6,
+        onComplete: () => window.location.href = url
       });
-    
-
-      // Initialize for all card canvases
-      document.querySelectorAll('.card-bg-canvas').forEach(animateCardParticles);
-
-      const menuToggle = document.getElementById('menuToggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-
-      menuToggle?.addEventListener('change', () => {
-        if (menuToggle.checked) {
-          mobileMenu?.classList.remove('hidden');
-          document.body.classList.add('overflow-hidden');
-        } else {
-          mobileMenu?.classList.add('hidden');
-          document.body.classList.remove('overflow-hidden');
-        }
+    } else if (type === 'slide') {
+      gsap.to(body, {
+        x: '-100%',
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power1.inOut',
+        onComplete: () => window.location.href = url
       });
-
-      mobileMenu?.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-          menuToggle.checked = false;
-          document.body.classList.remove('overflow-hidden');
-        });
-      });
-    </script>
-    <script>
-      const toggleBtn = document.getElementById('toggle-works-btn');
-      const worksSection = document.getElementById('works-section');
-      const btnText = toggleBtn.querySelector('.btn-hero__text');
-    
-      toggleBtn.addEventListener('click', () => {
-        const isVisible = worksSection.style.display === 'block';
-    
-        // Toggle section visibility
-        worksSection.style.display = isVisible ? 'none' : 'block';
-    
-        // Update button text
-        btnText.textContent = isVisible ? 'VIEW MY WORKS' : 'HIDE WORKS';
-      });
-    </script>
-    <script>
-      function redirectWithEffect(url, type) {
-        const body = document.body;
-      
-        if (type === 'fade') {
-          gsap.to(body, {
-            opacity: 0,
-            duration: 0.6,
-            onComplete: () => window.location.href = url
-          });
-        } else if (type === 'slide') {
-          gsap.to(body, {
-            x: '-100%',
-            opacity: 0,
-            duration: 0.6,
-            ease: 'power1.inOut',
-            onComplete: () => window.location.href = url
-          });
-        } else {
-          window.location.href = url;
-        }
-      }
-      
-    </script>
-    <script>
-      gsap.from("#hero .gsap-line", { scaleX: 0, duration: 1, ease: "power2.out" });
-      gsap.from("#hero .gsap-zoom-in", { scale: 0.6, opacity: 0, duration: 1, delay: 0.5 });
-      gsap.from("#hero .gsap-fade-in-up", { y: 40, opacity: 0, duration: 1, delay: 0.8 });
-    </script>
-<script src="assets/js/main.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    } else {
+      window.location.href = url;
+    }
+  }
+  
+</script>
 </body>
 </html>
