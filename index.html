@@ -81,9 +81,9 @@
         
         <!-- Mobile Menu Toggle -->
       <div class="mobile-menu-toggle hamburger">
-      <label>
-        <input type="checkbox" id="checkbox" />
-        <svg viewBox="0 0 100 100" width="60">
+      <label for="checkbox" class="sr-only">Ouvrir le menu mobile</label>
+      <input type="checkbox" id="checkbox" />
+      <svg viewBox="0 0 100 100" width="60">
           <path class="line line-top-bottom" d="M 20,29 H 80 C 80,29 85,29 85,35 C 85,41 80,41 80,41 H 20" />
           <path class="line" d="M 20,50 H 80" />
           <path class="line line-top-bottom" d="M 20,71 H 80 C 80,71 85,71 85,65 C 85,59 80,59 80,59 H 20" />
@@ -159,14 +159,20 @@
           class="inline-block h-[3.5em] transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-1"/>
         </h1>
         
-    <button id="toggleWorksBtn" class="btn-hero">
-      <div class="btn-hero__content">
-        <img src="vmw.png" class="btn-hero__image vmw" alt="View My Works" />
-        <img src="hw.png" class="btn-hero__image hw" alt="Hide Works" />
-        <img src="vmw-dark.png" class="btn-hero__image vmw-dark" alt="View My Works Dark" />
-        <img src="hw-dark.png" class="btn-hero__image hw-dark" alt="Hide Works Dark" />
-      </div>
-    </button>
+    <div class="container">
+      <a href="#works-section" class="button type--C" id="toggleWorksBtn">
+        <div class="button__line"></div>
+        <div class="button__line"></div>
+        <span class="button__text">
+          <img src="assets/images/vmw.png" class="btn-hero__image vmw" alt="View My Works" />
+          <img src="assets/images/hw.png" class="btn-hero__image hw" alt="Hide Works" />
+          <img src="assets/images/vmw-dark.png" class="btn-hero__image vmw-dark" alt="View My Works Dark" />
+          <img src="assets/images/hw-dark.png" class="btn-hero__image hw-dark" alt="Hide Works Dark" />
+        </span>
+        <div class="button__drow1"></div>
+        <div class="button__drow2"></div>
+      </a>
+    </div>
         </div>
       </section>    
 <!-- After Hero Section -->
@@ -184,8 +190,8 @@
 
 
                 <section id="works-section" class="relative opacity-0 scale-y-0 transform origin-top transition-all duration-500 ease-in-out">
-          <div class="pointer-events-none absolute left-0 top-0 w-full h-16 z-10"
-               style="background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);"></div>
+          <div class="pointer-events-none absolute left-0 top-0 w-full h-16 z-10 top-gradient">
+          </div>
           
           <div id="design-panel" class="relative z-0 pt-2 min-h-[400px] bg-gradient-to-br from-amber-500 to-amber-600 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-105 transition-transform duration-300">
             <div class="max-w-sm">
@@ -207,8 +213,8 @@
             </div>
           </div>
           
-          <div class="pointer-events-none absolute left-0 bottom-0 w-full h-16 z-10"
-               style="background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);"></div>
+          <div class="pointer-events-none absolute left-0 bottom-0 w-full h-16 z-10 bottom-gradient">
+          </div>
         </section>
 
         <!-- About Section -->
