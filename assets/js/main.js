@@ -491,6 +491,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+  document.querySelectorAll('.navigate-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.getAttribute('data-url');
+    if (target) window.location.href = target;
+  });
+});
+  document.getElementById('design-panel')?.addEventListener('click', function (e) {
+    if (!e.target.closest('button')) {
+      e.preventDefault();
+      this.classList.toggle('hidden');
+    }
+  });
   document.getElementById('toggle-works-btn')?.addEventListener('click', () => {
     const worksSection = document.getElementById('works-section');
     worksSection.classList.toggle('opened');

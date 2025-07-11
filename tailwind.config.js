@@ -35,3 +35,30 @@ export default {
   },
   plugins: [],
 }
+module.exports = {
+  content: [
+    "./index.html",
+    "./pages/**/*.html",
+    "./assets/js/**/*.js"
+  ],
+  theme: {
+    extend: {
+      colors: {
+        dark: '#1E1E1E',
+        light: '#F4F4F5',
+        green: '#5EA08C',
+        beige: '#F5DEB3',
+        blue: '#2B6777',
+        lime: '#CFEF00',
+        border: '#3C3C3C'
+      },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'slide-in': 'slideInFromLeft 0.6s ease-out forwards'
+      }
+    }
+  },
+  plugins: [
+    require('@tailwindcss/forms')
+  ]
+}
