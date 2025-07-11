@@ -1,146 +1,174 @@
 // Main JavaScript for Portfolio Website
-
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize components
   initMenuToggle();
-  initWorksToggle();
-  initPanelClicks();
-  initPortfolioControls();
-  initCanvasBackground();
-  initGSAPAnimations();
-  handleFormSubmit();
-  initAnchorNavigation();
-  initNavigationButtons();
-  initCollapsibleSections();
+  initWorksSection();
+  // initPanelClicks(); // (removed if not needed)
+  // initPortfolioControls(); // (removed if not needed)
+  initSmoothScrolling();
+  initAnimations();
+  initCardParticles();
+  initGSAPAnimations(); // Add this line to use the function
+  initCanvasBackground(); // Add this line to use the function
+});
+const toggle = document.getElementById('menuToggle');
+const menu = document.getElementById('menuBox');
+
+toggle.addEventListener('change', () => {
+  if (toggle.checked) {
+    menu.classList.add('show');
+  } else {
+    menu.classList.remove('show');
+  }
 });
 
-// --- Menu Burger ---
-function initMenuToggle() {
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const checkbox = menuToggle?.querySelector('input');
-
-  if (!menuToggle || !mobileMenu) return;
-
-  menuToggle.addEventListener('click', () => {
-    const isOpen = checkbox?.checked;
-    mobileMenu.classList.toggle('hidden', !isOpen);
-    document.body.classList.toggle('overflow-hidden', isOpen);
+document.querySelectorAll('.value').forEach(btn => {
+  btn.addEventListener('click', () => {
+    toggle.checked = false;
+    menu.classList.remove('show');
   });
-
-  mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      if (checkbox) checkbox.checked = false;
-      document.body.classList.remove('overflow-hidden');
-    });
-  });
-}
-
-// --- Section "Works" ---
-function initWorksToggle() {
-  const toggleWorksBtn = document.getElementById('toggle-works-btn');
+});
+function initWorksSection() {
+  const toggleWorksButton = document.getElementById('toggle-works-btn');
   const worksSection = document.getElementById('works-section');
+  
+  if (toggleWorksButton && worksSection) {
+    let isWorksVisible = false;
+    
+    toggleWorksButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleWorksVisibility();
+    });
 
-  toggleWorksBtn?.addEventListener('click', () => {
-    toggleWorksBtn.classList.toggle('active');
-    worksSection.classList.toggle('opened');
-
-    if (worksSection.classList.contains('opened')) {
-      setTimeout(() => {
-        worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
+    function toggleWorksVisibility() {
+      isWorksVisible = !isWorksVisible;
+      
+      if (isWorksVisible) {
+        showWorksSection();
+      } else {
+        hideWorksSection();
+      }
     }
-  });
+function showWorksSection() {
+  worksSection.classList.remove('hidden');
+  worksSection.style.opacity = '1';
+  worksSection.style.transform = 'scaleY(1)';
+  toggleWorksButton.querySelector('.btn-hero__text').textContent = 'HIDE WORKS';
+  
+  // Scroll to section after a brief delay
+  setTimeout(() => {
+    worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
 }
 
+function hideWorksSection() {
+  worksSection.style.opacity = '0';
+  worksSection.style.transform = 'scaleY(0)';
+  toggleWorksButton.querySelector('.btn-hero__text').textContent = 'VIEW MY WORKS';
+  
+  // Hide after animation completes
+  setTimeout(() => {
+    worksSection.classList.add('hidden');
+  }, 500);
+}
+
+// Initialize works section as hidden
+worksSection.classList.add('hidden');
+worksSection.style.opacity = '0';
+worksSection.style.transform = 'scaleY(0)';
 // --- Panels Redirection ---
-function initPanelClicks() {
-  document.getElementById('design-panel')?.addEventListener('click', function (e) {
-    if (!e.target.closest('button')) {
-      e.preventDefault();
-      animatePanelClick(this, '/design-projects.html');
-    }
-  });
-
-  document.getElementById('programming-panel')?.addEventListener('click', function (e) {
-    if (!e.target.closest('button')) {
-      e.preventDefault();
-      animatePanelClick(this, '/coding-projects.html');
-    }
-  });
-}
+// function initPanelClicks() {
+//   document.getElementById('design-panel')?.addEventListener('click', function (e) {
+//     if (!e.target.closest('button')) {
+//       e.preventDefault();
+//       animatePanelClick(this, '/design-projects.html');
+//     }
+//   });
+//
+//   document.getElementById('programming-panel')?.addEventListener('click', function (e) {
+//     if (!e.target.closest('button')) {
+//       e.preventDefault();
+//       animatePanelClick(this, '/coding-projects.html');
+//     }
+//   });
+// }
 
 // --- Portfolio Content Toggles ---
-function initPortfolioControls() {
-  document.querySelectorAll('[onclick^="hidePortfolioContent"]').forEach(btn => {
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      const type = this.getAttribute('onclick').match(/'([^']+)'/)[1];
-      hidePortfolioContent(type);
-    });
-  });
-
-  document.querySelectorAll('[onclick="hideAllCollapsibleSections()"]').forEach(btn => {
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      hideAllCollapsibleSections();
-    });
-  });
-}
-
-function hidePortfolioContent(type) {
-  const section = document.getElementById(`${type}-portfolio-content`);
-  section?.classList.add('hidden');
-  document.getElementById('toggle-works-btn')?.classList.remove('active');
-  document.getElementById('works-section')?.classList.remove('hidden');
-  document.body.classList.remove('overflow-hidden');
-}
-
-function hideAllCollapsibleSections() {
-  document.querySelectorAll('.collapsible-section').forEach(section => {
-    section.classList.add('hidden');
-  });
-  document.body.classList.remove('overflow-hidden');
-}
+// function initPortfolioControls() {
+//   document.querySelectorAll('[onclick^="hidePortfolioContent"]').forEach(btn => {
+//     btn.addEventListener('click', function (e) {
+//       e.stopPropagation();
+//       const type = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+//       hidePortfolioContent(type);
+//     });
+//   });
+//
+//   document.querySelectorAll('[onclick="hideAllCollapsibleSections()"]').forEach(btn => {
+//     btn.addEventListener('click', function (e) {
+//       e.stopPropagation();
+//       hideAllCollapsibleSections();
+//     });
+//   });
+// }
 
 // --- Animations with GSAP ---
+// This function initializes GSAP animations for fade-in and slide-in effects, including low opacity text on load.
 function initGSAPAnimations() {
-  if (!window.gsap || !ScrollTrigger) return;
+  if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.from('.gsap-fade-in-up', {
-    opacity: 0, y: 50, duration: 1, stagger: 0.2, ease: 'power2.out'
+  gsap.from('.hero-content', {
+    opacity: 0,
+    y: 40,
+    duration: 1,
+    delay: 0.3,
+    ease: 'power2.out'
   });
 
-  gsap.from('.gsap-zoom-in', {
-    opacity: 0, scale: 0.8, duration: 1, ease: 'back.out(1.7)'
-  });
-
-  gsap.from('.gsap-line', {
-    scaleX: 0, duration: 1, ease: 'power2.out'
-  });
-
-  gsap.from('.gsap-fade-in-left', {
-    scrollTrigger: { trigger: '#about', start: 'top 80%' },
-    opacity: 0, x: -50, duration: 0.8, stagger: 0.2, ease: 'power2.out'
-  });
-
-  gsap.from('.gsap-zoom-in-up', {
-    scrollTrigger: { trigger: '#article-section', start: 'top 80%' },
-    opacity: 0, y: 50, scale: 0.95, duration: 0.8, ease: 'back.out(1.7)'
-  });
-
-  gsap.from('.chart-container', {
-    scrollTrigger: { trigger: '#skills', start: 'top 80%' },
-    opacity: 0, y: 50, duration: 0.8, stagger: 0.2, ease: 'power2.out'
-  });
-
-  gsap.from('#contact-section form', {
-    scrollTrigger: { trigger: '#contact-section', start: 'top 80%' },
-    opacity: 0, y: 50, duration: 0.8, ease: 'power2.out'
+  gsap.utils.toArray('section').forEach((section, i) => {
+    gsap.from(section, {
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      },
+      opacity: 0,
+      y: 50,
+      duration: 0.8,
+      delay: i * 0.1,
+      ease: 'power2.out'
+    });
   });
 }
+  if (!window.gsap || !ScrollTrigger) return;
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // Hero animations
+  gsap.from('.hero-content', {
+    opacity: 0,
+    y: 40,
+    duration: 1,
+    delay: 0.3,
+    ease: 'power2.out'
+  });
 
+  // Section animations
+  gsap.utils.toArray('section').forEach((section, i) => {
+    gsap.from(section, {
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      },
+      opacity: 0,
+      y: 50,
+      duration: 0.8,
+      delay: i * 0.1,
+      ease: 'power2.out'
+    });
+  });
+}
 // --- Canvas Background ---
 function initCanvasBackground() {
   const canvas = document.getElementById('background-canvas');
@@ -201,17 +229,42 @@ function handleFormSubmit() {
   const contactForm = document.querySelector('#contact-section form');
   if (!contactForm) return;
 
-  contactForm.addEventListener('submit', function (e) {
+  contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
-
-    const name = document.getElementById('name')?.value;
-    const email = document.getElementById('email')?.value;
-    const message = document.getElementById('message')?.value;
-
-    console.log('Form submitted:', { name, email, message });
-    alert('Thank you for your message! I will get back to you soon.');
-    contactForm.reset();
+    
+    const formData = new FormData(contactForm);
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    
+    try {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Sending...';
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      contactForm.reset();
+      showNotification('Message sent successfully!');
+    } catch (error) {
+      showNotification('Error sending message. Please try again.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Send Message';
+    }
   });
+}
+
+function showNotification(message, type = 'success') {
+  const notification = document.createElement('div');
+  notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg ${
+    type === 'success' ? 'bg-green-500' : 'bg-red-500'
+  } text-white`;
+  notification.textContent = message;
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.classList.add('opacity-0', 'translate-y-2');
+    setTimeout(() => notification.remove(), 300);
+  }, 3000);
 }
 
 // --- Panel Animation + Redirect ---
@@ -270,3 +323,5 @@ function initCollapsibleSections() {
     });
   });
 }
+}
+
