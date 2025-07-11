@@ -114,7 +114,18 @@ function initGSAPAnimations() {
     delay: 0.3,
     ease: 'power2.out'
   });
-
+  gsap.from('.gsap-fade-in-up', {
+    scrollTrigger: {
+      trigger: '.gsap-fade-in-up',
+      start: 'top 85%',
+      toggleActions: 'play none none none'
+    },
+    y: 40,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power2.out'
+  });
+  
   gsap.utils.toArray('section').forEach((section, i) => {
     gsap.from(section, {
       scrollTrigger: {

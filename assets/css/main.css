@@ -19,6 +19,56 @@
   pointer-events: none;
   background: transparent;
 }
+.send-button {
+  font-family: inherit;
+  font-size: 20px;
+  background: #5EA08C;
+  color: white;
+  padding: 0.7em 1em;
+  padding-left: 0.9em;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.2s;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.send-button span {
+  display: block;
+  margin-left: 0.3em;
+  transition: all 0.3s ease-in-out;
+}
+
+.send-button svg {
+  display: block;
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.send-button:hover .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+.send-button:hover svg {
+  transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+.send-button:hover span {
+  opacity: 0;
+  transform: scale(0.9) translateX(20px);
+}
+
+.send-button:active {
+  transform: scale(0.95);
+}
+
+@keyframes fly-1 {
+  from { transform: translateY(0.1em); }
+  to { transform: translateY(-0.1em); }
+}
 
 /* Reset & Base */
 *, ::before, ::after {
@@ -62,20 +112,19 @@ a:focus, button:focus {
 
 /* Header */
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  background: rgba(30, 30, 30, 0.9);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 2rem;
+  height: 128px; /* ou h-20 en Tailwind */
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  overflow: visible;  z-index: 1000;
 }
+@media (min-width: 768px) {
+  .header {
+    height: 160px;
+  }
+}
+
 
 .logo {
   width: 4.5rem;
@@ -86,7 +135,7 @@ a:focus, button:focus {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: #1e1e1e;
+  background-color: #f3f4f6; /* ou #1e1e1e si dark */
   color: #ffd7d7;
   overflow-x: hidden;
 }
@@ -133,41 +182,26 @@ body {
   stroke-dashoffset: -32.42;
 }
 
-/* === Menu Box === */
 .menu-box {
   display: none;
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 0.3s ease;
-  background-color: #0d1117;
+  min-width: 200px;
+  background: #0d1117;
   padding: 10px;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-  transition: all 0.5s ease;
+  border-radius: 10px;
+  top: 100px !important;
+  left: 20px;
 }
 .menu-box.show {
   display: block;
-  opacity: 1;
-  transform: scale(1);
+  animation: fadeIn 0.3s ease-out forwards;
 }
 .menu-box.show .value {
   animation: fadeUp 0.4s ease-in-out;
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.menu-box.show {
-  display: block;
-  animation: appearFromBtn 0.4s ease-out forwards;
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes appearFromBtn {
@@ -179,6 +213,21 @@ body {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+}
+@import url('https://fonts.googleapis.com/css2?family=Miltonian&display=swap');
+
+.fantasy-button {
+  font-family: 'Miltonian', cursive;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+}
+
+.fantasy-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 /* === Menu Buttons (from your design) === */
@@ -415,7 +464,7 @@ section + section {
 .chart-container {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
+  transition: all 1s ease-out;
 }
 
 .animate-fade-in {
