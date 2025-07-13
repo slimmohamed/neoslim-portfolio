@@ -1,11 +1,21 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
-    "./src/**/*.{html,js,ts,jsx,tsx}",
-    "./*.html"
+    "./index.html",
+    "./pages/**/*.html",
+    "./assets/js/**/*.js"
   ],
   theme: {
     extend: {
+      fontFamily: {
+        glanity: ['Glanity', 'sans-serif'],
+        gastroe: ['Gastroe', 'sans-serif'],
+        nexa: ['Nexa', 'sans-serif'],
+        cocogoose: ['Cocogoose', 'sans-serif'],
+        madani: ['Madani', 'sans-serif'],
+        hargloves: ['Hargloves', 'sans-serif']
+
+      },
       colors: {
         dark: '#1E1E1E',
         light: '#F4F4F5',
@@ -19,7 +29,8 @@ export default {
       animation: {
         'float': 'float 6s ease-in-out infinite',
         'fade-in-up': 'fadeInUp 1s ease-out forwards',
-        'pulse-slow': 'pulse 4s ease-in-out infinite'
+        'pulse-slow': 'pulse 4s ease-in-out infinite',
+        'slide-in': 'slideInFromLeft 0.6s ease-out forwards'
       },
       keyframes: {
         float: {
@@ -33,32 +44,8 @@ export default {
       },
     }
   },
-  plugins: [],
-}
-module.exports = {
-  content: [
-    "./index.html",
-    "./pages/**/*.html",
-    "./assets/js/**/*.js"
-  ],
-  theme: {
-    extend: {
-      colors: {
-        dark: '#1E1E1E',
-        light: '#F4F4F5',
-        green: '#5EA08C',
-        beige: '#F5DEB3',
-        blue: '#2B6777',
-        lime: '#CFEF00',
-        border: '#3C3C3C'
-      },
-      animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'slide-in': 'slideInFromLeft 0.6s ease-out forwards'
-      }
-    }
-  },
   plugins: [
-    require('@tailwindcss/forms')
+    require('@tailwindcss/forms'),
+    require('flowbite/plugin')
   ]
 }
