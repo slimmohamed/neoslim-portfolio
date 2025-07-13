@@ -4,8 +4,8 @@
   src: url('/assets/fonts/Glanity.ttf') format('truetype');
 }
 @font-face {
-  font-family: 'Sugo Light';
-  src: url('/assets/fonts/Sugo-Light.ttf') format('truetype');
+  font-family: 'Libel';
+  src: url('/assets/fonts/Libel.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Nexa';
@@ -234,10 +234,10 @@
   
   .menu-box {
     min-width: 200px;
-    background: #0d1117;
+    background: #1012165d;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.474), 0 4px 16px rgba(0, 0, 0, 0.2);
     transform-origin: top left;
     position: absolute;
     top: 100%;
@@ -263,8 +263,6 @@
     visibility: hidden;
     transform: translateY(-10px) scale(0.95);
   }
-  /* === Menu Box === */
-  
   /* === Menu Buttons (from your design) === */
   .input {
     display: flex;
@@ -365,7 +363,7 @@
     border: none;
     cursor: pointer;
     padding: 0;
-    font-family: 'Sugo Light', sans-serif;
+    font-family: 'Libel', sans-serif;
     font-size: 4.5rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -383,7 +381,7 @@
     padding: 0 0.75rem;
     transition: all 0.4s ease;
     white-space: nowrap;
-    gap: 2rem; /* 🟢 Text farther from the arrow */
+    gap: 1.5rem; /* 🔧 réduit l'espace entre flèche et texte */
     box-shadow: none;
     border: 2px solid transparent;
   }
@@ -409,12 +407,14 @@
   
   button.learn-more .button-text {
     opacity: 0;
-    transform: translateX(0.2rem);
+    transform: translateX(-2rem);
     color: #2E2E2E;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     transition: all 0.4s ease;
     text-transform: uppercase;
     letter-spacing: 0.6px;
+    font-weight: 100; /* 🧵 thin text */
+
   }
   /* 🔁 Hover Effects */
   button.learn-more:hover .circle {
@@ -469,8 +469,8 @@
   }
 
   #programming-panel .learn-more .icon.arrow::before {
-    border-top: 0.125rem solid #023625;
-    border-right: 0.125rem solid #023625;
+    border-top: 0.125rem solid #ffffff;
+    border-right: 0.125rem solid #ffffff;
   }
 
   #programming-panel .learn-more .button-text {

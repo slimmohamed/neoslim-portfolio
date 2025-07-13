@@ -1,14 +1,20 @@
 {
     "cSpell.words": [
         "agrandir",
+        "cocogoose",
         "drow",
+        "gastroe",
+        "glanity",
         "GSAP",
         "incluant",
         "neoslim",
-        "Retour"
+        "nexa",
+        "Retour",
+        "Sugo"
     ],
     "sonarlint.connectedMode.project": {
         "connectionId": "slimmohamed",
         "projectKey": "slimmohamed_neoslim-portfolio"
-    }
+    },
+    "liveServer.settings.port": 5502
 }

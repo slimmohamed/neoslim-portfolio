@@ -1,6 +1,8 @@
 {
     "recommendations": [
         "codeium.codeium",
-        "continue.continue"
+        "continue.continue",
+        "noor.live-tailwind-previewer",
+        "ms-vscode.live-server"
     ]
 }
