@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Étude de Cas : Nom du Projet - Mohamed Slimani</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/css/main.css"> <style>
+        /* Styles spécifiques à la page d'étude de cas */
+        .tag-skill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .case-study-section {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body class="bg-dark text-light font-montserrat">
+
+    <header class="bg-dark/80 backdrop-blur-sm sticky top-0 z-50 border-b border-border">
+        <nav class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/index.html" class="text-xl font-bold text-light hover:text-green transition-colors">
+                Mohamed Slimani
+            </a>
+            <a href="/index.html#works-section" class="home-button-container group">
+                <i class="fas fa-arrow-left"></i>
+                <span class="home-button-text">Retour aux projets</span>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="text-center py-20 bg-border">
+            <div class="max-w-4xl mx-auto px-4">
+                <h1 class="text-4xl md:text-6xl font-bold text-light">Nom de Votre Projet</h1>
+                <p class="text-lg text-gray-300 mt-4">Une application web innovante pour résoudre [le problème principal].</p>
+                <div class="mt-8 flex flex-wrap justify-center gap-4">
+                    <span class="tag-skill bg-green/20 text-green">React</span>
+                    <span class="tag-skill bg-blue/20 text-blue">Node.js</span>
+                    <span class="tag-skill bg-yellow/20 text-yellow">Figma</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="max-w-6xl mx-auto px-4 -mt-10">
+            <img src="/assets/images/projet1-cover.jpg" alt="Bannière du projet" class="rounded-lg shadow-2xl w-full">
+        </div>
+
+        <section class="case-study-section">
+            <div class="max-w-4xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-center">
+                <div>
+                    <h3 class="text-gray-400 uppercase tracking-wider text-sm">Mon Rôle</h3>
+                    <p class="text-light text-xl font-semibold mt-1">Développeur Full-Stack & UI Designer</p>
+                </div>
+                <div>
+                    <h3 class="text-gray-400 uppercase tracking-wider text-sm">Durée</h3>
+                    <p class="text-light text-xl font-semibold mt-1">3 Mois (2024)</p>
+                </div>
+                <div>
+                    <h3 class="text-gray-400 uppercase tracking-wider text-sm">Client</h3>
+                    <p class="text-light text-xl font-semibold mt-1">Projet Personnel</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="case-study-section">
+            <div class="max-w-4xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-light mb-6">Le Défi</h2>
+                <p class="text-lg text-gray-300 leading-relaxed">
+                    Décrivez ici le problème de départ. Quel était l'objectif ? Quels étaient les points de douleur du client ou de l'utilisateur final ? Par exemple : "Les utilisateurs de la plateforme existante se plaignaient d'une interface surchargée et d'un processus de commande trop long, entraînant un fort taux d'abandon de panier."
+                </p>
+            </div>
+        </section>
+        
+        <section class="case-study-section">
+            <div class="max-w-4xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-light mb-6">Mon Processus & Approche</h2>
+                <p class="text-lg text-gray-300 leading-relaxed mb-8">
+                    C'est ici que vous montrez votre travail de réflexion. Expliquez les étapes que vous avez suivies.
+                </p>
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-green">1. Recherche & Design (UI/UX)</h3>
+                        <p class="text-gray-300 mt-2">J'ai commencé par des ateliers avec le client pour définir les personas. Ensuite, j'ai créé des wireframes basse-fidélité, puis des maquettes haute-fidélité sur Figma, en me concentrant sur la simplification du parcours utilisateur.</p>
+                        <img src="/assets/images/projet1-wireframes.jpg" alt="Wireframes du projet" class="rounded-lg shadow-lg w-full mt-4">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-green">2. Développement Technique</h3>
+                        <p class="text-gray-300 mt-2">Pour le front-end, j'ai choisi React pour sa réactivité. Côté back-end, une API RESTful avec Node.js et Express a été mise en place pour gérer les données de manière sécurisée et efficace.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="case-study-section">
+            <div class="max-w-4xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-light mb-6">La Solution</h2>
+                <p class="text-lg text-gray-300 leading-relaxed mb-8">
+                    Présentez le résultat final. Une nouvelle application web performante avec un design épuré. Le processus de commande a été réduit de 5 à 2 étapes.
+                </p>
+                <img src="/assets/images/projet1-final.jpg" alt="Maquette finale du projet" class="rounded-lg shadow-2xl w-full">
+                <div class="text-center mt-8">
+                    <a href="#" target="_blank" class="button btn-code">Voir le site en direct</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-light py-8 px-4 mt-12 shadow-inner border-t border-border">
+      </footer>
+
+</body>
+</html>

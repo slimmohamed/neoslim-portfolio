@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   handleFormSubmit();
   
+  // Initialize scroll to top button
+  initScrollToTop();
+  
   // Initialize charts with delay to ensure DOM is ready
   setTimeout(() => {
     console.log('Initializing charts...');
@@ -67,6 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 3000);
 
+  // Additional fallback: Initialize charts when window loads
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if (!radarChart || !barChart) {
+        console.log('Window load fallback chart initialization...');
+        createRadarChart();
+        createBarChart();
+      }
+    }, 1000);
+  });
+
   // Test function - you can call this in browser console: testCharts()
   window.testCharts = function() {
     console.log('Testing charts...');
@@ -104,11 +118,13 @@ function createRadarChart() {
   console.log('Radar canvas style:', ctx.style.width, ctx.style.height);
   console.log('Radar canvas display:', window.getComputedStyle(ctx).display);
 
-  // Set canvas dimensions
+  // Set canvas dimensions explicitly
   ctx.style.width = '100%';
   ctx.style.height = '100%';
+  ctx.style.display = 'block';
+  ctx.style.minHeight = '300px';
 
-    try {
+  try {
     radarChart = new Chart(ctx, {
       type: 'radar',
       data: {
@@ -148,6 +164,8 @@ function createRadarChart() {
       }
     });
     console.log('Radar chart created successfully');
+    console.log('Radar chart instance:', radarChart);
+    console.log('Radar chart canvas visible:', ctx.offsetWidth > 0 && ctx.offsetHeight > 0);
   } catch (error) {
     console.error('Error creating radar chart:', error);
   }
@@ -172,9 +190,11 @@ function createBarChart() {
   console.log('Bar canvas style:', ctx.style.width, ctx.style.height);
   console.log('Bar canvas display:', window.getComputedStyle(ctx).display);
 
-  // Set canvas dimensions
+  // Set canvas dimensions explicitly
   ctx.style.width = '100%';
   ctx.style.height = '100%';
+  ctx.style.display = 'block';
+  ctx.style.minHeight = '300px';
 
   // Data configuration
   const data = {
@@ -253,6 +273,8 @@ function createBarChart() {
       }
     });
     console.log('Bar chart created successfully');
+    console.log('Bar chart instance:', barChart);
+    console.log('Bar chart canvas visible:', ctx.offsetWidth > 0 && ctx.offsetHeight > 0);
   } catch (error) {
     console.error('Error creating bar chart:', error);
   }
@@ -359,7 +381,15 @@ function initWorksSection() {
         worksSection.classList.add('hidden');
       }, 500);
     }
-
+    if (localStorage.getItem("keepWorksOpen") === "true") {
+      worksSection.classList.remove("hidden");
+      localStorage.removeItem("keepWorksOpen"); // Clean it after
+    }
+  
+    // Toggle works section manually
+    worksToggleBtn?.addEventListener("click", () => {
+      worksSection.classList.toggle("hidden");
+    });
     worksSection.classList.add('hidden');
     worksSection.style.opacity = '0';
     worksSection.style.transform = 'scaleY(0)';
@@ -389,7 +419,7 @@ function initGSAPAnimations() {
     scrollTrigger: {
       trigger: '.gsap-fade-in-up',
       start: 'top 85%',
-      toggleActions: 'play none none none'
+      toggleActions: 'play reset play reset'
     },
     y: 40,
     opacity: 0,
@@ -612,6 +642,30 @@ function initSmoothScrolling() {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth' });
       }
+    });
+  });
+}
+
+// SCROLL TO TOP BUTTON FUNCTIONALITY
+
+function initScrollToTop() {
+  const scrollToTopBtn = document.getElementById('scrollToTop');
+  if (!scrollToTopBtn) return;
+
+  // Show/hide button based on scroll position
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+      scrollToTopBtn.classList.add('visible');
+    } else {
+      scrollToTopBtn.classList.remove('visible');
+    }
+  });
+
+  // Scroll to top when button is clicked
+  scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
     });
   });
 }
