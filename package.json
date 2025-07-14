@@ -1,7 +1,7 @@
 {
   "name": "neoslim-portfolio",
   "version": "1.0.0",
-  "description": "",
+  "description": "**Personal portfolio for Mohamed Slimani.**  \r Showcasing development, design, and animation projects with a modern UI.",
   "main": "tailwind.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -28,6 +28,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Slimmohamed/neoslim-portfolio.git"
-  }
+    "url": "git+https://github.com/Slimmohamed/neoslim-portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Slimmohamed/neoslim-portfolio/issues"
+  },
+  "homepage": "https://github.com/Slimmohamed/neoslim-portfolio#readme"
 }

@@ -8,6 +8,7 @@
   <!-- Consider bundling or using a CDN for styles shared across multiple pages -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/slimmohamed/neoslim-portfolio/assets/css/main.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
@@ -166,12 +167,18 @@
     </div>
   </footer>
   <script>
-    fetch("/assets/components/header.html")
+    fetch('/assets/components/header.html')
       .then(res => res.text())
       .then(data => {
-        document.getElementById("header-placeholder").innerHTML = data;
-      });
+        document.getElementById('header-placeholder').innerHTML = data;
+        // Re-initialiser les fonctionnalités liées au menu
+        if (typeof initHeaderMenu === 'function') {
+          initHeaderMenu();
+        }
+      })
+      .catch(err => console.error('Erreur de chargement du header:', err));
   </script>
+  
   <script src="../assets/js/main.js"></script>
 </body>
 </html>

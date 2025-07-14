@@ -1,40 +1,27 @@
-<!-- header.html -->
-<header class="fixed top-0 left-0 w-full z-50 h-40 md:h-44 bg-gray-900/95 backdrop-blur shadow-lg border-b border-gray-700 flex items-center justify-between px-6">
+<!-- Header Component -->
+<header class="fixed top-0 left-0 w-full z-50 h-40 md:h-44 bg-dark/90 backdrop-blur shadow-lg border-b border-border flex items-center justify-between px-6">
   <div class="relative">
-    <button id="menuToggleBtn" class="hamburger" aria-label="Toggle menu" type="button">
-      <svg viewBox="0 0 32 32">
-        <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 ..."></path>
-        <path class="line" d="M7 16 27 16"></path>
+    <label class="hamburger" for="menuToggle" aria-label="Toggle menu">
+      <input type="checkbox" id="menuToggle">
+      <svg viewBox="0 0 32 32" class="h-8 w-8">
+        <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22" />
+        <path class="line" d="M7 16 27 16" />
       </svg>
-    </button>
-    <div id="menuBox" class="menu-box hidden">
-      <a href="../index.html#hero"><button class="value">Accueil</button></a>
-      <a href="../index.html#works-section"><button class="value">Projets</button></a>
-      <a href="../index.html#about"><button class="value">À propos</button></a>
-      <a href="../index.html#skills"><button class="value">Compétences</button></a>
-      <a href="../index.html#article-section"><button class="value">Articles</button></a>
-      <a href="../index.html#contact"><button class="value">Contact</button></a>
+    </label>
+
+    <!-- Menu Box -->
+    <div id="menuBox" class="menu-box hidden absolute top-full left-0 bg-dark border border-border rounded shadow-md p-4 space-y-2">
+      <a href="/index.html#hero"><button class="value">Accueil</button></a>
+      <a href="/index.html#works-section"><button class="value">Projets</button></a>
+      <a href="/index.html#about"><button class="value">À propos</button></a>
+      <a href="/index.html#skills"><button class="value">Compétences</button></a>
+      <a href="/index.html#article-section"><button class="value">Articles</button></a>
+      <a href="/index.html#contact"><button class="value">Contact</button></a>
     </div>
-    <script>
-      // Simple toggle for menu
-      const btn = document.getElementById('menuToggleBtn');
-      const menu = document.getElementById('menuBox');
-      btn.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
-      });
-      // Optional: close menu when clicking a link (for mobile UX)
-      menu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => menu.classList.add('hidden'));
-      });
-      // Optional: close menu on outside click
-      document.addEventListener('click', e => {
-        if (!btn.contains(e.target) && !menu.contains(e.target)) {
-          menu.classList.add('hidden');
-        }
-      });
-    </script>
   </div>
+
+  <!-- Logo -->
   <div class="mx-auto">
-    <img src="../assets/images/neoslim-logo.gif" alt="Logo" class="h-40 w-auto drop-shadow-xl">
+    <img src="/assets/images/neoslim-logo.gif" alt="Logo Mohamed Slimani" class="h-32 md:h-40 w-auto drop-shadow-xl">
   </div>
 </header>

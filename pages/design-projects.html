@@ -4,203 +4,76 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Design Projects - Mohamed Slimani</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+  <!-- Fonts & Styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="/assets/css/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="/assets/css/main.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
+
 <body class="bg-gray-900 text-gray-100 font-montserrat overflow-x-hidden relative">
-  <!-- Header -->
+
+  <!-- Header dynamique -->
   <div id="header-placeholder"></div>
 
-  <!-- Main Content -->
+  <!-- Main content -->
   <main class="pt-44 md:pt-48">
-    <!-- Navigation Buttons -->
     <div class="container mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
-        <a aria-label href="/index.html#works-section" onclick="localStorage.setItem('keepWorksOpen','true')" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-100 px-4 py-2 rounded-lg transition-colors border border-gray-700">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
-          Go back
+        <a href="/index.html#works-section" onclick="localStorage.setItem('keepWorksOpen','true')" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-100 px-4 py-2 rounded-lg transition-colors border border-gray-700">
+          <i class="fas fa-arrow-left"></i> Go back
         </a>
-        <a aria-label href="/index.html" class="flex items-center gap-2 bg-emerald-900 hover:bg-emerald-800 text-emerald-100 px-4 py-2 rounded-lg transition-colors border border-emerald-700">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-          </svg>
-          Go Home
+        <a href="/index.html" class="flex items-center gap-2 bg-emerald-900 hover:bg-emerald-800 text-emerald-100 px-4 py-2 rounded-lg transition-colors border border-emerald-700">
+          <i class="fas fa-home"></i> Go Home
         </a>
       </div>
     </div>
 
-    <!-- Hero Section -->
     <section class="container mx-auto px-6 py-12">
       <div class="flex justify-center mb-8 gsap-fade-in-up">
-        <img src="../assets/images/dp.png" alt="Design Portfolio Logo" class="h-32 transition duration-500 hover:brightness-125 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+        <img src="/assets/images/dp.png" alt="Design Portfolio Logo" class="h-32 transition duration-500 hover:brightness-125 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
       </div>
-      
       <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto gsap-fade-in-up">
         Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.
       </p>
     </section>
 
-    <!-- Projects Grid -->
     <section class="py-20 px-4 bg-gray-900">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-4xl font-bold text-amber-400 mb-12 text-center prestigious-text gsap-fade-in-up">Mes Projets Design</h2>
-        
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Project 1 -->
-          <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-700 gsap-fade-in-up">
-            <div class="aspect-video bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg mb-4 flex items-center justify-center">
-              <i class="fas fa-palette text-4xl text-white"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-100 mb-2">Brand Identity</h3>
-            <p class="text-gray-400 mb-4">Création d'identités visuelles complètes pour entreprises et startups.</p>
-            <div class="flex gap-2">
-              <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm border border-amber-700/50">Figma</span>
-              <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm border border-amber-700/50">Illustrator</span>
-            </div>
-          </div>
-
-          <!-- Project 2 -->
-          <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-700 gsap-fade-in-up">
-            <div class="aspect-video bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg mb-4 flex items-center justify-center">
-              <i class="fas fa-mobile-alt text-4xl text-white"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-100 mb-2">UI/UX Design</h3>
-            <p class="text-gray-400 mb-4">Interfaces utilisateur modernes et expériences utilisateur optimisées.</p>
-            <div class="flex gap-2">
-              <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm border border-amber-700/50">Figma</span>
-              <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm border border-amber-700/50">Sketch</span>
-            </div>
-          </div>
-
-          <!-- Project 3 -->
-          <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-700 gsap-fade-in-up">
-            <div class="aspect-video bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg mb-4 flex items-center justify-center">
-              <i class="fas fa-paint-brush text-4xl text-white"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-100 mb-2">Graphic Design</h3>
-            <p class="text-gray-400 mb-4">Designs graphiques créatifs pour supports print et digital.</p>
-            <div class="flex gap-2">
-              <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm border border-amber-700/50">Photoshop</span>
-              <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm border border-amber-700/50">Illustrator</span>
-            </div>
-          </div>
-
-          <!-- Project 4 -->
-          <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-700 gsap-fade-in-up">
-            <div class="aspect-video bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg mb-4 flex items-center justify-center">
-              <i class="fas fa-desktop text-4xl text-white"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-100 mb-2">Web Design</h3>
-            <p class="text-gray-400 mb-4">Création de sites web modernes avec une attention particulière à l'expérience utilisateur.</p>
-            <div class="flex gap-2">
-              <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm border border-amber-700/50">Figma</span>
-              <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm border border-amber-700/50">Adobe XD</span>
-            </div>
-          </div>
-
-          <!-- Project 5 -->
-          <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-700 gsap-fade-in-up">
-            <div class="aspect-video bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg mb-4 flex items-center justify-center">
-              <i class="fas fa-camera text-4xl text-white"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-100 mb-2">Photography</h3>
-            <p class="text-gray-400 mb-4">Photographie créative et retouche d'images pour projets commerciaux et artistiques.</p>
-            <div class="flex gap-2">
-              <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm border border-amber-700/50">Lightroom</span>
-              <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm border border-amber-700/50">Photoshop</span>
-            </div>
-          </div>
-
-          <!-- Project 6 -->
-          <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-700 gsap-fade-in-up">
-            <div class="aspect-video bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg mb-4 flex items-center justify-center">
-              <i class="fas fa-video text-4xl text-white"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-100 mb-2">Motion Design</h3>
-            <p class="text-gray-400 mb-4">Animations et vidéos créatives pour supports marketing et réseaux sociaux.</p>
-            <div class="flex gap-2">
-              <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm border border-amber-700/50">After Effects</span>
-              <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm border border-amber-700/50">Premiere Pro</span>
-            </div>
-          </div>
-        </div>
+        <h2 class="text-4xl font-bold text-amber-400 mb-12 text-center prestigious-text gsap-fade-in-up">
+          Mes Projets Design
+        </h2>
+        <!-- Place tes blocs de projets ici -->
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-100 py-8 px-4 mt-12 shadow-inner border-t border-gray-700">
-    <div class="max-w-6xl mx-auto flex flex-col items-center gap-6">
-      <img src="/assets/images/neoslim-logo.gif" alt="Logo Mohamed Slimani" class="h-12 w-auto rounded-full shadow-lg border-2 border-gray-700 mb-2" />
-      <ul class="flex flex-wrap items-center gap-6 text-sm font-medium justify-center">
-        <li>
-          <a href="#" class="hover:text-amber-400 transition-colors">About</a>
-        </li>
-        <li>
-          <a href="#" class="hover:text-amber-400 transition-colors">Privacy Policy</a>
-        </li>
-        <li>
-          <a href="#" class="hover:text-amber-400 transition-colors">Licensing</a>
-        </li>
-        <li>
-          <a href="#" class="hover:text-amber-400 transition-colors">Contact</a>
-        </li>
-      </ul>
-      <div class="flex gap-4 justify-center mt-4">
-        <a href="#" class="hover:text-amber-400 transition-colors" aria-label="LinkedIn">
-          <i class="fab fa-linkedin fa-lg"></i>
-        </a>
-        <a href="#" class="hover:text-amber-400 transition-colors" aria-label="GitHub">
-          <i class="fab fa-github fa-lg"></i>
-        </a>
-        <a href="#" class="hover:text-amber-400 transition-colors" aria-label="Email">
-          <i class="fas fa-envelope fa-lg"></i>
-        </a>
-      </div>
-    </div>
-    <hr class="my-6 border-emerald-700/40" />
-    <div class="text-center text-xs text-gray-400">
-      &copy; 2025 Mohamed Slimani. All rights reserved.
-    </div>
-  </footer>
+  <!-- Header injection et script JS dynamique -->
   <script>
-    fetch("/assets/components/header.html")
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById("header-placeholder").innerHTML = data;
-      });
-      
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch('/assets/components/header.html')
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById('header-placeholder').innerHTML = data;
+
+          const script = document.createElement('script');
+          script.src = '/assets/js/main.js';
+          script.onload = () => {
+            if (typeof initHeaderMenu === 'function') initHeaderMenu();
+          };
+          document.body.appendChild(script);
+        })
+        .catch(err => console.error('Erreur lors du chargement du header :', err));
+    });
   </script>
-  <script>
-    function redirectWithEffect(url, type) {
-      const body = document.body;
-    
-      if (type === 'fade') {
-        gsap.to(body, {
-          opacity: 0,
-          duration: 0.6,
-          onComplete: () => window.location.href = url
-        });
-      } else if (type === 'slide') {
-        gsap.to(body, {
-          x: '-100%',
-          opacity: 0,
-          duration: 0.6,
-          ease: 'power1.inOut',
-          onComplete: () => window.location.href = url
-        });
-      } else {
-        window.location.href = url;
-      }
-    }
-  </script>
-  <script src="/assets/js/main.js"></script>
+
 </body>
 </html>

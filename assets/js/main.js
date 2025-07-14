@@ -301,8 +301,7 @@ function initMenuToggle() {
   if (hamburgerLabel) {
     hamburgerLabel.addEventListener('click', (e) => {
       e.preventDefault();
-      const isCurrentlyVisible = menu.classList.contains('show');
-      
+      const isCurrentlyVisible = menu.classList.contains('block');
       if (isCurrentlyVisible) {
         hideMenu();
         menuToggle.checked = false;
@@ -330,14 +329,18 @@ function initMenuToggle() {
   });
 
   function showMenu() {
-    menu.classList.remove('hide');
-    menu.classList.add('show');
+    menu.classList.remove('hidden');
+    menu.classList.add('block');
   }
 
   function hideMenu() {
-    menu.classList.remove('show');
-    menu.classList.add('hide');
+    menu.classList.remove('block');
+    menu.classList.add('hidden');
   }
+}
+
+function initHeaderMenu() {
+  initMenuToggle();
 }
 
 // WORKS SECTION TOGGLE
