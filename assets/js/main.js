@@ -5,13 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initWorksSection();
   initSmoothScrolling();
   initAnimations();
+  initHeaderMenu();
   initCardParticles();
   initGSAPAnimations();
   initCanvasBackground();
   initAnchorNavigation();
   initNavigationButtons();
   initCollapsibleSections();
-
   handleFormSubmit();
   
   // Initialize scroll to top button
@@ -283,68 +283,36 @@ function createBarChart() {
 function initMenuToggle() {
   const menuToggle = document.getElementById('menuToggle');
   const menu = document.getElementById('menuBox');
-  
   if (!menuToggle || !menu) return;
 
-  // Handle checkbox change
-  menuToggle.addEventListener('change', (e) => {
-    const isChecked = e.target.checked;
-    if (isChecked) {
-      showMenu();
-    } else {
-      hideMenu();
-    }
+  // Toggle menu visibility
+  menuToggle.addEventListener('change', () => {
+    menu.classList.toggle('hidden', !menuToggle.checked);
+    menu.classList.toggle('block', menuToggle.checked);
   });
 
-  // Handle label click for toggle
-  const hamburgerLabel = menuToggle.closest('.hamburger');
-  if (hamburgerLabel) {
-    hamburgerLabel.addEventListener('click', (e) => {
-      e.preventDefault();
-      const isCurrentlyVisible = menu.classList.contains('block');
-      if (isCurrentlyVisible) {
-        hideMenu();
-        menuToggle.checked = false;
-      } else {
-        showMenu();
-        menuToggle.checked = true;
-      }
+  // Hide menu when clicking a menu item
+  menu.querySelectorAll('.value').forEach(btn => {
+    btn.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      menu.classList.remove('block');
+      menuToggle.checked = false;
     });
-  }
+  });
 
-  // Close menu when clicking outside
+  // Hide menu when clicking outside
   document.addEventListener('click', (e) => {
-    if (!menu.contains(e.target) && !menuToggle.contains(e.target) && !hamburgerLabel.contains(e.target)) {
-      hideMenu();
+    if (!menu.contains(e.target) && !menuToggle.contains(e.target) && !e.target.closest('.hamburger')) {
+      menu.classList.add('hidden');
+      menu.classList.remove('block');
       menuToggle.checked = false;
     }
   });
-
-  // Close menu when clicking on menu items
-  document.querySelectorAll('.value').forEach(button => {
-    button.addEventListener('click', () => {
-      hideMenu();
-      menuToggle.checked = false;
-    });
-  });
-
-  function showMenu() {
-    menu.classList.remove('hidden');
-    menu.classList.add('block');
-  }
-
-  function hideMenu() {
-    menu.classList.remove('block');
-    menu.classList.add('hidden');
-  }
 }
-
 function initHeaderMenu() {
   initMenuToggle();
 }
-
 // WORKS SECTION TOGGLE
-
 function initWorksSection() {
   const toggleWorksButton = document.getElementById('toggle-works-btn');
   const worksSection = document.getElementById('works-section');
@@ -380,20 +348,15 @@ function initWorksSection() {
         worksSection.classList.add('hidden');
       }, 500);
     }
+
     if (localStorage.getItem("keepWorksOpen") === "true") {
       worksSection.classList.remove("hidden");
-      localStorage.removeItem("keepWorksOpen"); // Clean it after
+      localStorage.removeItem("keepWorksOpen");
     }
-  
-    // Toggle works section manually
-    worksToggleBtn?.addEventListener("click", () => {
-      worksSection.classList.toggle("hidden");
-    });
+
     worksSection.classList.add('hidden');
     worksSection.style.opacity = '0';
     worksSection.style.transform = 'scaleY(0)';
-  }
-}
 // Back button animation handler
 function initBackButtons() {
   document.querySelectorAll('.back-button-container').forEach(btn => {
@@ -646,7 +609,6 @@ function initSmoothScrolling() {
 }
 
 // SCROLL TO TOP BUTTON FUNCTIONALITY
-
 function initScrollToTop() {
   const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
@@ -657,11 +619,14 @@ function initScrollToTop() {
       scrollToTopBtn.classList.add("hidden");
     }
   });
-  
+
   scrollToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-  
+}
+
+document.addEventListener('DOMContentLoaded', initScrollToTop);
+
 // Contact section animation
   function animateContactSection() {
     var section = document.getElementById('contact-section');

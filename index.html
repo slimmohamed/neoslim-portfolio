@@ -51,7 +51,7 @@
       }
     </style>
     <!-- Non-critical CSS -->
-    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
     
   </head>
 <body class="bg-dark text-light font-montserrat overflow-x-hidden relative">
@@ -60,6 +60,16 @@
 
   <!-- Background Canvas -->
   <canvas id="background-canvas" class="fixed inset-0 -z-10 w-full h-full"></canvas>
+<div class="fixed bottom-20 right-6 z-50">
+  <button id="scrollToTopBtn"
+    class="scrollToTopBtn-btn fixed bottom-6 right-6 z-50 p-3 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition hidden"
+    aria-label="Scroll to Top">
+    <svg class="scrolltop-icon" viewBox="0 0 384 512">
+      <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"></path>
+    </svg>
+  </button>
+</div>
+<!-- Scroll to Top Button -->
 
   <!-- Header -->
   <header class="fixed top-0 left-0 w-full z-50 h-40 md:h-44 bg-dark/90 backdrop-blur shadow-lg border-b border-border flex items-center justify-between px-6">
@@ -72,7 +82,7 @@
         </svg>
       </label>
 
-      <div id="menuBox" class="menu-box">
+      <div id="menuBox" class="menu-box hidden">
         <a href="#hero"><button class="value">Accueil</button></a>
         <a href="#works-section"><button class="value">Projets</button></a>
         <a href="#about"><button class="value">À propos</button></a>
@@ -634,13 +644,7 @@
     }
   }, 2000);
 </script>
-<script>
-  fetch("/assets/components/header.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("header-placeholder").innerHTML = data;
-    });
-</script>
+
 
  <!-- Scripts -->
  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
@@ -663,7 +667,7 @@
      console.log('Chart.js loaded successfully from CDN');
    }
  </script>
- <script src="/assets/js/main.js"></script>
+ <script src="../assets/js/main.js"></script>
  <script>
    gsap.from("#hero .gsap-line", { scaleX: 0, duration: 1, ease: "power2.out" });
    gsap.from("#hero .gsap-zoom-in", { scale: 0.6, opacity: 0, duration: 1, delay: 0.5 });
@@ -694,11 +698,7 @@
   
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-<button id="scrollToTopBtn" class="scrolltop-btn fixed bottom-8 right-8 z-50 hidden" aria-label="Scroll to top">
-  <svg class="scrolltop-icon" viewBox="0 0 384 512">
-    <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"></path>
-  </svg>
-</button>
+
 
 </body>
 </html>

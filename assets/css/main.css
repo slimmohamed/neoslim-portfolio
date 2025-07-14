@@ -1,3 +1,9 @@
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Miltonian&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lora:wght@600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@500&display=swap');
 
 @font-face {
   font-family: 'Glanity';
@@ -352,11 +358,9 @@
       transform: scale(1) translateY(0);
     }
   }
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Miltonian&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Lora:wght@600&display=swap');
+  /* Google Fonts imports should be at the very top of the CSS file, before any other rules. 
+     If this block is not at the top, move it there for best practice. 
+     Otherwise, the imports themselves are correct. */
 
   button.learn-more {
     background: transparent;
@@ -895,7 +899,6 @@ canvas {
   }
   
 
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@500&display=swap');
   /* ===== BACK BUTTON (existing - keep this) ===== */
 .back-button-container {
     width: 2.5rem;
@@ -1366,7 +1369,7 @@ canvas {
     transform: scale(1);
   }
 }
-.scrolltop-btn {
+.scrollToTopBtn {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
@@ -1385,26 +1388,26 @@ canvas {
   overflow: hidden;
 }
 
-.scrolltop-icon {
+.scrollToTopBtn-icon {
   width: 12px;
   transition-duration: 0.3s;
 }
 
-.scrolltop-icon path {
+.scrollToTopBtn-icon path {
   fill: white;
 }
 
-.scrolltop-btn:hover {
+.scrollToTopBtn:hover {
   width: 140px;
   border-radius: 50px;
   background-color: rgb(181, 160, 255);
 }
 
-.scrolltop-btn:hover .scrolltop-icon {
+.scrollToTopBtn:hover .scrollToTopBtn-icon {
   transform: translateY(-200%);
 }
 
-.scrolltop-btn::before {
+.scrollToTopBtn::before {
   position: absolute;
   bottom: -20px;
   content: "Back to Top";
@@ -1412,11 +1415,19 @@ canvas {
   font-size: 0px;
 }
 
-.scrolltop-btn:hover::before {
+.scrollToTopBtn:hover::before {
   font-size: 13px;
   opacity: 1;
   bottom: unset;
   transition-duration: 0.3s;
+}
+/* Facultatif, pour ajouter une animation d’apparition par exemple */
+#scrollToTopBtn {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#scrollToTopBtn:hover {
+  transform: scale(1.1);
 }
 
 @keyframes fadeInUpScale {
