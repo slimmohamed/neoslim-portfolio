@@ -1,11 +1,15 @@
 // Main JavaScript for Portfolio Website
 
+// Chart instances
+let radarChart = null;
+let barChart = null;
+
 document.addEventListener('DOMContentLoaded', () => {
   initMenuToggle();
+  initHeaderMenu();
   initWorksSection();
   initSmoothScrolling();
   initAnimations();
-  initHeaderMenu();
   initCardParticles();
   initGSAPAnimations();
   initCanvasBackground();
@@ -13,111 +17,73 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigationButtons();
   initCollapsibleSections();
   handleFormSubmit();
-  
-  // Initialize scroll to top button
   initScrollToTop();
-   // Initialize charts with delay to ensure DOM is ready
-   setTimeout(() => {
-    console.log('Initializing charts...');
-    console.log('Chart.js available:', typeof Chart !== 'undefined');
+
+  // Chart initialization logic
+  function tryInitCharts() {
     if (typeof Chart !== 'undefined') {
-      createBarChart();
-      createRadarChart();
-    } else {
-      console.log('Waiting for Chart.js to load...');
+      if (!barChart) createBarChart();
+      if (!radarChart) createRadarChart();
+      return true;
+    }
+    return false;
+  }
+
+  // Try to initialize charts after DOM is ready
+  setTimeout(() => {
+    if (!tryInitCharts()) {
       // Wait for Chart.js to load
       const checkChart = setInterval(() => {
-        if (typeof Chart !== 'undefined') {
-          console.log('Chart.js now available, creating charts...');
+        if (tryInitCharts()) {
           clearInterval(checkChart);
-          createBarChart();
-          createRadarChart();
         }
       }, 100);
     }
   }, 1000);
-  
+
   // Also initialize charts when skills section comes into view
   const skillsSection = document.getElementById('skills');
   if (skillsSection) {
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          console.log('Skills section visible, initializing charts...');
           setTimeout(() => {
-            if (typeof Chart !== 'undefined') {
-              if (!radarChart) createRadarChart();
-              if (!barChart) createBarChart();
-            } else {
-              console.log('Chart.js not available when skills section visible');
-            }
+            tryInitCharts();
           }, 500);
-          observer.unobserve(entry.target);
+          obs.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
-    
     observer.observe(skillsSection);
   }
 
   // Fallback: Initialize charts after a longer delay
   setTimeout(() => {
-    if (!radarChart || !barChart) {
-      console.log('Fallback chart initialization...');
-      createRadarChart();
-      createBarChart();
-    }
+    tryInitCharts();
   }, 3000);
 
   // Additional fallback: Initialize charts when window loads
   window.addEventListener('load', () => {
     setTimeout(() => {
-      if (!radarChart || !barChart) {
-        console.log('Window load fallback chart initialization...');
-        createRadarChart();
-        createBarChart();
-      }
+      tryInitCharts();
     }, 1000);
   });
 
   // Test function - you can call this in browser console: testCharts()
   window.testCharts = function() {
-    console.log('Testing charts...');
-    console.log('Chart.js available:', typeof Chart !== 'undefined');
-    console.log('Radar canvas:', document.getElementById('skillsRadarChart'));
-    console.log('Bar canvas:', document.getElementById('skillsBarChart'));
     createRadarChart();
     createBarChart();
   };
 });
 
-// CHARTS INITIALIZATION VALIDATION
-let radarChart, barChart;
+// CHARTS INITIALIZATION
 
 function createRadarChart() {
+  if (radarChart) return;
   const ctx = document.getElementById('skillsRadarChart');
-  console.log('Creating radar chart, ctx:', ctx);
-  if (!ctx) {
-    console.log('Radar chart canvas not found');
-    return;
-  }
-  if (radarChart) {
-    console.log('Radar chart already exists');
-    return;
-  }
+  if (!ctx) return;
+  if (typeof Chart === 'undefined') return;
 
-  // Check if Chart is available
-  if (typeof Chart === 'undefined') {
-    console.error('Chart.js is not loaded');
-    return;
-  }
-
-  // Debug canvas visibility
-  console.log('Radar canvas dimensions:', ctx.width, ctx.height);
-  console.log('Radar canvas style:', ctx.style.width, ctx.style.height);
-  console.log('Radar canvas display:', window.getComputedStyle(ctx).display);
-
-  // Set canvas dimensions explicitly
   ctx.style.width = '100%';
   ctx.style.height = '100%';
   ctx.style.display = 'block';
@@ -161,39 +127,21 @@ function createRadarChart() {
         }
       }
     });
-    console.log('Radar chart created successfully');
-    console.log('Radar chart instance:', radarChart);
-    console.log('Radar chart canvas visible:', ctx.offsetWidth > 0 && ctx.offsetHeight > 0);
   } catch (error) {
-    console.error('Error creating radar chart:', error);
+    radarChart = null;
   }
 }
 
 function createBarChart() {
+  if (barChart) return;
   const ctx = document.getElementById('skillsBarChart');
-  console.log('Creating bar chart, ctx:', ctx);
-  if (!ctx) {
-    console.log('Bar chart canvas not found');
-    return;
-  }
+  if (!ctx) return;
+  if (typeof Chart === 'undefined') return;
 
-  // Check if Chart is available
-  if (typeof Chart === 'undefined') {
-    console.error('Chart.js is not loaded');
-    return;
-  }
-
-  // Debug canvas visibility
-  console.log('Bar canvas dimensions:', ctx.width, ctx.height);
-  console.log('Bar canvas style:', ctx.style.width, ctx.style.height);
-  console.log('Bar canvas display:', window.getComputedStyle(ctx).display);
-
-  // Set canvas dimensions explicitly
   ctx.style.width = '100%';
   ctx.style.height = '100%';
   ctx.style.display = 'block';
 
-  // Data configuration
   const data = {
     labels: ['React', 'Node.js', 'Python', 'Figma', 'Adobe XD', 'Git'],
     datasets: [{
@@ -221,7 +169,6 @@ function createBarChart() {
     }]
   };
 
-  // Create the chart with particle effects
   try {
     barChart = new Chart(ctx, {
       type: 'bar',
@@ -231,10 +178,7 @@ function createBarChart() {
         responsive: true,
         maintainAspectRatio: false,
         animation: {
-          duration: 2000,
-          onComplete: () => {
-            console.log('Bar chart animation completed');
-          }
+          duration: 2000
         },
         scales: {
           x: {
@@ -269,14 +213,10 @@ function createBarChart() {
         }
       }
     });
-    console.log('Bar chart created successfully');
-    console.log('Bar chart instance:', barChart);
-    console.log('Bar chart canvas visible:', ctx.offsetWidth > 0 && ctx.offsetHeight > 0);
   } catch (error) {
-    console.error('Error creating bar chart:', error);
+    barChart = null;
   }
 }
-
 
 // MENU TOGGLE
 
@@ -309,62 +249,72 @@ function initMenuToggle() {
     }
   });
 }
+
 function initHeaderMenu() {
-  initMenuToggle();
+  // This function is kept for backward compatibility, but is redundant.
+  // It just calls initMenuToggle, which is already called in DOMContentLoaded.
 }
+
 // WORKS SECTION TOGGLE
 function initWorksSection() {
   const toggleWorksButton = document.getElementById('toggle-works-btn');
   const worksSection = document.getElementById('works-section');
-  if (toggleWorksButton && worksSection) {
-    let isWorksVisible = false;
+  if (!toggleWorksButton || !worksSection) return;
 
-    toggleWorksButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      toggleWorksVisibility();
-    });
+  let isWorksVisible = false;
 
-    function toggleWorksVisibility() {
-      isWorksVisible = !isWorksVisible;
-      if (isWorksVisible) showWorksSection();
-      else hideWorksSection();
-    }
+  toggleWorksButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleWorksVisibility();
+  });
 
-    function showWorksSection() {
-      worksSection.classList.remove('hidden');
-      worksSection.style.opacity = '1';
-      worksSection.style.transform = 'scaleY(1)';
-      toggleWorksButton.querySelector('.btn-hero__text').textContent = 'HIDE WORKS';
-      setTimeout(() => {
-        worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
-    }
+  function toggleWorksVisibility() {
+    isWorksVisible = !isWorksVisible;
+    if (isWorksVisible) showWorksSection();
+    else hideWorksSection();
+  }
 
-    function hideWorksSection() {
-      worksSection.style.opacity = '0';
-      worksSection.style.transform = 'scaleY(0)';
-      toggleWorksButton.querySelector('.btn-hero__text').textContent = 'VIEW MY WORKS';
-      setTimeout(() => {
-        worksSection.classList.add('hidden');
-      }, 500);
-    }
+  function showWorksSection() {
+    worksSection.classList.remove('hidden');
+    worksSection.style.opacity = '1';
+    worksSection.style.transform = 'scaleY(1)';
+    const btnText = toggleWorksButton.querySelector('.btn-hero__text');
+    if (btnText) btnText.textContent = 'HIDE WORKS';
+    setTimeout(() => {
+      worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
 
-    if (localStorage.getItem("keepWorksOpen") === "true") {
-      worksSection.classList.remove("hidden");
-      localStorage.removeItem("keepWorksOpen");
-    }
+  function hideWorksSection() {
+    worksSection.style.opacity = '0';
+    worksSection.style.transform = 'scaleY(0)';
+    const btnText = toggleWorksButton.querySelector('.btn-hero__text');
+    if (btnText) btnText.textContent = 'VIEW MY WORKS';
+    setTimeout(() => {
+      worksSection.classList.add('hidden');
+    }, 500);
+  }
 
+  if (localStorage.getItem("keepWorksOpen") === "true") {
+    worksSection.classList.remove("hidden");
+    localStorage.removeItem("keepWorksOpen");
+    isWorksVisible = true;
+    showWorksSection();
+  } else {
     worksSection.classList.add('hidden');
     worksSection.style.opacity = '0';
     worksSection.style.transform = 'scaleY(0)';
-// Back button animation handler
+  }
+}
+
+// BACK BUTTONS
 function initBackButtons() {
   document.querySelectorAll('.back-button-container').forEach(btn => {
     btn.addEventListener('click', () => window.history.back());
   });
 }
-// SCROLL ANIMATIONS (GSAP)
 
+// SCROLL ANIMATIONS (GSAP)
 function initGSAPAnimations() {
   if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
@@ -407,14 +357,16 @@ function initGSAPAnimations() {
 }
 
 // CANVAS BACKGROUND ANIMATION
-
 function initCanvasBackground() {
   const canvas = document.getElementById('background-canvas');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
 
   const particles = [];
   const particleCount = window.innerWidth < 768 ? 30 : 60;
@@ -456,23 +408,17 @@ function initCanvasBackground() {
 
   animate();
 
-  window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
+  window.addEventListener('resize', resizeCanvas);
 }
 
 // CONTACT FORM HANDLING
-
 function handleFormSubmit() {
   const contactForm = document.querySelector('#contact-section form');
   if (!contactForm) return;
 
   contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const formData = new FormData(contactForm);
     const submitBtn = contactForm.querySelector('button[type="submit"]');
-
     try {
       submitBtn.disabled = true;
       submitBtn.innerHTML = 'Sending...';
@@ -490,7 +436,7 @@ function handleFormSubmit() {
 
 function showNotification(message, type = 'success') {
   const notification = document.createElement('div');
-  notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} text-white`;
+  notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} text-white transition-all duration-300`;
   notification.textContent = message;
   document.body.appendChild(notification);
 
@@ -501,14 +447,14 @@ function showNotification(message, type = 'success') {
 }
 
 // ANCHOR SCROLLING
-
 function initAnchorNavigation() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-      e.preventDefault();
       const targetId = this.getAttribute('href');
+      if (!targetId || targetId === '#') return;
       const target = document.querySelector(targetId);
       if (target) {
+        e.preventDefault();
         window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
       }
     });
@@ -516,7 +462,6 @@ function initAnchorNavigation() {
 }
 
 // NAVIGATION BUTTON REDIRECT
-
 function initNavigationButtons() {
   document.querySelectorAll('.navigate-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -527,7 +472,6 @@ function initNavigationButtons() {
 }
 
 // COLLAPSIBLE SECTIONS
-
 function initCollapsibleSections() {
   document.querySelectorAll('.collapsible-section').forEach(section => {
     section.addEventListener('click', function (e) {
@@ -540,7 +484,6 @@ function initCollapsibleSections() {
 }
 
 // SIMPLE SCROLLING ANIMATION
-
 function initAnimations() {
   const about = document.querySelector('.about-content');
   if (about) {
@@ -561,7 +504,6 @@ function initAnimations() {
 }
 
 // PARTICLE HOVER EFFECT ON CARDS
-
 function initCardParticles() {
   document.querySelectorAll('.bg-border').forEach(card => {
     card.addEventListener('mousemove', e => {
@@ -593,7 +535,6 @@ function initCardParticles() {
 }
 
 // DUPLICATED SCROLL FIX
-
 function initSmoothScrolling() {
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     if (!link.hash || link.hash === '#') return;
@@ -611,6 +552,7 @@ function initSmoothScrolling() {
 // SCROLL TO TOP BUTTON FUNCTIONALITY
 function initScrollToTop() {
   const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+  if (!scrollToTopBtn) return;
 
   window.addEventListener("scroll", () => {
     if (window.scrollY > 300) {
@@ -625,40 +567,37 @@ function initScrollToTop() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', initScrollToTop);
-
 // Contact section animation
-  function animateContactSection() {
-    var section = document.getElementById('contact-section');
-    if (!section) return;
-    var logo = document.getElementById('contact-logo');
-    var form = document.getElementById('contact-form-animated');
-    var fields = document.querySelectorAll('.contact-field');
-    var sectionRect = section.getBoundingClientRect();
-    var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+function animateContactSection() {
+  var section = document.getElementById('contact-section');
+  if (!section) return;
+  var logo = document.getElementById('contact-logo');
+  var form = document.getElementById('contact-form-animated');
+  var fields = document.querySelectorAll('.contact-field');
+  var sectionRect = section.getBoundingClientRect();
+  var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+  if (sectionRect.top < windowHeight - 100) {
+    section.classList.add('animate-in');
+    setTimeout(function() {
+      if (logo) logo.classList.add('animate-in');
+    }, 200);
+    setTimeout(function() {
+      if (form) form.classList.add('animate-in');
+    }, 400);
+    fields.forEach(function(field, i) {
+      setTimeout(function() {
+        field.classList.add('animate-in');
+      }, 600 + i * 120);
+    });
+    // Ensure animation only runs once
+    window.removeEventListener('scroll', animateContactSection);
+    if (window.location.hash === '#contact-section') {
+      setTimeout(() => section.scrollIntoView({ behavior: 'smooth' }), 100);
+    }
+    // Ensure scroll-to-top button hides if contact-section is in view
     if (sectionRect.top < windowHeight - 100) {
-      section.classList.add('animate-in');
-      setTimeout(function() {
-        if (logo) logo.classList.add('animate-in');
-      }, 200);
-      setTimeout(function() {
-        if (form) form.classList.add('animate-in');
-      }, 400);
-      fields.forEach(function(field, i) {
-        setTimeout(function() {
-          field.classList.add('animate-in');
-        }, 600 + i * 120);
-      });
-      // Ensure animation only runs once
-      window.removeEventListener('scroll', animateContactSection);
-      if (window.location.hash === '#contact-section') {
-        setTimeout(() => section.scrollIntoView({ behavior: 'smooth' }), 100);
-      }
-      // Ensure scroll-to-top button hides if contact-section is in view
-      if (sectionRect.top < windowHeight - 100) {
-        const btn = document.getElementById("scrollToTopBtn");
-        if (btn) btn.classList.add("hidden");
-      }
+      const btn = document.getElementById("scrollToTopBtn");
+      if (btn) btn.classList.add("hidden");
     }
   }
 }

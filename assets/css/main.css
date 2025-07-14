@@ -239,36 +239,38 @@
   }
   
   .menu-box {
-    min-width: 200px;
-    background: #1012165d;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.474), 0 4px 16px rgba(0, 0, 0, 0.2);
-    transform-origin: top left;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    margin-top: 10px;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(30, 30, 30, 0.95);
+    z-index: 20;
+    margin-top: 2.5rem;
+    border-radius: 18px;
+    padding: 0.5rem;
+    width: 220px;
+    pointer-events: auto;
     opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px) scale(0.95);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    font-family: 'Madani', sans-serif;
+  }
+  .menu-box a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
   }
   
-  .menu-box.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
+  .menu-box a::before {
+    font-family: "Madani";
+    font-weight: 900;
+    width: 20px;
+    display: inline-block;
   }
   
-  .menu-box.hide {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px) scale(0.95);
-  }
+  .menu-box a[href*="#hero"]::before { content: "\f015"; } /* home */
+  .menu-box a[href*="#works-section"]::before { content: "\f0e8"; } /* projects */
+  .menu-box a[href*="#about"]::before { content: "\f2bb"; } /* about */
+  .menu-box a[href*="#skills"]::before { content: "\f542"; } /* skills */
+  .menu-box a[href*="#article-section"]::before { content: "\f15c"; } /* articles */
+  .menu-box a[href*="#contact"]::before { content: "\f0e0"; } /* contact */
   /* === Menu Buttons (from your design) === */
   .input {
     display: flex;
@@ -281,24 +283,30 @@
     padding: 10px;
     overflow: hidden;
   }
-  
-  .value {
-    font-size: 15px;
-    background-color: transparent;
-    border: none;
-    padding: 10px;
-    color: white;
-    display: flex;
-    position: relative;
-    gap: 8px;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: 1s;
-    box-sizing: border-box;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  .menu-box.block {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
+ .value {
+  background-color: transparent;
+  border: none;
+  padding: 12px 16px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  cursor: pointer;
+  font-family: 'Lora', serif;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+.value:hover {
+  background-color: #21262C;
+}
+
   .value:not(:active):hover,
   .value:focus {
     border: 2px solid #1a1f24;
@@ -309,7 +317,7 @@
   
   .value:focus,
   .value:active {
-    background-color: #1a1f24;
+    background-color: #1A1F24;
     outline: none;
     margin-left: 17px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 3px 12px rgba(0, 0, 0, 0.2);
@@ -320,13 +328,13 @@
     content: "";
     position: absolute;
     top: 5px;
-    left: -15px;
+    left: -10px;
     width: 5px;
     height: 80%;
-    background-color: #2f81f7;
+    background-color: #2F81F7;
     border-radius: 5px;
     opacity: 0;
-    transition: 1s;
+    transition: opacity 0.3s ease;
   }
   
   .value:focus::before,
@@ -337,7 +345,10 @@
   .value svg {
     width: 20px;
   }
-  
+  .value i {
+    font-size: 1rem;
+    color: #7D8590;
+  }
   .input:hover > :not(.value:hover) {
     transition: 300ms;
     filter: blur(1.5px);
@@ -440,6 +451,7 @@
   min-height: 100%;
   width: auto;
   height: auto;
+  animation: fadeInScale 1.5s ease-out forwards;
   transform: translateX(-50%) translateY(-50%);
   z-index: -1;
 }
@@ -1058,14 +1070,27 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2.5rem 0 0 2rem; /* ⬅️ aligned left with margin */
+  margin: 2.5rem auto 0; /* Changed from margin-left: 2rem */
   background: transparent;
   border: none;
   cursor: pointer;
-  --line_color: #E6CCFF;
-  --back_color: #A259FF44;
+  --line_color: #5EA08C; /* Changed from #E6CCFF */
+  --back_color: #5EA08C44; /* Changed from #A259FF44 */
+}
+#hero video {
+  animation: fadeInScale 1.5s ease-out forwards;
 }
 
+@keyframes fadeInScale {
+  from { 
+    opacity: 0;
+    transform: translateX(-50%) translateY(-50%) scale(0.9);
+  }
+  to { 
+    opacity: 1;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+  }
+}
   
   .btn-hero__text {
     display: flex;
@@ -1421,24 +1446,34 @@ canvas {
   bottom: unset;
   transition-duration: 0.3s;
 }
-/* Facultatif, pour ajouter une animation d’apparition par exemple */
 #scrollToTopBtn {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #5EA08C;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 #scrollToTopBtn:hover {
-  transform: scale(1.1);
+  background: #2B6777;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
-@keyframes fadeInUpScale {
-  from { 
-    opacity: 0; 
-    transform: translateY(30px) scale(0.95);
-  }
-  to { 
-    opacity: 1; 
-    transform: translateY(0) scale(1);
-  }
+#scrollToTopBtn.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
 }
 
 .animate-fade-in {
@@ -1554,5 +1589,9 @@ canvas {
 
 .scroll-to-top:active {
   transform: translateY(-1px);
+}
+  
+.min-h-400 {
+  min-height: 400px;
 }
   
