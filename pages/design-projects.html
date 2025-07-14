@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="/assets/css/main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
@@ -22,13 +21,13 @@
     <!-- Navigation Buttons -->
     <div class="container mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
-        <a href="/index.html#works-section" onclick="localStorage.setItem('keepWorksOpen','true')" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-100 px-4 py-2 rounded-lg transition-colors border border-gray-700">
+        <a aria-label href="/index.html#works-section" onclick="localStorage.setItem('keepWorksOpen','true')" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-100 px-4 py-2 rounded-lg transition-colors border border-gray-700">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
           </svg>
           Go back
         </a>
-        <a href="/index.html" class="flex items-center gap-2 bg-emerald-900 hover:bg-emerald-800 text-emerald-100 px-4 py-2 rounded-lg transition-colors border border-emerald-700">
+        <a aria-label href="/index.html" class="flex items-center gap-2 bg-emerald-900 hover:bg-emerald-800 text-emerald-100 px-4 py-2 rounded-lg transition-colors border border-emerald-700">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
           </svg>
@@ -177,6 +176,30 @@
       .then(data => {
         document.getElementById("header-placeholder").innerHTML = data;
       });
+      
+  </script>
+  <script>
+    function redirectWithEffect(url, type) {
+      const body = document.body;
+    
+      if (type === 'fade') {
+        gsap.to(body, {
+          opacity: 0,
+          duration: 0.6,
+          onComplete: () => window.location.href = url
+        });
+      } else if (type === 'slide') {
+        gsap.to(body, {
+          x: '-100%',
+          opacity: 0,
+          duration: 0.6,
+          ease: 'power1.inOut',
+          onComplete: () => window.location.href = url
+        });
+      } else {
+        window.location.href = url;
+      }
+    }
   </script>
   <script src="/assets/js/main.js"></script>
 </body>
