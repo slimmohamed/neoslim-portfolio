@@ -16,9 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize scroll to top button
   initScrollToTop();
-  
-  // Initialize charts with delay to ensure DOM is ready
-  setTimeout(() => {
+   // Initialize charts with delay to ensure DOM is ready
+   setTimeout(() => {
     console.log('Initializing charts...');
     console.log('Chart.js available:', typeof Chart !== 'undefined');
     if (typeof Chart !== 'undefined') {
@@ -122,7 +121,6 @@ function createRadarChart() {
   ctx.style.width = '100%';
   ctx.style.height = '100%';
   ctx.style.display = 'block';
-  ctx.style.minHeight = '300px';
 
   try {
     radarChart = new Chart(ctx, {
@@ -194,7 +192,6 @@ function createBarChart() {
   ctx.style.width = '100%';
   ctx.style.height = '100%';
   ctx.style.display = 'block';
-  ctx.style.minHeight = '300px';
 
   // Data configuration
   const data = {
@@ -279,7 +276,6 @@ function createBarChart() {
     console.error('Error creating bar chart:', error);
   }
 }
-// Charts are initialized in the main DOMContentLoaded event listener
 
 
 // MENU TOGGLE
@@ -649,29 +645,21 @@ function initSmoothScrolling() {
 // SCROLL TO TOP BUTTON FUNCTIONALITY
 
 function initScrollToTop() {
-  const scrollToTopBtn = document.getElementById('scrollToTop');
-  if (!scrollToTopBtn) return;
+  const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
-  // Show/hide button based on scroll position
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-      scrollToTopBtn.classList.add('visible');
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      scrollToTopBtn.classList.remove("hidden");
     } else {
-      scrollToTopBtn.classList.remove('visible');
+      scrollToTopBtn.classList.add("hidden");
     }
   });
-
-  // Scroll to top when button is clicked
-  scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+  
+  scrollToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
-}
-
+  
 // Contact section animation
-(function() {
   function animateContactSection() {
     var section = document.getElementById('contact-section');
     if (!section) return;
@@ -693,9 +681,16 @@ function initScrollToTop() {
           field.classList.add('animate-in');
         }, 600 + i * 120);
       });
+      // Ensure animation only runs once
       window.removeEventListener('scroll', animateContactSection);
+      if (window.location.hash === '#contact-section') {
+        setTimeout(() => section.scrollIntoView({ behavior: 'smooth' }), 100);
+      }
+      // Ensure scroll-to-top button hides if contact-section is in view
+      if (sectionRect.top < windowHeight - 100) {
+        const btn = document.getElementById("scrollToTopBtn");
+        if (btn) btn.classList.add("hidden");
+      }
     }
   }
-  window.addEventListener('scroll', animateContactSection);
-  animateContactSection();
-})();
+}

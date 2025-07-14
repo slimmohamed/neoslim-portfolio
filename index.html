@@ -100,34 +100,12 @@
           muted
           class="w-full h-full object-cover"
           poster="/assets/images/fallback-poster.jpg" >
-          <source src="/assets/videos/intro.mp4" type="video/mp4">
+          <source src="/assets/videos/neo-intro.mp4" type="video/mp4">
           Désolé, votre navigateur ne supporte pas les vidéos intégrées.
         </video>
         <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
       </div>
     
-      <div class="relative z-10 text-center max-w-3xl text-white"> <p class="tracking-widest uppercase text-sm text-green">Bienvenue</p>
-        <span class="block w-16 h-0.5 bg-gray-400 mx-auto mt-2 gsap-line"></span>
-    
-        <div class="mt-8 flex justify-center gsap-zoom-in">
-          <div class="relative w-auto h-auto">
-            <img src="/assets/images/Pre.png" alt="Profil Mohamed Slimani" class="w-full h-full object-cover animate-float-smooth border-2 border-white/50 rounded-full shadow-lg">
-          </div>
-        </div>
-    
-        <h1 id="hero-title" class="text-2xl md:text-3xl mt-1 mb-0.5 text-center p-0 hero-title-hover">
-          <span class="sr-only">Hello Mohamed Slimani</span>
-          <img src="/assets/images/hello.png" alt="Hello" class="inline-block h-[0.8em] transition-transform duration-300 hover:scale-110 hover:-rotate-6" />
-        </h1>
-    
-        <button id="toggle-works-btn" class="btn-hero mt-2" type="button">
-          <div class="btn-hero__line"></div>
-          <div class="btn-hero__line"></div>
-          <span class="btn-hero__text">VIEW MY WORKS</span>
-          <div class="btn-hero__drow1"></div>
-          <div class="btn-hero__drow2"></div>
-        </button>
-      </div>
     </section>
 <!-- After Hero Section -->
 <div class="separator swirl transform rotate-180">
@@ -150,7 +128,7 @@
         <img src="assets/images/logodp.png" alt="Design Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
       </div>
       <p class="mb-8 text-white/90">Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.</p>
-      <button class="learn-more" onclick="localStorage.setItem('keepWorksOpen','true');redirectWithEffect('/pages/coding-projects.html','fade')">
+      <button class="learn-more" onclick="localStorage.setItem('keepWorksOpen','true');redirectWithEffect('/pages/design-projects.html','fade')">
         <span class="circle">
           <span class="icon arrow"></span>
           <span class="button-text">View Design Projects</span>
@@ -221,9 +199,14 @@
                 <p class="mt-4 text-lg text-gray-300 leading-relaxed">
                   Mon approche est centrée sur l'utilisateur. Je crois que le meilleur produit naît de la rencontre entre une technologie performante et un design réfléchi. Que je code en React ou que je prototype sur Figma, mon objectif reste le même : transformer des idées complexes en solutions simples et élégantes.
                 </p>
-                <div class="mt-8">
-                  <a href="#contact-section" class="inline-block button btn-code">Discutons de votre projet</a>
-                </div>
+                <div class="flex justify-start px-8">
+                  <button id="toggle-works-btn" class="btn-hero mt-2" type="button">
+                    <div class="btn-hero__line"></div>
+                    <div class="btn-hero__line"></div>
+                    <span class="btn-hero__text">VIEW MY WORKS</span>
+                    <div class="btn-hero__drow1"></div>
+                    <div class="btn-hero__drow2"></div>
+                  </button>                </div>
               </div>
         
             </div>
@@ -324,7 +307,7 @@
           <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path class="wave1" fill="#1e1e1e" d="M0,40 C150,80 350,0 500,40 C650,80 850,0 1000,40 C1150,80 1350,0 1500,40 L1500,120 L0,120 Z" opacity="0.3" />
             <path class="wave2" fill="#2c2219" d="M0,60 C150,100 350,20 500,60 C650,100 850,20 1000,60 C1150,100 1350,20 1500,60 L1500,120 L0,120 Z" opacity="0.6" />
-            <path class="wave3" fill="#2c2219" d="M0,80 C150,120 350,40 500,80 C650,120 850,40 1000,80 C1150,120 1350,40 1500,80 L1500,120 L0,120 Z" />
+            <path class="wave3" fill="#232929" d="M0,80 C150,120 350,40 500,80 C650,120 850,40 1000,80 C1150,120 1350,40 1500,80 L1500,120 L0,120 Z" />
           </svg>
         </div>
         
@@ -372,21 +355,18 @@
 
 <section id="contact-section" class="py-24 bg-dark relative overflow-hidden">
   <div class="max-w-4xl mx-auto px-4">
-    
     <div class="text-center mb-16">
       <img id="contact-logo" src="/assets/images/contact.png" alt="Contact" class="h-40 mx-auto mb-4 opacity-90 hover:scale-105 transition duration-500" />
       <h2 class="text-4xl md:text-5xl font-bold text-light">Construisons quelque chose ensemble.</h2>
       <p class="text-lg text-gray-400 mt-4">J'adorerais entendre parler de votre projet. Parlons-en.</p>
     </div>
-
-    <div class="grid md:grid-cols-2 gap-16 items-start">
-      
-      <div class="text-light">
+    <!-- Unified container for contact info and form -->
+    <div class="bg-border p-8 rounded-lg shadow-xl flex flex-col md:flex-row gap-12 items-start">
+      <div class="flex-1 text-light">
         <h3 class="text-2xl font-semibold text-green mb-4">Me joindre directement</h3>
         <p class="text-gray-400 mb-8">
           Si vous préférez ne pas utiliser le formulaire, voici d'autres moyens de me contacter. Je suis disponible pour des projets freelance, des collaborations ou simplement pour discuter de technologie et de design.
         </p>
-        
         <div class="space-y-6">
           <a href="mailto:mohamed.slimani.contact@gmail.com" class="flex items-center group">
             <i class="fas fa-envelope text-2xl text-green group-hover:text-beige transition-colors"></i>
@@ -402,38 +382,38 @@
           </a>
         </div>
       </div>
-
-      <div class="bg-border p-8 rounded-lg shadow-xl">
+      <div class="flex-1">
         <form action="https://formspree.io/f/xdkdnajl" method="POST" class="contact-form">
           <div class="form-group">
             <label class="form-label" for="name">Nom</label>
             <input type="text" id="name" name="name" class="form-input" placeholder="Votre nom" required title="Veuillez entrer votre nom">
           </div>
-        
           <div class="form-group">
             <label class="form-label" for="email">Email</label>
             <input type="email" id="email" name="email" class="form-input" placeholder="Votre email" required title="Veuillez entrer votre adresse email">
           </div>
-        
           <div class="form-group">
             <label class="form-label" for="message">Message</label>
             <textarea id="message" name="message" class="form-input" rows="5" placeholder="Votre message" required title="Veuillez entrer votre message"></textarea>
           </div>
-        
           <div class="flex justify-center">
-            <button type="submit" class="send-button">
-              <div class="svg-wrapper">
-                <svg height="24" width="24" viewBox="0 0 24 24">
-                  <path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="#fff" />
-                </svg>
+            <button id="send-button" class="sendbtn-button bg-[#5EA08C] hover:bg-[#4e8c7a] text-white" type="submit">
+              <div class="sendbtn-svg-wrapper-1">
+                <div class="sendbtn-svg-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path
+                      fill="currentColor"
+                      d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z">
+                    </path>
+                  </svg>
+                </div>
               </div>
-              <span>Envoyer</span>
+              <span>Send</span>
             </button>
           </div>
         </form>
-        
       </div>
-
     </div>
   </div>
 </section>
@@ -502,6 +482,11 @@
         </button>
     </main>
 
+<!-- Debug script for charts -->
+<script>
+  // Force chart creation after a short delay
+ 
+</script>
 <!-- Debug script for charts -->
 <script>
   // Force chart creation after a short delay
@@ -705,5 +690,11 @@
   
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+<button id="scrollToTopBtn" class="scrolltop-btn fixed bottom-8 right-8 z-50 hidden" aria-label="Scroll to top">
+  <svg class="scrolltop-icon" viewBox="0 0 384 512">
+    <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"></path>
+  </svg>
+</button>
+
 </body>
 </html>
