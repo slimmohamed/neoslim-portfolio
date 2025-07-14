@@ -14,6 +14,7 @@
         "nexa",
         "Retour",
         "scrolltop",
+        "sendbtn",
         "Sugo"
     ],
     "sonarlint.connectedMode.project": {

@@ -268,36 +268,33 @@ function initHeaderMenu() {
 function initWorksSection() {
   const toggleWorksButton = document.getElementById('toggle-works-btn');
   const worksSection = document.getElementById('works-section');
-  const hideWorksBtn = document.getElementById('hide-works-btn');
-  if (!toggleWorksButton || !worksSection || !hideWorksBtn) return;
+  if (!toggleWorksButton || !worksSection) return;
 
   let isWorksVisible = false;
 
   toggleWorksButton.addEventListener('click', (e) => {
     e.preventDefault();
-    isWorksVisible = !isWorksVisible;
-    if (isWorksVisible) {
-      worksSection.classList.remove('hidden');
-      worksSection.style.opacity = '1';
-      worksSection.style.transform = 'scaleY(1)';
-      const btnText = toggleWorksButton.querySelector('.btn-hero__text');
-      if (btnText) btnText.textContent = 'HIDE WORKS';
-      setTimeout(() => {
-        worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
-    } else {
-      worksSection.style.opacity = '0';
-      worksSection.style.transform = 'scaleY(0)';
-      const btnText = toggleWorksButton.querySelector('.btn-hero__text');
-      if (btnText) btnText.textContent = 'VIEW MY WORKS';
-      setTimeout(() => {
-        worksSection.classList.add('hidden');
-      }, 500);
-    }
+    toggleWorksVisibility();
   });
 
-  hideWorksBtn.addEventListener('click', () => {
-    isWorksVisible = false;
+  function toggleWorksVisibility() {
+    isWorksVisible = !isWorksVisible;
+    if (isWorksVisible) showWorksSection();
+    else hideWorksSection();
+  }
+
+  function showWorksSection() {
+    worksSection.classList.remove('hidden');
+    worksSection.style.opacity = '1';
+    worksSection.style.transform = 'scaleY(1)';
+    const btnText = toggleWorksButton.querySelector('.btn-hero__text');
+    if (btnText) btnText.textContent = 'HIDE WORKS';
+    setTimeout(() => {
+      worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
+
+  function hideWorksSection() {
     worksSection.style.opacity = '0';
     worksSection.style.transform = 'scaleY(0)';
     const btnText = toggleWorksButton.querySelector('.btn-hero__text');
@@ -305,12 +302,18 @@ function initWorksSection() {
     setTimeout(() => {
       worksSection.classList.add('hidden');
     }, 500);
-  });
+  }
 
-  // Always start hidden
-  worksSection.classList.add('hidden');
-  worksSection.style.opacity = '0';
-  worksSection.style.transform = 'scaleY(0)';
+  if (localStorage.getItem("keepWorksOpen") === "true") {
+    worksSection.classList.remove("hidden");
+    localStorage.removeItem("keepWorksOpen");
+    isWorksVisible = true;
+    showWorksSection();
+  } else {
+    worksSection.classList.add('hidden');
+    worksSection.style.opacity = '0';
+    worksSection.style.transform = 'scaleY(0)';
+  }
 }
 
 // BACK BUTTONS
@@ -402,7 +405,14 @@ function handleFormSubmit() {
     }
   });
 }
-
+document.addEventListener('DOMContentLoaded', function() {
+  const video = document.getElementById('bg-video');
+  video.play().catch(e => {
+    // Fallback for mobile devices that block autoplay
+    video.muted = true;
+    video.play();
+  });
+});
 function showNotification(message, type = 'success') {
   const notification = document.createElement('div');
   notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} text-white transition-all duration-300`;
@@ -518,7 +528,6 @@ function initSmoothScrolling() {
   });
 }
 
-// SCROLL TO TOP BUTTON FUNCTIONALITY
 function initScrollToTop() {
   const scrollToTopBtn = document.getElementById("scrollToTopBtn");
   if (!scrollToTopBtn) return;
@@ -535,6 +544,10 @@ function initScrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
+
+// Initialize
+document.addEventListener("DOMContentLoaded", initScrollToTop);
+
 
 // Contact section animation
 function animateContactSection() {
