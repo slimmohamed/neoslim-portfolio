@@ -241,7 +241,18 @@ function initMenuToggle() {
       hideMenu();
     }
   });
-
+  // (Restored/fixed block for menu toggle with correct variable names)
+  if (menuToggle && menu) {
+    menuToggle.addEventListener('change', () => {
+      if (menuToggle.checked) {
+        menu.classList.add('block', 'animate-in');
+        document.body.classList.add('overflow-hidden');
+      } else {
+        menu.classList.remove('block', 'animate-in');
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
+  }
   // Hide menu when clicking a menu item
   menu.querySelectorAll('.value').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -257,6 +268,24 @@ function initMenuToggle() {
       menuToggle.checked = false;
     }
   });
+  // Add glitch effect when menu opens
+  menuToggle.addEventListener('change', () => {
+    if (menuToggle.checked) {
+      menu.classList.add('glitch');
+      setTimeout(() => {
+        menu.classList.remove('glitch');
+      }, 1000);
+    }
+  });
+
+}
+// Add when opening the menu
+function openMenuVisuals() {
+  menu.classList.add('block', 'animate-in', 'glitch');
+}
+// Remove when closing the menu
+function closeMenuVisuals() {
+  menu.classList.remove('block', 'animate-in', 'glitch');
 }
 
 function initHeaderMenu() {
@@ -322,7 +351,16 @@ function initBackButtons() {
     btn.addEventListener('click', () => window.history.back());
   });
 }
-
+gsap.from("#article-section img", {
+  y: -40,
+  opacity: 0,
+  duration: 1.2,
+  ease: "power2.out",
+  scrollTrigger: {
+    trigger: "#article-section",
+    start: "top 80%",
+  }
+});
 // SCROLL ANIMATIONS (GSAP)
 function initGSAPAnimations() {
   // All scroll-triggered hide/show animations removed. All items are always visible.
