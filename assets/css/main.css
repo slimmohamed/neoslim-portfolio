@@ -412,7 +412,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background: #F5DEB3;
+    background: #fa8a51;
     border-radius: 1.625rem;
     height: 3rem;
     width: 3rem;
@@ -518,7 +518,7 @@
   }
 
   #programming-panel .learn-more:hover .circle {
-    background: linear-gradient(135deg, #65bda7 0%, #1F5A6A 100%);
+    background: linear-gradient(135deg, #00697a 0%, #1F5A6A 100%);
     border: none;
     box-shadow: 0 0 15px rgba(94, 160, 140, 0.4);
   }
@@ -621,10 +621,24 @@
     overflow: hidden;
   }
   #design-panel {
-    background: linear-gradient(135deg, var(--yellow) 0%, var(--orange) 100%);
+    background: linear-gradient(135deg, rgba(var(--yellow-rgb),0.08) 0%, rgba(var(--orange-rgb),0.08) 100%);
+    animation: animatedGradientDesign 8s ease-in-out infinite alternate;
+    border-radius: 1.5rem;
+    /* Removed blur for visibility */
   }
   #programming-panel {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
+    background: linear-gradient(135deg, rgba(var(--blue-rgb),0.08) 0%, rgba(var(--green-rgb),0.08) 100%);
+    animation: animatedGradientCoding 8s ease-in-out infinite alternate;
+    border-radius: 1.5rem;
+    /* Removed blur for visibility */
+  }
+  @keyframes animatedGradientDesign {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+  @keyframes animatedGradientCoding {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
   }
   .panel-button:hover {
     transform: translateY(-5px);
@@ -1081,7 +1095,7 @@ canvas {
     position: relative;
     padding: 14px 36px;
     font-size: 18px;
-    color: rgb(193, 163, 98);
+    color: #eb9b00;
     border: 2px solid rgb(193, 163, 98);
     border-radius: 34px;
     background-color: transparent;
@@ -1105,7 +1119,7 @@ canvas {
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.5s ease-in-out;
-    background-color: rgb(193, 163, 98);
+    background-color: #eb9b00;
     border-radius: inherit;
   }
   
@@ -1123,12 +1137,12 @@ canvas {
   
   /* Specific styles for DESIGN button */
   .btn-design {
-    color: rgb(193, 163, 98);
+    color: #eb9d00;
     border: 2px solid rgb(193, 163, 98);
   }
   
   .btn-design::before {
-    background-color: rgb(193, 163, 98);
+    background-color: #eb9b00;
   }
   
   .btn-design:hover {
@@ -1338,12 +1352,13 @@ canvas {
   animation: menuSlideIn 0.4s ease-out forwards;
 }
 
-.hero-glow {
-  animation: pulseGlow 4s ease-in-out infinite;
+/* Remove any white glow animation for .hero-glow and ensure only bounce is applied */
+@keyframes bounceLogo {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
 }
-@keyframes pulseGlow {
-  0%, 100% { filter: drop-shadow(0 0 0px #ffffff); }
-  50% { filter: drop-shadow(0 0 15px #fff); }
+#article-section .hero-glow {
+  animation: bounceLogo 2s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 .btn-hero__drow1 {
@@ -1686,5 +1701,27 @@ canvas {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+  
+.animated-bg-design {
+  background: linear-gradient(120deg, rgba(251,191,36,0.08), rgba(245,158,11,0.08), rgba(245,222,179,0.06));
+  animation: animatedGradientDesign 8s ease-in-out infinite alternate;
+  border-radius: 1.5rem;
+  filter: blur(8px);
+}
+@keyframes animatedGradientDesign {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.animated-bg-coding {
+  background: linear-gradient(120deg, rgba(34,211,238,0.08), rgba(14,165,233,0.08), rgba(94,160,140,0.06));
+  animation: animatedGradientCoding 8s ease-in-out infinite alternate;
+  border-radius: 1.5rem;
+  filter: blur(8px);
+}
+@keyframes animatedGradientCoding {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
   
