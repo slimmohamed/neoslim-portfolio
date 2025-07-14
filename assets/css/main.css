@@ -662,16 +662,16 @@
   }
   
   .chart-container {
-    opacity: 1;
-    transform: translateY(0);
-    height: 400px;
-    position: relative;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
+  opacity: 1;
+  transform: translateY(0);
+  height: 400px !important;
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
 
 #skillsRadarChart,
 #skillsBarChart {
