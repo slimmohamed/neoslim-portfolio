@@ -225,17 +225,27 @@ function initMenuToggle() {
   const menu = document.getElementById('menuBox');
   if (!menuToggle || !menu) return;
 
-  // Toggle menu visibility
+  // Animate menu show/hide with GSAP
+  function showMenu() {
+    menu.classList.remove('hidden');
+    gsap.to(menu, { opacity: 1, y: 0, duration: 0.35, pointerEvents: 'auto', onStart: () => { menu.style.display = 'block'; } });
+  }
+  function hideMenu() {
+    gsap.to(menu, { opacity: 0, y: -20, duration: 0.3, pointerEvents: 'none', onComplete: () => { menu.classList.add('hidden'); menu.style.display = 'none'; } });
+  }
+
   menuToggle.addEventListener('change', () => {
-    menu.classList.toggle('hidden', !menuToggle.checked);
-    menu.classList.toggle('block', menuToggle.checked);
+    if (menuToggle.checked) {
+      showMenu();
+    } else {
+      hideMenu();
+    }
   });
 
   // Hide menu when clicking a menu item
   menu.querySelectorAll('.value').forEach(btn => {
     btn.addEventListener('click', () => {
-      menu.classList.add('hidden');
-      menu.classList.remove('block');
+      hideMenu();
       menuToggle.checked = false;
     });
   });
@@ -243,8 +253,7 @@ function initMenuToggle() {
   // Hide menu when clicking outside
   document.addEventListener('click', (e) => {
     if (!menu.contains(e.target) && !menuToggle.contains(e.target) && !e.target.closest('.hamburger')) {
-      menu.classList.add('hidden');
-      menu.classList.remove('block');
+      hideMenu();
       menuToggle.checked = false;
     }
   });
@@ -259,33 +268,36 @@ function initHeaderMenu() {
 function initWorksSection() {
   const toggleWorksButton = document.getElementById('toggle-works-btn');
   const worksSection = document.getElementById('works-section');
-  if (!toggleWorksButton || !worksSection) return;
+  const hideWorksBtn = document.getElementById('hide-works-btn');
+  if (!toggleWorksButton || !worksSection || !hideWorksBtn) return;
 
   let isWorksVisible = false;
 
   toggleWorksButton.addEventListener('click', (e) => {
     e.preventDefault();
-    toggleWorksVisibility();
+    isWorksVisible = !isWorksVisible;
+    if (isWorksVisible) {
+      worksSection.classList.remove('hidden');
+      worksSection.style.opacity = '1';
+      worksSection.style.transform = 'scaleY(1)';
+      const btnText = toggleWorksButton.querySelector('.btn-hero__text');
+      if (btnText) btnText.textContent = 'HIDE WORKS';
+      setTimeout(() => {
+        worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    } else {
+      worksSection.style.opacity = '0';
+      worksSection.style.transform = 'scaleY(0)';
+      const btnText = toggleWorksButton.querySelector('.btn-hero__text');
+      if (btnText) btnText.textContent = 'VIEW MY WORKS';
+      setTimeout(() => {
+        worksSection.classList.add('hidden');
+      }, 500);
+    }
   });
 
-  function toggleWorksVisibility() {
-    isWorksVisible = !isWorksVisible;
-    if (isWorksVisible) showWorksSection();
-    else hideWorksSection();
-  }
-
-  function showWorksSection() {
-    worksSection.classList.remove('hidden');
-    worksSection.style.opacity = '1';
-    worksSection.style.transform = 'scaleY(1)';
-    const btnText = toggleWorksButton.querySelector('.btn-hero__text');
-    if (btnText) btnText.textContent = 'HIDE WORKS';
-    setTimeout(() => {
-      worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
-  }
-
-  function hideWorksSection() {
+  hideWorksBtn.addEventListener('click', () => {
+    isWorksVisible = false;
     worksSection.style.opacity = '0';
     worksSection.style.transform = 'scaleY(0)';
     const btnText = toggleWorksButton.querySelector('.btn-hero__text');
@@ -293,18 +305,12 @@ function initWorksSection() {
     setTimeout(() => {
       worksSection.classList.add('hidden');
     }, 500);
-  }
+  });
 
-  if (localStorage.getItem("keepWorksOpen") === "true") {
-    worksSection.classList.remove("hidden");
-    localStorage.removeItem("keepWorksOpen");
-    isWorksVisible = true;
-    showWorksSection();
-  } else {
-    worksSection.classList.add('hidden');
-    worksSection.style.opacity = '0';
-    worksSection.style.transform = 'scaleY(0)';
-  }
+  // Always start hidden
+  worksSection.classList.add('hidden');
+  worksSection.style.opacity = '0';
+  worksSection.style.transform = 'scaleY(0)';
 }
 
 // BACK BUTTONS
@@ -316,44 +322,7 @@ function initBackButtons() {
 
 // SCROLL ANIMATIONS (GSAP)
 function initGSAPAnimations() {
-  if (!window.gsap || !window.ScrollTrigger) return;
-  gsap.registerPlugin(ScrollTrigger);
-
-  gsap.from('.hero-content', {
-    opacity: 0,
-    y: 40,
-    duration: 1,
-    delay: 0.3,
-    ease: 'power2.out'
-  });
-
-  gsap.from('.gsap-fade-in-up', {
-    scrollTrigger: {
-      trigger: '.gsap-fade-in-up',
-      start: 'top 85%',
-      toggleActions: 'play reset play reset'
-    },
-    y: 40,
-    opacity: 0,
-    duration: 0.8,
-    ease: 'power2.out'
-  });
-
-  // Animate sections except works-section which has its own toggle
-  gsap.utils.toArray('section:not(#works-section)').forEach((section, i) => {
-    gsap.from(section, {
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 80%',
-        toggleActions: 'play none none none'
-      },
-      opacity: 0,
-      y: 50,
-      duration: 0.8,
-      delay: i * 0.1,
-      ease: 'power2.out'
-    });
-  });
+  // All scroll-triggered hide/show animations removed. All items are always visible.
 }
 
 // CANVAS BACKGROUND ANIMATION
