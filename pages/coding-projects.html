@@ -14,32 +14,20 @@
 <body class="bg-gray-900 text-gray-100 font-montserrat overflow-x-hidden relative">
   <!-- Header -->
 <!-- Header -->
-<header class="fixed top-0 left-0 w-full z-50 h-40 md:h-44 bg-dark/90 backdrop-blur shadow-lg border-b border-border flex items-center justify-between px-6">
-  <div class="relative">
-    <label class="hamburger" for="menuToggle" aria-label="Toggle menu">
-      <input type="checkbox" id="menuToggle">
-      <svg viewBox="0 0 32 32" class="h-8 w-8">
-        <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22" />
-        <path class="line" d="M7 16 27 16" />
-      </svg>
-    </label>
+<!-- Header dynamique -->
+<div id="header-placeholder"></div>
+<script>
+  fetch('../assets/components/header.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('header-placeholder').innerHTML = html;
 
-    <div id="menuBox" class="menu-box hidden absolute top-full left-0 bg-dark border border-border rounded shadow-md p-4 space-y-2 min-w-[220px]">
-      <a class="value block" href="/index.html#hero">Accueil</a>
-      <a class="value block" href="/index.html#works-section">Projets</a>
-      <a class="value block" href="/index.html#about">À propos</a>
-      <a class="value block" href="/index.html#skills">Compétences</a>
-      <a class="value block" href="/index.html#article-section">Articles</a>
-      <a class="value block" href="/index.html#contact-section">Contact</a>
-    </div>
-  </div>
+      // IMPORTANT: init après injection
+      if (typeof initHeaderMenu === 'function') initHeaderMenu();
+    })
+    .catch(err => console.error('Erreur de chargement du header:', err));
+</script>
 
-  <div class="mx-auto">
-    <a href="/index.html#hero" aria-label="Retour à l'accueil">
-      <img src="/assets/images/neoslim-logo.gif" alt="Logo Mohamed Slimani" class="h-32 md:h-40 w-auto drop-shadow-xl">
-    </a>
-  </div>
-</header>
 
   <!-- Main Content -->
   <main class="pt-44 md:pt-48">
@@ -205,31 +193,6 @@
   </script>
   
   <script src="../assets/js/main.js"></script>
-  <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const menuToggle = document.getElementById('menuToggle');
-  const menuBox = document.getElementById('menuBox');
-  if (!menuToggle || !menuBox) return;
-
-  menuToggle.addEventListener('change', () => {
-    menuBox.classList.toggle('hidden', !menuToggle.checked);
-  });
-
-  menuBox.querySelectorAll('a.value').forEach(a => {
-    a.addEventListener('click', () => {
-      menuToggle.checked = false;
-      menuBox.classList.add('hidden');
-    });
-  });
-
-  document.addEventListener('click', (e) => {
-    const clickedHamburger = e.target.closest('.hamburger');
-    if (!menuBox.contains(e.target) && !clickedHamburger) {
-      menuToggle.checked = false;
-      menuBox.classList.add('hidden');
-    }
-  });
-});
-</script>
+  
 </body>
 </html>
