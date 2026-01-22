@@ -95,7 +95,45 @@ function setupBarChartReplay() {
 
   io.observe(section);
 }
+function setupBarReplay() {
+  const skills = document.getElementById('skills');
+  const canvas = document.getElementById('skillsBarChart');
+  if (!skills || !canvas || typeof Chart === 'undefined') return;
 
+  let chart;
+
+  const io = new IntersectionObserver((entries) => {
+    if (!entries[0].isIntersecting) return;
+    if (chart) chart.destroy();
+
+    chart = new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels: ['React','Node.js','Python','Figma','Adobe XD','Git'],
+        datasets: [{
+          data: [95,80,70,85,80,75],
+          backgroundColor: 'rgba(94,160,140,0.75)',
+          borderRadius: 8,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 1100, easing: 'easeOutQuart' },
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { beginAtZero: true, max: 100, ticks: { color: '#F5DEB3' } },
+          y: { ticks: { color: '#F5DEB3' } }
+        }
+      }
+    });
+  }, { threshold: 0.35 });
+
+  io.observe(skills);
+}
+setupBarReplay();
 // Call after Chart.js is loaded
 setupBarChartReplay();
 
