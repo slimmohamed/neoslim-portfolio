@@ -14,7 +14,41 @@ document.addEventListener("DOMContentLoaded", () => {
   setupChartsReplay();
   restoreWorksOpenIfNeeded();
 });
+function saveScrollForReturn() {
+  localStorage.setItem('return_scrollY', String(window.scrollY || 0));
+  // utile si tu veux aussi mémoriser la section
+  localStorage.setItem('return_path', location.pathname);
+}
 
+function restoreScrollIfAny() {
+  // seulement sur index
+  if (!location.pathname.endsWith('/') && !location.pathname.endsWith('/index.html')) return;
+
+  const y = localStorage.getItem('return_scrollY');
+  if (!y) return;
+
+  const scrollY = parseInt(y, 10);
+  localStorage.removeItem('return_scrollY');
+  localStorage.removeItem('return_path');
+
+  // Important: wait layout
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: scrollY, left: 0, behavior: 'auto' });
+  });
+}
+
+function initPortfolioReturnLinks() {
+  document.querySelectorAll('.js-go-portfolio').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      saveScrollForReturn();
+      // option: keep works open
+      localStorage.setItem('keepWorksOpen', 'true');
+      const url = btn.getAttribute('data-url');
+      if (url) window.location.href = url;
+    });
+  });
+}
 // used by your buttons in HTML
 window.redirectWithEffect = function (url, type = "fade") {
   if (typeof gsap === "undefined") {
