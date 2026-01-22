@@ -1,31 +1,37 @@
-// assets/js/main.js (FULL FIXED)
+// /assets/js/main.js
+"use strict";
 
-// ===== Charts instances =====
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
 let radarChart = null;
 let barChart = null;
 
-// ===============================
-// RETURN TO LAST POSITION (Design/Coding -> Back same scroll)
-// ===============================
+/* =========================================================
+   RETURN TO LAST POSITION (Design/Coding -> back same scroll)
+   Uses sessionStorage (best for "back from another page")
+========================================================= */
+const RETURN_KEY = "neo_return_state";
+
 function saveReturnState(anchorId = null) {
   const state = {
     y: window.scrollY || 0,
     anchor: anchorId || (location.hash ? location.hash.replace("#", "") : null),
     t: Date.now(),
   };
-  sessionStorage.setItem("neo_return_state", JSON.stringify(state));
+  sessionStorage.setItem(RETURN_KEY, JSON.stringify(state));
 }
 
 function restoreReturnState() {
-  // Only restore on index
+  // Only on index page
   const isIndex =
     location.pathname.endsWith("/") ||
     location.pathname.endsWith("/index.html") ||
-    location.pathname === "/index.html";
+    location.pathname === "";
 
   if (!isIndex) return;
 
-  const raw = sessionStorage.getItem("neo_return_state");
+  const raw = sessionStorage.getItem(RETURN_KEY);
   if (!raw) return;
 
   let state;
@@ -35,188 +41,103 @@ function restoreReturnState() {
     return;
   }
 
-  // Only restore if recent (30 min)
+  // only restore if recent (30 min)
   if (!state?.t || Date.now() - state.t > 1000 * 60 * 30) return;
 
-  // Keep works open if coming from works
+  // If we return to works, keep it open
   if (state.anchor === "works-section") {
     localStorage.setItem("keepWorksOpen", "true");
   }
 
-  // Do not delete immediately; let layout settle then clear
+  // Wait for layout + works open restoration
   requestAnimationFrame(() => {
-    // If anchor exists, scroll to it with header offset
-    if (state.anchor) {
-      const el = document.getElementById(state.anchor);
-      if (el) {
-        const headerH = document.querySelector("header")?.offsetHeight || 120;
-        const top = el.getBoundingClientRect().top + window.scrollY - (headerH + 12);
-        window.scrollTo({ top, left: 0, behavior: "auto" });
+    setTimeout(() => {
+      // If we have anchor, go there (with header offset)
+      if (state.anchor) {
+        const el = document.getElementById(state.anchor);
+        if (el) {
+          const headerH = document.querySelector("header")?.offsetHeight || 120;
+          const y = el.getBoundingClientRect().top + window.scrollY - (headerH + 12);
+          window.scrollTo({ top: y, left: 0, behavior: "auto" });
+        } else {
+          window.scrollTo({ top: state.y, left: 0, behavior: "auto" });
+        }
       } else {
         window.scrollTo({ top: state.y, left: 0, behavior: "auto" });
       }
-    } else {
-      window.scrollTo({ top: state.y, left: 0, behavior: "auto" });
-    }
 
-    // Clear after restore
-    setTimeout(() => {
-      sessionStorage.removeItem("neo_return_state");
-    }, 500);
+      // Clean key once used (prevents random old restores)
+      sessionStorage.removeItem(RETURN_KEY);
+    }, 80);
   });
 }
 
-// ===============================
-// PERF: Background video optimization
-// ===============================
-function optimizeBackgroundVideo() {
-  const bg = document.getElementById("bg-video");
-  if (!bg) return;
-
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // On mobile or reduced motion: keep paused (poster only)
-  if (isMobile || prefersReduced) {
-    try {
-      bg.pause();
-    } catch {}
-    return;
-  }
-
-  // Desktop: try play (may be blocked)
-  requestAnimationFrame(() => {
-    bg.play().catch(() => {
-      window.addEventListener(
-        "click",
-        () => bg.play().catch(() => {}),
-        { once: true }
-      );
-      window.addEventListener(
-        "touchstart",
-        () => bg.play().catch(() => {}),
-        { once: true }
-      );
-    });
-  });
-}
-
-// ===============================
-// Works buttons: store return + go
-// ===============================
-function initWorksReturnButtons() {
-  document.querySelectorAll(".js-go-portfolio").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      // Save exact place + anchor
-      saveReturnState("works-section");
-      localStorage.setItem("keepWorksOpen", "true");
-      const url = btn.getAttribute("data-go");
-      if (url) window.location.href = url;
-    });
-  });
-}
-
-// ===============================
-// OPTIONAL: used by old HTML onclick if still present
-// ===============================
-window.redirectWithEffect = function (url, type = "fade") {
-  saveReturnState("works-section");
-  localStorage.setItem("keepWorksOpen", "true");
-
-  if (typeof gsap === "undefined") {
-    window.location.href = url;
-    return;
-  }
-
-  const body = document.body;
-
-  if (type === "fade") {
-    gsap.to(body, {
-      opacity: 0,
-      duration: 0.55,
-      onComplete: () => (window.location.href = url),
-    });
-  } else if (type === "slide") {
-    gsap.to(body, {
-      x: "-100%",
-      opacity: 0,
-      duration: 0.55,
-      ease: "power1.inOut",
-      onComplete: () => (window.location.href = url),
-    });
-  } else {
-    window.location.href = url;
-  }
-};
-
-// ===============================
-// MENU (fixed: stable open/close, closes on outside/esc, smooth offset)
-// ===============================
-function initMenuToggle() {
+/* =========================================================
+   MENU (hamburger) - FIXED for ALL pages
+========================================================= */
+function initMenuToggleFixed() {
   const menuToggle = document.getElementById("menuToggle");
   const menuBox = document.getElementById("menuBox");
   if (!menuToggle || !menuBox) return;
 
   const open = () => {
     menuBox.classList.add("is-open");
-    document.body.classList.add("overflow-hidden");
     menuToggle.checked = true;
+    document.body.classList.add("no-scroll");
   };
 
   const close = () => {
     menuBox.classList.remove("is-open");
-    document.body.classList.remove("overflow-hidden");
     menuToggle.checked = false;
+    document.body.classList.remove("no-scroll");
   };
 
+  // Toggle
   menuToggle.addEventListener("change", () => {
     if (menuToggle.checked) open();
     else close();
   });
 
-  // Click menu item => close (+ smooth scroll with header offset)
+  // Close on link click (and smooth scroll with header offset)
   menuBox.querySelectorAll('a.value[href^="#"]').forEach((a) => {
     a.addEventListener("click", (e) => {
-      const href = a.getAttribute("href");
-      if (!href || href === "#") {
+      const id = a.getAttribute("href")?.slice(1);
+      const target = id ? document.getElementById(id) : null;
+
+      // if anchor exists on this page: smooth scroll
+      if (target) {
+        e.preventDefault();
         close();
-        return;
-      }
 
-      const id = href.slice(1);
-      const target = document.getElementById(id);
-      if (!target) {
+        const headerH = document.querySelector("header")?.offsetHeight || 120;
+        const y = target.getBoundingClientRect().top + window.scrollY - (headerH + 12);
+        window.scrollTo({ top: y, behavior: "smooth" });
+
+        // update hash without jump
+        history.replaceState(null, "", `#${id}`);
+      } else {
+        // normal navigation (another page)
         close();
-        return;
       }
-
-      e.preventDefault();
-      close();
-
-      const headerH = document.querySelector("header")?.offsetHeight || 120;
-      const top = target.getBoundingClientRect().top + window.scrollY - (headerH + 12);
-
-      window.scrollTo({ top, behavior: "smooth" });
-      history.replaceState(null, "", `#${id}`);
     });
   });
 
-  // Click outside => close
+  // Close on outside click
   document.addEventListener("click", (e) => {
-    const inside = menuBox.contains(e.target) || e.target.closest(".hamburger");
-    if (!inside && menuToggle.checked) close();
+    const clickedHamburger = e.target.closest(".hamburger");
+    const clickedMenu = menuBox.contains(e.target);
+    if (!clickedMenu && !clickedHamburger) close();
   });
 
-  // ESC => close
+  // Close on ESC
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && menuToggle.checked) close();
+    if (e.key === "Escape") close();
   });
 }
 
-// ===============================
-// WORKS SECTION toggle (VIEW MY WORKS)
-// ===============================
+/* =========================================================
+   WORKS SECTION TOGGLE (index only)
+========================================================= */
 function initWorksSection() {
   const btn = document.getElementById("toggle-works-btn");
   const works = document.getElementById("works-section");
@@ -226,20 +147,22 @@ function initWorksSection() {
 
   const show = () => {
     works.classList.remove("hidden");
-    works.style.opacity = "1";
-    works.style.transform = "scaleY(1)";
+    works.classList.add("is-visible");
     isOpen = true;
+
     const t = btn.querySelector(".btn-hero__text");
     if (t) t.textContent = "HIDE WORKS";
+
     setTimeout(() => works.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
   };
 
   const hide = () => {
-    works.style.opacity = "0";
-    works.style.transform = "scaleY(0)";
+    works.classList.remove("is-visible");
     isOpen = false;
+
     const t = btn.querySelector(".btn-hero__text");
     if (t) t.textContent = "VIEW MY WORKS";
+
     setTimeout(() => works.classList.add("hidden"), 450);
   };
 
@@ -250,8 +173,7 @@ function initWorksSection() {
 
   // default closed
   works.classList.add("hidden");
-  works.style.opacity = "0";
-  works.style.transform = "scaleY(0)";
+  works.classList.remove("is-visible");
 }
 
 function restoreWorksOpenIfNeeded() {
@@ -262,21 +184,51 @@ function restoreWorksOpenIfNeeded() {
   if (localStorage.getItem("keepWorksOpen") === "true") {
     localStorage.removeItem("keepWorksOpen");
     works.classList.remove("hidden");
-    works.style.opacity = "1";
-    works.style.transform = "scaleY(1)";
+    works.classList.add("is-visible");
+
     const t = btn.querySelector(".btn-hero__text");
     if (t) t.textContent = "HIDE WORKS";
+
+    // do NOT force scroll if returnState already will scroll precisely
   }
 }
 
-// ===============================
-// Anchor navigation (outside menu)
-// ===============================
+/* =========================================================
+   WORKS BUTTONS -> Save return state + go to page
+   (Use on index panels/buttons)
+========================================================= */
+function initWorksReturnButtons() {
+  document.querySelectorAll(".js-go-portfolio").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      saveReturnState("works-section");
+      localStorage.setItem("keepWorksOpen", "true");
+      const url = btn.getAttribute("data-url") || btn.getAttribute("data-go");
+      if (url) window.location.href = url;
+    });
+  });
+}
+
+/* =========================================================
+   "Go Home" buttons on portfolio pages
+   - Save current Y and return anchor -> works-section
+========================================================= */
+function initGoHomeButtons() {
+  document.querySelectorAll("[data-go-home]").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      saveReturnState("works-section");
+      localStorage.setItem("keepWorksOpen", "true");
+      window.location.href = "/index.html#works-section";
+    });
+  });
+}
+
+/* =========================================================
+   Anchor navigation (if user clicks # links)
+========================================================= */
 function initAnchorNavigation() {
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
-    // Avoid duplicates if menu already handles those anchors
-    if (a.classList.contains("value")) return;
-
     a.addEventListener("click", (e) => {
       const href = a.getAttribute("href");
       if (!href || href === "#") return;
@@ -286,54 +238,65 @@ function initAnchorNavigation() {
 
       e.preventDefault();
       const headerH = document.querySelector("header")?.offsetHeight || 120;
-      const top = target.getBoundingClientRect().top + window.scrollY - (headerH + 12);
-      window.scrollTo({ top, behavior: "smooth" });
-      history.replaceState(null, "", href);
+      const y = target.getBoundingClientRect().top + window.scrollY - (headerH + 12);
+      window.scrollTo({ top: y, behavior: "smooth" });
     });
   });
 }
 
-// ===============================
-// Scroll to top
-// ===============================
+/* =========================================================
+   Scroll To Top button - fixed position and visibility
+========================================================= */
 function initScrollToTop() {
   const btn = document.getElementById("scrollToTopBtn");
   if (!btn) return;
 
-  btn.classList.add("hidden");
-
   const onScroll = () => {
-    if (window.scrollY > 350) btn.classList.remove("hidden");
-    else btn.classList.add("hidden");
+    if (window.scrollY > 400) btn.classList.add("is-visible");
+    else btn.classList.remove("is-visible");
   };
 
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 }
 
-// ===============================
-// Charts (replay when section visible)
-// ===============================
+/* =========================================================
+   Background video optimization
+   - avoid autoplay on mobile (speed)
+========================================================= */
+function optimizeBackgroundVideo() {
+  const bg = document.getElementById("bg-video");
+  if (!bg) return;
+
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (isMobile || prefersReduced) {
+    try { bg.pause(); } catch {}
+    return;
+  }
+
+  // Desktop: try play after paint
+  requestAnimationFrame(() => {
+    bg.play().catch(() => {
+      window.addEventListener("click", () => bg.play().catch(() => {}), { once: true });
+      window.addEventListener("touchstart", () => bg.play().catch(() => {}), { once: true });
+    });
+  });
+}
+
+/* =========================================================
+   Charts (Skills) - replay when section visible
+========================================================= */
 function setupChartsReplay() {
   const skillsSection = document.getElementById("skills");
   if (!skillsSection) return;
 
-  const ensureChart = () => typeof Chart !== "undefined";
-
-  if (!ensureChart()) {
-    let tries = 0;
-    const t = setInterval(() => {
-      tries++;
-      if (ensureChart()) {
-        clearInterval(t);
-        setupChartsReplay();
-      }
-      if (tries > 50) clearInterval(t);
-    }, 150);
-    return;
-  }
+  if (typeof Chart === "undefined") return;
 
   const io = new IntersectionObserver(
     (entries) => {
@@ -355,7 +318,7 @@ function setupChartsReplay() {
       createRadarChart();
       createBarChart();
     }
-  }, 600);
+  }, 450);
 }
 
 function destroyCharts() {
@@ -372,8 +335,8 @@ function destroyCharts() {
 function createRadarChart() {
   const canvas = document.getElementById("skillsRadarChart");
   if (!canvas) return;
-
   const ctx = canvas.getContext("2d");
+
   radarChart = new Chart(ctx, {
     type: "radar",
     data: {
@@ -381,7 +344,7 @@ function createRadarChart() {
       datasets: [
         {
           data: [95, 75, 85, 70, 60],
-          backgroundColor: "rgba(94, 160, 140, 0.20)",
+          backgroundColor: "rgba(94,160,140,0.20)",
           borderColor: "#5EA08C",
           pointBackgroundColor: "#5EA08C",
           borderWidth: 2,
@@ -411,16 +374,15 @@ function createRadarChart() {
 function createBarChart() {
   const canvas = document.getElementById("skillsBarChart");
   if (!canvas) return;
-
   const ctx = canvas.getContext("2d");
 
   const gradTeal = ctx.createLinearGradient(0, 0, 350, 0);
-  gradTeal.addColorStop(0, "rgba(35, 70, 62, 0.95)");
-  gradTeal.addColorStop(1, "rgba(94, 160, 140, 0.85)");
+  gradTeal.addColorStop(0, "rgba(35,70,62,0.95)");
+  gradTeal.addColorStop(1, "rgba(94,160,140,0.85)");
 
   const gradBeige = ctx.createLinearGradient(0, 0, 350, 0);
-  gradBeige.addColorStop(0, "rgba(70, 55, 30, 0.95)");
-  gradBeige.addColorStop(1, "rgba(245, 222, 179, 0.85)");
+  gradBeige.addColorStop(0, "rgba(70,55,30,0.95)");
+  gradBeige.addColorStop(1, "rgba(245,222,179,0.85)");
 
   const labels = ["React", "Node.js", "Python", "Figma", "Adobe XD", "Git"];
   const values = [95, 80, 70, 85, 80, 75];
@@ -464,14 +426,14 @@ function createBarChart() {
   });
 }
 
-// ===============================
-// Canvas background
-// ===============================
+/* =========================================================
+   Canvas background (keep light; not heavy)
+========================================================= */
 function initCanvasBackground() {
   const canvas = document.getElementById("background-canvas");
   if (!canvas) return;
 
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d", { alpha: true });
 
   function resize() {
     canvas.width = window.innerWidth;
@@ -480,15 +442,15 @@ function initCanvasBackground() {
   resize();
   window.addEventListener("resize", resize, { passive: true });
 
-  const particleCount = window.innerWidth < 768 ? 22 : 50;
+  const particleCount = window.innerWidth < 768 ? 18 : 42; // lighter than before
   const colors = ["#5EA08C", "#2B6777", "#F5DEB3"];
 
   const particles = Array.from({ length: particleCount }, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    r: Math.random() * 3 + 1,
-    vx: Math.random() * 0.8 - 0.4,
-    vy: Math.random() * 0.8 - 0.4,
+    r: Math.random() * 2.6 + 0.8,
+    vx: Math.random() * 0.5 - 0.25,
+    vy: Math.random() * 0.5 - 0.25,
     c: colors[(Math.random() * colors.length) | 0],
   }));
 
@@ -513,9 +475,9 @@ function initCanvasBackground() {
   tick();
 }
 
-// ===============================
-// Card hover particles
-// ===============================
+/* =========================================================
+   Card hover particles (optional; keep but light)
+========================================================= */
 function initCardParticles() {
   document.querySelectorAll(".bg-border").forEach((card) => {
     card.addEventListener("mousemove", (e) => {
@@ -524,18 +486,9 @@ function initCardParticles() {
       const y = e.clientY - rect.top;
 
       const dot = document.createElement("span");
-      dot.style.position = "absolute";
+      dot.className = "card-hover-dot";
       dot.style.left = x + "px";
       dot.style.top = y + "px";
-      dot.style.width = "7px";
-      dot.style.height = "7px";
-      dot.style.borderRadius = "999px";
-      dot.style.pointerEvents = "none";
-      dot.style.background = "rgba(99,193,255,0.55)";
-      dot.style.opacity = "1";
-      dot.style.zIndex = "20";
-      dot.style.transition = "opacity 0.6s, transform 0.6s";
-
       card.appendChild(dot);
 
       requestAnimationFrame(() => {
@@ -548,79 +501,52 @@ function initCardParticles() {
   });
 }
 
-// ===============================
-// Contact form (simple UX)
-// ===============================
+/* =========================================================
+   Contact form (visual only) - do NOT block Formspree
+========================================================= */
 function handleFormSubmit() {
   const contactForm = document.querySelector("#contact-section form");
   if (!contactForm) return;
 
-  contactForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
-    if (!submitBtn) return;
-
-    const oldHtml = submitBtn.innerHTML;
-
-    try {
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = "Sending...";
-      await new Promise((r) => setTimeout(r, 900));
-      contactForm.reset();
-      showNotification("Message sent successfully!");
-      // If you want real send, remove preventDefault and let Formspree submit
-    } catch {
-      showNotification("Error sending message. Please try again.", "error");
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = oldHtml;
-    }
+  contactForm.addEventListener("submit", () => {
+    // Let Formspree handle it normally (no preventDefault)
+    const btn = contactForm.querySelector('button[type="submit"]');
+    if (!btn) return;
+    btn.disabled = true;
+    btn.classList.add("is-loading");
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.classList.remove("is-loading");
+    }, 1600);
   });
 }
 
-function showNotification(message, type = "success") {
-  const n = document.createElement("div");
-  n.className =
-    "fixed top-4 right-4 p-4 rounded-lg shadow-lg text-white transition-all duration-300 " +
-    (type === "success" ? "bg-green-500" : "bg-red-500");
-
-  n.textContent = message;
-  document.body.appendChild(n);
-
-  setTimeout(() => {
-    n.classList.add("opacity-0", "translate-y-2");
-    setTimeout(() => n.remove(), 300);
-  }, 2200);
-}
-
-// ===============================
-// BOOTSTRAP (single DOMContentLoaded)
-// ===============================
+/* =========================================================
+   DOM READY
+========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) restore works open if needed (before restore scroll)
+  // index restore
   restoreWorksOpenIfNeeded();
-
-  // 2) restore scroll state if coming back from portfolios
   restoreReturnState();
 
-  // 3) UI init
-  initMenuToggle();
+  // menu
+  initMenuToggleFixed();
+
+  // sections
   initWorksSection();
-  initWorksReturnButtons();
   initAnchorNavigation();
   initScrollToTop();
+  initWorksReturnButtons();
+  initGoHomeButtons();
 
-  // 4) visuals
+  // visuals + perf
+  optimizeBackgroundVideo();
   initCanvasBackground();
   initCardParticles();
 
-  // 5) form
-  handleFormSubmit();
-
-  // 6) charts
+  // charts
   setupChartsReplay();
 
-  // 7) perf
-  optimizeBackgroundVideo();
+  // form
+  handleFormSubmit();
 });
