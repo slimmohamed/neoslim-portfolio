@@ -364,27 +364,28 @@ class="mx-auto max-w-md p-4 md:p-6"
 <section id="skills" class="py-20 md:py-28 bg-dark">
   <div class="max-w-4xl mx-auto text-center">
     <div class="flex justify-center mb-6">
-      <img src="/assets/images/Skills.png" alt="Skills" 
+      <img src="/assets/images/Skills.png" alt="Skills"
            class="w-64 md:w-80 transform transition duration-500 hover:scale-105 hover:rotate-1">
     </div>
   </div>
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-    <!-- Column 1 -->
+
+  <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+    <!-- Column 1: Radar -->
     <div class="flex flex-col items-center slide-in-left relative">
       <canvas class="absolute inset-0 z-[-1]" id="particlesRadar"></canvas>
-      <img src="/assets/images/core.png" alt="Core" class="w-64 md:w-80 mb-6 transform transition duration-500 hover:scale-105 hover:rotate-1" />
-<div class="chart-container w-full h-[320px] md:h-[380px]">
-  <canvas id="skillsBarChart"></canvas>
-</div>
+      <img src="/assets/images/core.png" alt="Core"
+           class="w-64 md:w-80 mb-6 transform transition duration-500 hover:scale-105 hover:rotate-1" />
+      <div class="chart-container w-full h-[320px] md:h-[380px]">
         <canvas id="skillsRadarChart"></canvas>
       </div>
     </div>
-  
-    <!-- Column 2 -->
+
+    <!-- Column 2: Bar -->
     <div class="flex flex-col items-center slide-in-right relative">
       <canvas class="absolute inset-0 z-[-1]" id="particlesBar"></canvas>
-      <img src="/assets/images/tool.png" alt="Tool" class="w-80 md:w-[28rem] mb-6 transform transition duration-500 hover:scale-105 hover:rotate-1" />
-      <div class="chart-container w-full">
+      <img src="/assets/images/tool.png" alt="Tool"
+           class="w-80 md:w-[28rem] mb-6 transform transition duration-500 hover:scale-105 hover:rotate-1" />
+      <div class="chart-container w-full h-[320px] md:h-[380px]">
         <canvas id="skillsBarChart"></canvas>
       </div>
     </div>
