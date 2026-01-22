@@ -72,35 +72,30 @@ window.redirectWithEffect = function (url, type = "fade") {
    MENU
 -------------------------------- */
 function initMenuToggle() {
-  const menuToggle = document.getElementById("menuToggle");
-  const menu = document.getElementById("menuBox");
-  if (!menuToggle || !menu) return;
+  const menuToggle = document.getElementById('menuToggle');
+  const menuBox = document.getElementById('menuBox');
+  if (!menuToggle || !menuBox) return;
 
-  const showMenu = () => {
-    menu.classList.remove("hidden");
-    menu.style.display = "block";
-    menu.style.opacity = "1";
-    menu.style.transform = "translateY(0)";
-  };
-
-  const hideMenu = () => {
-    menu.classList.add("hidden");
-    menu.style.display = "none";
+  const open = () => menuBox.classList.add('is-open');
+  const close = () => {
+    menuBox.classList.remove('is-open');
     menuToggle.checked = false;
   };
 
-  menuToggle.addEventListener("change", () => {
-    if (menuToggle.checked) showMenu();
-    else hideMenu();
+  menuToggle.addEventListener('change', () => {
+    if (menuToggle.checked) open();
+    else close();
   });
 
-  menu.querySelectorAll("a.value").forEach((a) => {
-    a.addEventListener("click", () => hideMenu());
+  // click item => close
+  menuBox.querySelectorAll('.value').forEach(a => {
+    a.addEventListener('click', () => close());
   });
 
-  document.addEventListener("click", (e) => {
-    const clickedHamburger = e.target.closest(".hamburger");
-    if (!menu.contains(e.target) && !clickedHamburger) hideMenu();
+  // click outside => close
+  document.addEventListener('click', (e) => {
+    const inside = menuBox.contains(e.target) || e.target.closest('.hamburger');
+    if (!inside && menuToggle.checked) close();
   });
 }
 
