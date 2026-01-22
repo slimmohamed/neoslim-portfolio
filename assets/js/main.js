@@ -18,6 +18,86 @@ document.addEventListener('DOMContentLoaded', () => {
   initCollapsibleSections();
   handleFormSubmit();
   initScrollToTop();
+function createBarChart() {
+  const canvas = document.getElementById('skillsBarChart');
+  if (!canvas) return null;
+
+  const ctx = canvas.getContext('2d');
+
+  // Gradient (darker -> your teal)
+  const gradTeal = ctx.createLinearGradient(0, 0, canvas.width || 300, 0);
+  gradTeal.addColorStop(0, 'rgba(35, 70, 62, 0.95)');   // darker
+  gradTeal.addColorStop(1, 'rgba(94, 160, 140, 0.85)'); // your #5EA08C
+
+  const gradBeige = ctx.createLinearGradient(0, 0, canvas.width || 300, 0);
+  gradBeige.addColorStop(0, 'rgba(70, 55, 30, 0.95)');
+  gradBeige.addColorStop(1, 'rgba(245, 222, 179, 0.85)'); // #F5DEB3
+
+  const data = [95, 80, 70, 85, 80, 75];
+
+  return new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['React', 'Node.js', 'Python', 'Figma', 'Adobe XD', 'Git'],
+      datasets: [{
+        data,
+        backgroundColor: (c) => {
+          const label = c.chart.data.labels[c.dataIndex];
+          return (label === 'Figma' || label === 'Adobe XD') ? gradBeige : gradTeal;
+        },
+        borderWidth: 0,
+        borderRadius: 8,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: {
+        duration: 1200,
+        easing: 'easeOutQuart',
+        // force left->right growth:
+        onProgress: () => {},
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          max: 100,
+          ticks: { color: '#F5DEB3', stepSize: 20 },
+          grid: { color: 'rgba(60,60,60,0.45)' }
+        },
+        y: {
+          ticks: { color: '#F5DEB3' },
+          grid: { color: 'rgba(60,60,60,0.25)' }
+        }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+function setupBarChartReplay() {
+  const section = document.getElementById('skills');
+  const canvas = document.getElementById('skillsBarChart');
+  if (!section || !canvas || typeof Chart === 'undefined') return;
+
+  let barChart = null;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        if (barChart) barChart.destroy();
+        barChart = createBarChart();
+      }
+    });
+  }, { threshold: 0.35 });
+
+  io.observe(section);
+}
+
+// Call after Chart.js is loaded
+setupBarChartReplay();
 
   // Chart initialization logic
   function tryInitCharts() {
