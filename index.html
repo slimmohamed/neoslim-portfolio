@@ -13,12 +13,12 @@
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Tailwind -->
+  <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- GSAP (IMPORTANT: gsap.min.js BEFORE ScrollTrigger) -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <!-- Your CSS -->
   <link rel="stylesheet" href="/assets/css/main.css" />
@@ -30,9 +30,9 @@
 
 <body class="bg-dark text-light font-montserrat overflow-x-hidden relative">
 
-  <!-- Background video (global) -->
-  <div class="video-background">
-    <video id="bg-video" autoplay muted loop playsinline preload="metadata" poster="/assets/images/fallback-poster.jpg">
+  <!-- Background video (LIGHT on mobile: paused via JS + preload none) -->
+  <div class="video-background" aria-hidden="true">
+    <video id="bg-video" muted loop playsinline preload="none" poster="/assets/images/fallback-poster.jpg">
       <source src="/assets/videos/anim.mp4" type="video/mp4">
       <source src="/assets/videos/website-bg.webm" type="video/webm">
     </video>
@@ -56,45 +56,48 @@
   </div>
 
   <!-- HEADER -->
-  <header class="fixed top-0 left-0 w-full z-50 h-40 md:h-44 bg-dark/90 backdrop-blur shadow-lg border-b border-border flex items-center justify-between px-6">
+  <header class="fixed top-0 left-0 w-full z-50 h-24 md:h-28 bg-dark/90 backdrop-blur shadow-lg border-b border-border flex items-center justify-between px-4 md:px-6">
     <div class="relative">
       <label class="hamburger" for="menuToggle" aria-label="Toggle menu">
-        <input type="checkbox" id="menuToggle">
-        <svg viewBox="0 0 32 32">
+        <input type="checkbox" id="menuToggle" />
+        <svg viewBox="0 0 32 32" class="h-8 w-8">
           <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
           <path class="line" d="M7 16 27 16"></path>
         </svg>
       </label>
 
-      <!-- IMPORTANT: links <a>, not buttons -->
-      <nav id="menuBox" class="menu-box hidden input">
-        <a class="value block" href="#hero"><i class="fa-solid fa-house"></i> Accueil</a>
-        <a class="value block" href="#works-section"><i class="fa-solid fa-layer-group"></i> Projets</a>
-        <a class="value block" href="#about"><i class="fa-solid fa-user"></i> À propos</a>
-        <a class="value block" href="#skills"><i class="fa-solid fa-screwdriver-wrench"></i> Compétences</a>
-        <a class="value block" href="#article-section"><i class="fa-solid fa-newspaper"></i> Articles</a>
-        <a class="value block" href="#contact-section"><i class="fa-solid fa-envelope"></i> Contact</a>
+      <!-- Menu (shape fixed in CSS patch) -->
+      <nav id="menuBox" class="menu-box hidden" aria-label="Menu principal">
+        <a class="value" href="#hero"><i class="fa-solid fa-house"></i><span>Accueil</span></a>
+        <a class="value" href="#works-section"><i class="fa-solid fa-layer-group"></i><span>Projets</span></a>
+        <a class="value" href="#about"><i class="fa-solid fa-user"></i><span>À propos</span></a>
+        <a class="value" href="#skills"><i class="fa-solid fa-screwdriver-wrench"></i><span>Compétences</span></a>
+        <a class="value" href="#article-section"><i class="fa-solid fa-newspaper"></i><span>Articles</span></a>
+        <a class="value" href="#contact-section"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
       </nav>
     </div>
 
     <div class="center-logo mx-auto">
-      <img src="/assets/images/neoslim-logo.gif" alt="Logo Mohamed Slimani" class="h-32 md:h-40 w-auto drop-shadow-xl">
+      <!-- Logo: eager ok (above the fold) -->
+      <img src="/assets/images/neoslim-logo.gif" alt="Logo Mohamed Slimani" class="h-16 md:h-20 w-auto drop-shadow-xl" decoding="async">
     </div>
+
+    <!-- Right spacer to keep logo centered visually -->
+    <div class="w-8 md:w-10" aria-hidden="true"></div>
   </header>
 
-  <main class="pt-44">
+  <main class="pt-28 md:pt-32">
 
-    <!-- HERO -->
+    <!-- HERO (only video that matters on load) -->
     <section id="hero" class="relative min-h-[100vh] flex items-center justify-center text-center overflow-hidden">
       <div class="absolute inset-0 z-0 overflow-hidden">
-        <video autoplay loop muted playsinline preload="metadata" class="w-full h-full object-cover" poster="/assets/images/fallback-poster.jpg">
+        <video id="hero-video" autoplay loop muted playsinline preload="metadata" class="w-full h-full object-cover" poster="/assets/images/fallback-poster.jpg">
           <source src="/assets/videos/neohero.mp4" type="video/mp4">
         </video>
-        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="absolute inset-0 bg-black/50"></div>
       </div>
-      <!-- (optionnel) Ton contenu hero ici -->
       <div class="relative z-10 px-4">
-        <!-- Example: keep empty if you want only video -->
+        <!-- ton contenu hero -->
       </div>
     </section>
 
@@ -102,7 +105,9 @@
     <section id="about" class="py-24 bg-dark text-light">
       <div class="max-w-6xl mx-auto px-4">
         <div class="flex justify-center mb-12">
-          <img src="/assets/images/am2.png" alt="Logo Mohamed Slimani" class="h-56 w-auto transition-transform duration-700 ease-in-out hover:scale-110 hover:rotate-2">
+          <img src="/assets/images/am2.png" alt="Logo Mohamed Slimani"
+               loading="lazy" decoding="async"
+               class="h-56 w-auto transition-transform duration-700 ease-in-out hover:scale-110 hover:rotate-2">
         </div>
 
         <div class="grid lg:grid-cols-5 gap-12 items-center">
@@ -110,9 +115,8 @@
             <img
               src="/assets/images/maphoto.gif"
               alt="Photo de Mohamed Slimani"
-              loading="eager"
+              loading="lazy"
               decoding="async"
-              fetchpriority="high"
               width="384"
               height="480"
               class="relative w-80 md:w-96 rounded-xl shadow-lg hover:scale-105 transition duration-300 ease-in-out"
@@ -149,16 +153,18 @@
     <section id="works-section" class="relative hidden opacity-0 scale-y-0 transform origin-top transition-all duration-500 ease-in-out">
       <div class="grid md:grid-cols-2">
         <!-- DESIGN PANEL -->
-        <div id="design-panel" class="relative z-0 min-h-[400px] bg-gradient-to-br from-amber-500 to-amber-600 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-[1.02] transition-transform duration-300">
+        <div id="design-panel" class="relative z-0 min-h-[420px] bg-gradient-to-br from-amber-500 to-amber-600 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-[1.02] transition-transform duration-300">
           <div class="absolute inset-0 z-0 pointer-events-none animated-bg-design"></div>
           <div class="relative z-10 max-w-sm">
             <div class="flex justify-center items-center mb-6">
-              <img src="/assets/images/logodp.png" alt="Design Logo" class="h-32 w-auto">
+              <img src="/assets/images/logodp.png" alt="Design Logo" class="h-32 w-auto" loading="lazy" decoding="async">
             </div>
             <p class="mb-8 text-white/90">
               Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.
             </p>
-            <button class="learn-more" onclick="localStorage.setItem('keepWorksOpen','true');window.location.href='/pages/design-projects.html';">
+
+            <!-- IMPORTANT: store return position -->
+            <button class="learn-more js-go-portfolio" data-go="/pages/design-projects.html">
               <span class="circle">
                 <span class="icon arrow"></span>
                 <span class="button-text">View Design Projects</span>
@@ -168,16 +174,18 @@
         </div>
 
         <!-- CODING PANEL -->
-        <div id="programming-panel" class="relative z-0 min-h-[400px] bg-gradient-to-br from-cyan-600 to-cyan-700 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-[1.02] transition-transform duration-300">
+        <div id="programming-panel" class="relative z-0 min-h-[420px] bg-gradient-to-br from-cyan-600 to-cyan-700 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-[1.02] transition-transform duration-300">
           <div class="absolute inset-0 z-0 pointer-events-none animated-bg-coding"></div>
           <div class="relative z-10 max-w-sm">
             <div class="flex justify-center items-center mb-6">
-              <img src="/assets/images/LOGOCP.png" alt="Coding Logo" class="h-32 w-auto">
+              <img src="/assets/images/LOGOCP.png" alt="Coding Logo" class="h-32 w-auto" loading="lazy" decoding="async">
             </div>
             <p class="mb-8 text-white/90">
               Explorez mes projets de développement, incluant des applications web et des réalisations full-stack.
             </p>
-            <button class="learn-more" onclick="localStorage.setItem('keepWorksOpen','true');window.location.href='/pages/coding-projects.html';">
+
+            <!-- IMPORTANT: store return position -->
+            <button class="learn-more js-go-portfolio" data-go="/pages/coding-projects.html">
               <span class="circle">
                 <span class="icon arrow"></span>
                 <span class="button-text">View Coding Projects</span>
@@ -192,16 +200,15 @@
     <section id="article-section" class="py-24 px-4 bg-dark">
       <div class="max-w-5xl mx-auto">
         <div class="text-center mb-16">
-          <img src="/assets/images/article.png" alt="Icône d'articles" class="h-48 md:h-56 w-auto mx-auto mb-6">
+          <img src="/assets/images/article.png" alt="Icône d'articles" class="h-48 md:h-56 w-auto mx-auto mb-6" loading="lazy" decoding="async">
           <h2 class="text-4xl md:text-5xl font-bold text-light">Mes écrits et réflexions</h2>
           <p class="text-gray-400 mt-4 text-lg">Je partage ici mes analyses, tutoriels et pensées sur le design et le code.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Card 1 -->
           <div class="bg-border rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
             <a href="#" class="block">
-              <img src="/assets/images/ux.png" alt="Image UX" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+              <img src="/assets/images/ux.png" alt="Image UX" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
               <div class="p-6">
                 <span class="text-sm text-green font-semibold">UX/UI Design</span>
                 <h3 class="text-xl text-light font-bold mt-2">Comment améliorer l’UX de votre site web en 5 étapes</h3>
@@ -210,10 +217,9 @@
             </a>
           </div>
 
-          <!-- Card 2 -->
           <div class="bg-border rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
             <a href="#" class="block">
-              <img src="/assets/images/react.jpg" alt="Image React" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+              <img src="/assets/images/react.jpg" alt="Image React" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
               <div class="p-6">
                 <span class="text-sm text-blue font-semibold">Développement</span>
                 <h3 class="text-xl text-light font-bold mt-2">React vs Vue : lequel choisir ?</h3>
@@ -222,10 +228,9 @@
             </a>
           </div>
 
-          <!-- Card 3 -->
           <div class="bg-border rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
             <a href="#" class="block">
-              <img src="/assets/images/article-placeholder-3.jpg" alt="Image article" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+              <img src="/assets/images/article-placeholder-3.jpg" alt="Image article" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
               <div class="p-6">
                 <span class="text-sm text-yellow font-semibold">Productivité</span>
                 <h3 class="text-xl text-light font-bold mt-2">Mes 5 outils indispensables</h3>
@@ -237,26 +242,24 @@
       </div>
     </section>
 
-    <!-- SKILLS (FIXED IDs + layout) -->
+    <!-- SKILLS -->
     <section id="skills" class="py-20 md:py-28 bg-dark">
       <div class="max-w-4xl mx-auto text-center">
         <div class="flex justify-center mb-6">
-          <img src="/assets/images/Skills.png" alt="Skills" class="w-64 md:w-80">
+          <img src="/assets/images/Skills.png" alt="Skills" class="w-64 md:w-80" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-        <!-- Radar -->
         <div class="flex flex-col items-center relative">
-          <img src="/assets/images/core.png" alt="Core" class="w-64 md:w-80 mb-6">
+          <img src="/assets/images/core.png" alt="Core" class="w-64 md:w-80 mb-6" loading="lazy" decoding="async">
           <div class="chart-container w-full h-[320px] md:h-[380px]">
             <canvas id="skillsRadarChart"></canvas>
           </div>
         </div>
 
-        <!-- Bar -->
         <div class="flex flex-col items-center relative">
-          <img src="/assets/images/tool.png" alt="Tool" class="w-80 md:w-[28rem] mb-6">
+          <img src="/assets/images/tool.png" alt="Tool" class="w-80 md:w-[28rem] mb-6" loading="lazy" decoding="async">
           <div class="chart-container w-full h-[320px] md:h-[380px]">
             <canvas id="skillsBarChart"></canvas>
           </div>
@@ -268,7 +271,7 @@
     <section id="contact-section" class="py-24 bg-dark relative overflow-hidden">
       <div class="max-w-4xl mx-auto px-4">
         <div class="text-center mb-16">
-          <img id="contact-logo" src="/assets/images/contact.png" alt="Contact" class="h-40 mx-auto mb-4 opacity-90">
+          <img id="contact-logo" src="/assets/images/contact.png" alt="Contact" class="h-40 mx-auto mb-4 opacity-90" loading="lazy" decoding="async">
           <h2 class="text-4xl md:text-5xl font-bold text-light">Construisons quelque chose ensemble.</h2>
           <p class="text-lg text-gray-400 mt-4">J'adorerais entendre parler de votre projet. Parlons-en.</p>
         </div>
@@ -334,7 +337,7 @@
 
   </main>
 
-  <!-- Chart.js (IMPORTANT: before main.js) -->
+  <!-- Chart.js (defer not needed, already last) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
 
   <!-- Main JS -->
