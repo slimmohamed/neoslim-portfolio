@@ -1,7 +1,10 @@
 // assets/js/main.js
 let radarChart = null;
 let barChart = null;
-
+document.addEventListener('DOMContentLoaded', () => {
+  restoreScrollIfAny();
+  initPortfolioReturnLinks();
+});
 document.addEventListener("DOMContentLoaded", () => {
   initMenuToggle();
   initWorksSection();
