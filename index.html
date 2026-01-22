@@ -1,87 +1,61 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
-  <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mohamed Slimani - Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
 
-    <!-- Preload critical resources -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" as="style">
-    <link rel="preload" href="/assets/images/neoslim-logo.gif" as="image">
-    <link rel="preload" href="/assets/images/Pre.png" as="image">
-  <!-- Fonts & Icons -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Tailwind & Animations -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-  
-    <!-- Inline critical CSS -->
-    <style>
-      /* Critical above-the-fold styles */
-      body {
-        background-color: #1E1E1E;
-        color: #F4F4F5;
-        font-family: 'Montserrat', sans-serif;
-      }
-    </style>
-  
-    <style>
-      .floating-word {
-        position: absolute;
-        font-size: 0.875rem;
-        color: rgba(255, 255, 255, 0.4);
-        animation: floatWord 12s ease-in-out infinite;
-      }
-      @keyframes floatWord {
-        0%, 100% { transform: translateY(0) translateX(0); }
-        50% { transform: translateY(-20px) translateX(10px); }
-      }
-      .hero-glow {
-        animation: pulseGlow 4s ease-in-out infinite;
-      }
-      @keyframes pulseGlow {
-        0%, 100% { filter: drop-shadow(0 0 0px #ffffff); }
-        50% { filter: drop-shadow(0 0 15px #fff); }
-      }
-    </style>
-    <!-- Non-critical CSS -->
-    <link rel="stylesheet" href="../assets/css/main.css">
-    
-  </head>
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <style>
+    body { background:#1E1E1E; color:#F4F4F5; font-family:'Montserrat',sans-serif; }
+  </style>
+</head>
+
 <body class="bg-dark text-light font-montserrat overflow-x-hidden relative">
-  <!-- Skip Link -->
-  <a href="#hero" class="sr-only focus:not-sr-only">Aller au contenu principal</a>
+
+  <!-- Background video (global) -->
   <div class="video-background">
- <video autoplay muted loop playsinline preload="metadata" poster="/assets/images/fallback-poster.jpg">
+    <video id="bg-video" autoplay muted loop playsinline preload="metadata" poster="/assets/images/fallback-poster.jpg">
       <source src="/assets/videos/anim.mp4" type="video/mp4">
       <source src="/assets/videos/website-bg.webm" type="video/webm">
     </video>
     <div class="video-overlay"></div>
   </div>
+
   <!-- Background Canvas -->
   <canvas id="background-canvas" class="fixed inset-0 -z-10 w-full h-full"></canvas>
-<div class="fixed bottom-20 right-6 z-50">
-  <!-- Scroll to Top Button -->
-<button id="scrollToTopBtn" aria-label="Scroll to Top">
-  <svg class="scroll-icon" viewBox="0 0 384 512">
-    <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 
-             0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 
-             32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 
-             12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/>
-  </svg>
-  <span class="scroll-label">Back to Top</span>
-</button>
 
-</div>
-<!-- Scroll to Top Button -->
+  <!-- Scroll To Top -->
+  <div class="fixed bottom-20 right-6 z-50">
+    <button id="scrollToTopBtn" class="hidden" aria-label="Scroll to Top">
+      <svg class="scroll-icon" viewBox="0 0 384 512">
+        <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 
+                 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 
+                 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 
+                 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/>
+      </svg>
+      <span class="scroll-label">Back to Top</span>
+    </button>
+  </div>
 
-  <!-- Header -->
+  <!-- HEADER -->
   <header class="fixed top-0 left-0 w-full z-50 h-40 md:h-44 bg-dark/90 backdrop-blur shadow-lg border-b border-border flex items-center justify-between px-6">
     <div class="relative">
       <label class="hamburger" for="menuToggle" aria-label="Toggle menu">
@@ -92,106 +66,73 @@
         </svg>
       </label>
 
-      <div id="menuBox" class="menu-box hidden input">
-        <button class="value"><i class="fa-solid fa-house"></i> Accueil</button>
-        <button class="value"><i class="fa-solid fa-layer-group"></i> Projets</button>
-        <button class="value"><i class="fa-solid fa-user"></i> À propos</button>
-        <button class="value"><i class="fa-solid fa-screwdriver-wrench"></i> Compétences</button>
-        <button class="value"><i class="fa-solid fa-newspaper"></i> Articles</button>
-        <button class="value"><i class="fa-solid fa-envelope"></i> Contact</button>
-      </div>
-      
+      <!-- IMPORTANT: links <a>, not buttons -->
+      <nav id="menuBox" class="menu-box hidden input">
+        <a class="value block" href="#hero"><i class="fa-solid fa-house"></i> Accueil</a>
+        <a class="value block" href="#works-section"><i class="fa-solid fa-layer-group"></i> Projets</a>
+        <a class="value block" href="#about"><i class="fa-solid fa-user"></i> À propos</a>
+        <a class="value block" href="#skills"><i class="fa-solid fa-screwdriver-wrench"></i> Compétences</a>
+        <a class="value block" href="#article-section"><i class="fa-solid fa-newspaper"></i> Articles</a>
+        <a class="value block" href="#contact-section"><i class="fa-solid fa-envelope"></i> Contact</a>
+      </nav>
     </div>
 
-    <div class="center-logo">
-      <img src="/assets/images/neoslim-logo.gif" alt="Logo" class="h-40 w-auto drop-shadow-xl">
+    <div class="center-logo mx-auto">
+      <img src="/assets/images/neoslim-logo.gif" alt="Logo Mohamed Slimani" class="h-32 md:h-40 w-auto drop-shadow-xl">
     </div>
   </header>
 
-  <!-- Main Content -->
   <main class="pt-44">
 
-    <!-- Hero Section -->
-    <section id="hero" class="relative min-h-[100vh] flex flex-col justify-center items-center text-center overflow-hidden">
-  
-      <div class="absolute top-0 left-0 w-full h-full z-0 overflow-hidden">
-        <video
-          autoplay
-          loop
-          muted
-          class="w-full h-full object-cover"
-          poster="/assets/images/fallback-poster.jpg" >
+    <!-- HERO -->
+    <section id="hero" class="relative min-h-[100vh] flex items-center justify-center text-center overflow-hidden">
+      <div class="absolute inset-0 z-0 overflow-hidden">
+        <video autoplay loop muted playsinline preload="metadata" class="w-full h-full object-cover" poster="/assets/images/fallback-poster.jpg">
           <source src="/assets/videos/neohero.mp4" type="video/mp4">
-          Désolé, votre navigateur ne supporte pas les vidéos intégrées.
         </video>
-        <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+        <div class="absolute inset-0 bg-black opacity-50"></div>
       </div>
-    
+      <!-- (optionnel) Ton contenu hero ici -->
+      <div class="relative z-10 px-4">
+        <!-- Example: keep empty if you want only video -->
+      </div>
     </section>
 
+    <!-- ABOUT -->
+    <section id="about" class="py-24 bg-dark text-light">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-center mb-12">
+          <img src="/assets/images/am2.png" alt="Logo Mohamed Slimani" class="h-56 w-auto transition-transform duration-700 ease-in-out hover:scale-110 hover:rotate-2">
+        </div>
 
-  <style>
-  .tag-skill {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  .will-change-transform {
-    will-change: transform;
-  }
-  </style>
-
-
-  <div class="separator-wave separator-teal-dark animate-wave">
-    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" class="w-full h-auto">
-      <defs>
-        <linearGradient id="teal-dark" x1="100%" y1="0%" x2="0%" y2="0%">
-          <stop offset="0%" stop-color="#5EA08C" />
-          <stop offset="100%" stop-color="#2B6777" />
-        </linearGradient>
-      </defs>
-      <path d="M0,40 C480,0 960,100 1440,40 L1440,0 L0,0 Z" />
-    </svg>
-  </div>
-  
-        <section id="about" class="py-24 bg-dark text-light">
-          <div class="flex justify-center mb-12">
-            <img 
-              src="/assets/images/am2.png" 
-              alt="Logo Mohamed Slimani" 
-              class="h-56 w-auto transition-transform duration-700 ease-in-out animate-bounce-slow hover:scale-110 hover:rotate-6 will-change-transform"
+        <div class="grid lg:grid-cols-5 gap-12 items-center">
+          <div class="relative lg:col-span-2 flex justify-center">
+            <img
+              src="/assets/images/maphoto.gif"
+              alt="Photo de Mohamed Slimani"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+              width="384"
+              height="480"
+              class="relative w-80 md:w-96 rounded-xl shadow-lg hover:scale-105 transition duration-300 ease-in-out"
             >
-       </div>
+          </div>
 
-<div class="mx-auto max-w-md p-4 md:p-6">
-  <div class="grid lg:grid-cols-5 gap-12 items-center min-h-400">
-              <div class="relative lg:col-span-2 gsap-fade-in-left flex justify-center">
-                <svg class="absolute -top-10 -left-10 w-64 h-64 opacity-10 z-0" viewBox="0 0 800 600" fill="none">
-                  <path d="M400,50 C600,150 650,300 500,450 C350,600 150,550 100,400 C50,250 200,100 400,50 Z" fill="#2F81F7" />
-                </svg>
-              <img src="/assets/images/maphoto.gif"
-     loading="eager"
-     decoding="async"
-     fetchpriority="high"
-     width="384" height="480"
-     class="relative w-80 md:w-96 rounded-xl shadow-lg ...">
-              </div>
-        
-              <div class="lg:col-span-3 gsap-fade-in-up lg:pl-0">
-                <p class="text-green font-semibold tracking-wider">À PROPOS DE MOI</p>
-                <h2 class="text-4xl md:text-5xl font-bold mt-2 text-light">Développeur créatif, passionné par la construction de ponts entre le design et le code.</h2>
-                <p class="mt-6 text-lg text-gray-300 leading-relaxed">
-                  Depuis aussi longtemps que je me souvienne, j'ai toujours été fasciné par la manière dont les choses sont construites — que ce soit un meuble élégant ou une application intuitive. Cette curiosité m'a naturellement mené vers le développement web, où j'ai découvert une passion pour la création d'expériences numériques qui sont non seulement fonctionnelles et robustes, mais aussi esthétiques et agréables à utiliser.
-                </p>
-                <p class="mt-4 text-lg text-gray-300 leading-relaxed">
-                  Mon approche est centrée sur l'utilisateur. Je crois que le meilleur produit naît de la rencontre entre une technologie performante et un design réfléchi. Que je code en React ou que je prototype sur Figma, mon objectif reste le même : transformer des idées complexes en solutions simples et élégantes.
-                </p>
-              </div>
-            </div>
-            <div class="flex justify-center mt-8">
-              <button id="toggle-works-btn" class="btn-hero mt-2" type="button">
+          <div class="lg:col-span-3">
+            <p class="text-green font-semibold tracking-wider">À PROPOS DE MOI</p>
+            <h2 class="text-4xl md:text-5xl font-bold mt-2 text-light">
+              Développeur créatif, passionné par la construction de ponts entre le design et le code.
+            </h2>
+            <p class="mt-6 text-lg text-gray-300 leading-relaxed">
+              Depuis aussi longtemps que je me souvienne, j'ai toujours été fasciné par la manière dont les choses sont construites…
+            </p>
+            <p class="mt-4 text-lg text-gray-300 leading-relaxed">
+              Mon approche est centrée sur l'utilisateur : transformer des idées complexes en solutions simples et élégantes.
+            </p>
+
+            <div class="flex justify-center mt-10">
+              <button id="toggle-works-btn" class="btn-hero" type="button">
                 <div class="btn-hero__line"></div>
                 <div class="btn-hero__line"></div>
                 <span class="btn-hero__text">VIEW MY WORKS</span>
@@ -199,567 +140,205 @@
                 <div class="btn-hero__drow2"></div>
               </button>
             </div>
-          <div class="flex flex-col items-center justify-center pt-8">
-            <div class="flex flex-col md:flex-row gap-4 w-full max-w-3xl justify-center items-stretch">
-              <div class="bg-border p-4 md:p-6 rounded-lg shadow-md gsap-fade-in-left group relative overflow-hidden flex-1 max-w-sm w-full mx-auto min-h-[400px] h-full">
-                <canvas class="card-bg-canvas absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
-                <div class="relative z-10">
-                  <h3 class="text-xl md:text-2xl font-light text-light mb-4 flex justify-center items-center gap-2">
-                    <span class="sr-only">Compétences Techniques</span>
-                    <span aria-hidden="true">
-                      <img src="/assets/images/ct2.png" alt="" class="h-24 md:h-32 transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:rotate-3" />
-                    </span>
-                  </h3>
-                  <ul class="space-y-2 text-gray text-base">
-                    <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Développement Web (React, Next.js, Node.js)</li>
-                    <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Bases de Données (PostgreSQL, MongoDB, Firebase)</li>
-                    <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Cloud Computing (AWS, GCP)</li>
-                    <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Version Control (Git, GitHub)</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="bg-border p-4 md:p-6 rounded-lg shadow-md gsap-fade-in-left group relative overflow-hidden flex-1 max-w-sm w-full mx-auto">
-                <canvas class="card-bg-canvas absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
-                <div class="relative z-10">
-                  <h3 class="text-xl md:text-2xl font-light text-light mb-4 flex justify-center items-center gap-2">
-                    <span class="sr-only">Compétences en Design</span>
-                    <img src="/assets/images/cd.png" alt="Compétences en Design Mohamed Slimani" class="h-24 md:h-32 transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:rotate-3" />
-                  </h3>
-                  <ul class="space-y-2 text-gray text-base">
-                    <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>UI/UX Design (Figma, Sketch)</li>
-                    <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Design Graphique (Photoshop, Illustrator)</li>
-                    <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Branding & Identité Visuelle</li>
-                    <li class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Modélisation 3D (Blender, AutoCAD)</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
           </div>
-        </section>
-
-        <div class="separator-wave separator-orange-teal separator-bottom animate-wave">
-          <svg viewBox="0 0 1440 100" preserveAspectRatio="none" class="w-full h-auto">
-            <defs>
-              <linearGradient id="orange-teal" x1="100%" y1="0%" x2="0%" y2="0%">
-                <stop offset="0%" stop-color="#F97316" />
-                <stop offset="100%" stop-color="#2B6777" />
-              </linearGradient>
-            </defs>
-            <path d="M0,40 C480,0 960,100 1440,40 L1440,0 L0,0 Z" />
-          </svg>
-        </div>
-        
-        <section id="works-section" class="relative hidden opacity-0 scale-y-0 transform origin-top transition-all duration-500 ease-in-out">   
-          <div id="design-panel" class="relative z-0 pt-2 min-h-[400px] bg-gradient-to-br from-amber-500 to-amber-600 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-105 transition-transform duration-300">
-            <!-- Animated background with less opacity -->
-            <div class="absolute inset-0 z-0 pointer-events-none animated-bg-design"></div>
-            <div class="max-w-sm">
-              <div class="flex justify-center items-center mb-6">
-                <img src="assets/images/logodp.png" alt="Design Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
-              </div>
-              <p class="mb-8 text-white/90">Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.</p>
-              <button class="learn-more" onclick="localStorage.setItem('keepWorksOpen','true');redirectWithEffect('/pages/design-projects.html','fade')">
-                <span class="circle">
-                  <span class="icon arrow"></span>
-                  <span class="button-text">View Design Projects</span>
-                </span>
-              </button>
-            </div>
-          </div>
-          
-          <div id="programming-panel" class="relative z-0 pt-2 min-h-[400px] bg-gradient-to-br from-cyan-600 to-cyan-700 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-105 transition-transform duration-300">
-            <!-- Animated background with less opacity -->
-            <div class="absolute inset-0 z-0 pointer-events-none animated-bg-coding"></div>
-            <div class="max-w-sm">
-              <div class="flex justify-center items-center mb-6">
-                <img src="assets/images/LOGOCP.png" alt="Coding Logo" class="h-32 w-auto transition-transform duration-500 ease-in-out hover:scale-110 hover:rotate-1" />
-              </div>
-              <p class="mb-8 text-white/90">Explorez mes projets de développement, incluant des applications web, des solutions logicielles et des réalisations en programmation full-stack.</p>
-              <button class="learn-more" onclick="localStorage.setItem('keepWorksOpen','true');redirectWithEffect('/pages/coding-projects.html','fade')">
-                <span class="circle">
-                  <span class="icon arrow"></span>
-                  <span class="button-text">View Coding Projects</span>
-                </span>
-              </button>
-            </div>
-          </div>
-      
-      
-      
-      </div>
-  </div>
-  
-</section>
-<div class="separator-wave separator-gray-dark separator-bottom animate-wave">
-  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" class="w-full h-auto">
-    <defs>
-      <linearGradient id="gray-dark" x1="100%" y1="0%" x2="0%" y2="0%">
-        <stop offset="0%" stop-color="#6B7280" />
-        <stop offset="100%" stop-color="#111827" />
-      </linearGradient>
-    </defs>
-    <path d="M0,40 C480,0 960,100 1440,40 L1440,0 L0,0 Z" />
-  </svg>
-</div>
-
-<section id="article-section" class="py-24 px-4 bg-dark">
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-16">
-      <img src="/assets/images/article.png" alt="Icône d'articles" class="h-48 md:h-56 w-auto mx-auto mb-6 transition-transform duration-700 ease-in-out hover:scale-110 hover:rotate-3 animate-bounce-slow hero-glow">
-       <h2 class="text-4xl md:text-5xl font-bold text-light">Mes écrits et réflexions</h2>
-      <p class="text-gray-400 mt-4 text-lg">Je partage ici mes analyses, tutoriels et pensées sur le design et le code.</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-      <div class="bg-border rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
-        <a href="#" class="block">
-          <img src="/assets/images/ux.png" alt="Image pour l'article sur l'UX" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-          <div class="p-6">
-            <span class="text-sm text-green font-semibold">UX/UI Design</span>
-            <h3 class="text-xl text-light font-bold mt-2">Comment améliorer l’UX de votre site web en 5 étapes</h3>
-            <p class="text-gray-400 mt-3">Découvrez des techniques modernes pour guider vos utilisateurs naturellement à travers une interface propre et intuitive.</p>
-            <span class="text-sm text-gray-500 mt-4 block">Publié le 11 juillet 2025</span>
-          </div>
-        </a>
-      </div>
-
-      <div class="bg-border rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
-        <a href="#" class="block">
-          <img src="/assets/images/react.jpg" alt="Image pour l'article sur React" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-          <div class="p-6">
-            <span class="text-sm text-blue font-semibold">Développement</span>
-            <h3 class="text-xl text-light font-bold mt-2">React vs. Vue : Lequel choisir pour votre projet en 2025 ?</h3>
-            <p class="text-gray-400 mt-3">Une analyse comparative pour vous aider à prendre la bonne décision technique.</p>
-          </div>
-        </a>
-      </div>
-
-      <div class="bg-border rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
-        <a href="#" class="block">
-          <img src="/assets/images/article-placeholder-3.jpg" alt="Image pour un futur article" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-          <div class="p-6">
-            <span class="text-sm text-yellow font-semibold">Productivité</span>
-            <h3 class="text-xl text-light font-bold mt-2">Mes 5 outils indispensables pour le design workflow</h3>
-            <p class="text-gray-400 mt-3">Section en cours de construction avec de nouveaux articles à venir !</p>
-          </div>
-        </a>
-      </div>
-
-    </div>
-  </div>
-</section>
-<div class="separator-wave separator-white-fade separator-bottom animate-wave">
-  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" class="w-full h-auto">
-    <defs>
-      <linearGradient id="white-fade" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9" />
-        <stop offset="100%" stop-color="#ffffff" stop-opacity="0.1" />
-      </linearGradient>
-    </defs>
-    <path d="M0,40 C480,0 960,100 1440,40 L1440,0 L0,0 Z" />
-  </svg>
-</div>
-<!-- Update your skills section in index.html -->
-<section id="skills" class="py-20 md:py-28 bg-dark">
-  <div class="max-w-4xl mx-auto text-center">
-    <div class="flex justify-center mb-6">
-      <img src="/assets/images/Skills.png" alt="Skills"
-           class="w-64 md:w-80 transform transition duration-500 hover:scale-105 hover:rotate-1">
-    </div>
-  </div>
-
-  <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-    <!-- Column 1: Radar -->
-    <div class="flex flex-col items-center slide-in-left relative">
-      <canvas class="absolute inset-0 z-[-1]" id="particlesRadar"></canvas>
-      <img src="/assets/images/core.png" alt="Core"
-           class="w-64 md:w-80 mb-6 transform transition duration-500 hover:scale-105 hover:rotate-1" />
-      <div class="chart-container w-full h-[320px] md:h-[380px]">
-        <canvas id="skillsRadarChart"></canvas>
-      </div>
-    </div>
-
-    <!-- Column 2: Bar -->
-    <div class="flex flex-col items-center slide-in-right relative">
-      <canvas class="absolute inset-0 z-[-1]" id="particlesBar"></canvas>
-      <img src="/assets/images/tool.png" alt="Tool"
-           class="w-80 md:w-[28rem] mb-6 transform transition duration-500 hover:scale-105 hover:rotate-1" />
-      <div class="chart-container w-full h-[320px] md:h-[380px]">
-        <canvas id="skillsBarChart"></canvas>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="separator-wave separator-teal-dark separator-top separator-flip animate-wave">
-  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" class="w-full h-auto">
-    <defs>
-      <linearGradient id="teal-dark" x1="100%" y1="0%" x2="0%" y2="0%">
-        <stop offset="0%" stop-color="#5EA08C" />
-        <stop offset="100%" stop-color="#2B6777" />
-      </linearGradient>
-    </defs>
-    <path d="M0,40 C480,0 960,100 1440,40 L1440,0 L0,0 Z" />
-  </svg>
-</div>
-
-        
-<section id="contact-section" class="py-24 bg-dark relative overflow-hidden">
-  <div class="max-w-4xl mx-auto px-4">
-    <div class="text-center mb-16">
-      <img id="contact-logo" src="/assets/images/contact.png" alt="Contact" class="h-40 mx-auto mb-4 opacity-90 hover:scale-105 transition duration-500" />
-      <h2 class="text-4xl md:text-5xl font-bold text-light">Construisons quelque chose ensemble.</h2>
-      <p class="text-lg text-gray-400 mt-4">J'adorerais entendre parler de votre projet. Parlons-en.</p>
-    </div>
-    <!-- Unified container for contact info and form -->
-    <div class="bg-border p-8 rounded-lg shadow-xl flex flex-col md:flex-row gap-12 items-start">
-      <div class="flex-1 text-light">
-        <h3 class="text-2xl font-semibold text-green mb-4">Me joindre directement</h3>
-        <p class="text-gray-400 mb-8">
-          Si vous préférez ne pas utiliser le formulaire, voici d'autres moyens de me contacter. Je suis disponible pour des projets freelance, des collaborations ou simplement pour discuter de technologie et de design.
-        </p>
-        <div class="space-y-6">
-          <a href="mailto:mohamed.slimani.contact@gmail.com" class="flex items-center group">
-            <i class="fas fa-envelope text-2xl text-green group-hover:text-beige transition-colors"></i>
-            <span class="ml-4 text-lg hover:underline">Mon email</span>
-          </a>
-          <a href="https://www.linkedin.com/in/mohamed-slimani-7a53ba240" target="_blank" rel="noopener" class="flex items-center group">
-            <i class="fab fa-linkedin text-2xl text-green group-hover:text-beige transition-colors"></i>
-            <span class="ml-4 text-lg hover:underline">Mon profil LinkedIn</span>
-          </a>
-          <a href="https://github.com/slimmohamed" target="_blank" rel="noopener" class="flex items-center group">
-            <i class="fab fa-github text-2xl text-green group-hover:text-beige transition-colors"></i>
-            <span class="ml-4 text-lg hover:underline">Mon profil GitHub</span>
-          </a>
         </div>
       </div>
-      <div class="flex-1">
-        <form action="https://formspree.io/f/xdkdnajl" method="POST" class="contact-form">
-          <div class="form-group">
-            <label class="form-label" for="name">Nom</label>
-            <input type="text" id="name" name="name" class="form-input" placeholder="Votre nom" required title="Veuillez entrer votre nom">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="email">Email</label>
-            <input type="email" id="email" name="email" class="form-input" placeholder="Votre email" required title="Veuillez entrer votre adresse email">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="message">Message</label>
-            <textarea id="message" name="message" class="form-input" rows="5" placeholder="Votre message" required title="Veuillez entrer votre message"></textarea>
-          </div>
-          <div class="flex justify-center">
-            <button id="send-button" class="sendbtn-button bg-[#5EA08C] hover:bg-[#4e8c7a] text-white" type="submit">
-              <div class="sendbtn-svg-wrapper-1">
-                <div class="sendbtn-svg-wrapper">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                    <path
-                      fill="currentColor"
-                      d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z">
-                    </path>
-                  </svg>
-                </div>
-              </div>
-              <span>Send</span>
+    </section>
+
+    <!-- WORKS -->
+    <section id="works-section" class="relative hidden opacity-0 scale-y-0 transform origin-top transition-all duration-500 ease-in-out">
+      <div class="grid md:grid-cols-2">
+        <!-- DESIGN PANEL -->
+        <div id="design-panel" class="relative z-0 min-h-[400px] bg-gradient-to-br from-amber-500 to-amber-600 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-[1.02] transition-transform duration-300">
+          <div class="absolute inset-0 z-0 pointer-events-none animated-bg-design"></div>
+          <div class="relative z-10 max-w-sm">
+            <div class="flex justify-center items-center mb-6">
+              <img src="/assets/images/logodp.png" alt="Design Logo" class="h-32 w-auto">
+            </div>
+            <p class="mb-8 text-white/90">
+              Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.
+            </p>
+            <button class="learn-more" onclick="localStorage.setItem('keepWorksOpen','true');window.location.href='/pages/design-projects.html';">
+              <span class="circle">
+                <span class="icon arrow"></span>
+                <span class="button-text">View Design Projects</span>
+              </span>
             </button>
           </div>
-        </form>
+        </div>
+
+        <!-- CODING PANEL -->
+        <div id="programming-panel" class="relative z-0 min-h-[400px] bg-gradient-to-br from-cyan-600 to-cyan-700 text-white p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:scale-[1.02] transition-transform duration-300">
+          <div class="absolute inset-0 z-0 pointer-events-none animated-bg-coding"></div>
+          <div class="relative z-10 max-w-sm">
+            <div class="flex justify-center items-center mb-6">
+              <img src="/assets/images/LOGOCP.png" alt="Coding Logo" class="h-32 w-auto">
+            </div>
+            <p class="mb-8 text-white/90">
+              Explorez mes projets de développement, incluant des applications web et des réalisations full-stack.
+            </p>
+            <button class="learn-more" onclick="localStorage.setItem('keepWorksOpen','true');window.location.href='/pages/coding-projects.html';">
+              <span class="circle">
+                <span class="icon arrow"></span>
+                <span class="button-text">View Coding Projects</span>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<div class="separator-wave separator-gray-dark separator-bottom animate-wave">
-  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" class="w-full h-auto">
-    <defs>
-      <linearGradient id="gray-dark" x1="100%" y1="0%" x2="0%" y2="0%">
-        <stop offset="0%" stop-color="#6B7280" />
-        <stop offset="100%" stop-color="#111827" />
-      </linearGradient>
-    </defs>
-    <path d="M0,40 C480,0 960,100 1440,40 L1440,0 L0,0 Z" />
-  </svg>
-</div>
+    <!-- ARTICLES -->
+    <section id="article-section" class="py-24 px-4 bg-dark">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <img src="/assets/images/article.png" alt="Icône d'articles" class="h-48 md:h-56 w-auto mx-auto mb-6">
+          <h2 class="text-4xl md:text-5xl font-bold text-light">Mes écrits et réflexions</h2>
+          <p class="text-gray-400 mt-4 text-lg">Je partage ici mes analyses, tutoriels et pensées sur le design et le code.</p>
+        </div>
 
-<footer class="bg-dark text-light py-16 px-4 shadow-inner border-t border-border">
-  <div class="max-w-6xl mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Card 1 -->
+          <div class="bg-border rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
+            <a href="#" class="block">
+              <img src="/assets/images/ux.png" alt="Image UX" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="p-6">
+                <span class="text-sm text-green font-semibold">UX/UI Design</span>
+                <h3 class="text-xl text-light font-bold mt-2">Comment améliorer l’UX de votre site web en 5 étapes</h3>
+                <p class="text-gray-400 mt-3">Techniques modernes pour guider vos utilisateurs à travers une interface propre et intuitive.</p>
+              </div>
+            </a>
+          </div>
 
-          <div class="md:col-span-1">
-              <a href="#hero" class="block mb-4">
-                  <img src="/assets/images/neoslim-logo.gif" alt="Logo Mohamed Slimani" class="h-28 w-auto mx-auto block">
+          <!-- Card 2 -->
+          <div class="bg-border rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
+            <a href="#" class="block">
+              <img src="/assets/images/react.jpg" alt="Image React" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="p-6">
+                <span class="text-sm text-blue font-semibold">Développement</span>
+                <h3 class="text-xl text-light font-bold mt-2">React vs Vue : lequel choisir ?</h3>
+                <p class="text-gray-400 mt-3">Une analyse comparative pour t’aider à prendre la bonne décision technique.</p>
+              </div>
+            </a>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-border rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
+            <a href="#" class="block">
+              <img src="/assets/images/article-placeholder-3.jpg" alt="Image article" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="p-6">
+                <span class="text-sm text-yellow font-semibold">Productivité</span>
+                <h3 class="text-xl text-light font-bold mt-2">Mes 5 outils indispensables</h3>
+                <p class="text-gray-400 mt-3">Section en cours de construction avec de nouveaux articles à venir.</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS (FIXED IDs + layout) -->
+    <section id="skills" class="py-20 md:py-28 bg-dark">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="flex justify-center mb-6">
+          <img src="/assets/images/Skills.png" alt="Skills" class="w-64 md:w-80">
+        </div>
+      </div>
+
+      <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <!-- Radar -->
+        <div class="flex flex-col items-center relative">
+          <img src="/assets/images/core.png" alt="Core" class="w-64 md:w-80 mb-6">
+          <div class="chart-container w-full h-[320px] md:h-[380px]">
+            <canvas id="skillsRadarChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Bar -->
+        <div class="flex flex-col items-center relative">
+          <img src="/assets/images/tool.png" alt="Tool" class="w-80 md:w-[28rem] mb-6">
+          <div class="chart-container w-full h-[320px] md:h-[380px]">
+            <canvas id="skillsBarChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact-section" class="py-24 bg-dark relative overflow-hidden">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="text-center mb-16">
+          <img id="contact-logo" src="/assets/images/contact.png" alt="Contact" class="h-40 mx-auto mb-4 opacity-90">
+          <h2 class="text-4xl md:text-5xl font-bold text-light">Construisons quelque chose ensemble.</h2>
+          <p class="text-lg text-gray-400 mt-4">J'adorerais entendre parler de votre projet. Parlons-en.</p>
+        </div>
+
+        <div class="bg-border p-8 rounded-lg shadow-xl flex flex-col md:flex-row gap-12 items-start">
+          <div class="flex-1 text-light">
+            <h3 class="text-2xl font-semibold text-green mb-4">Me joindre directement</h3>
+            <p class="text-gray-400 mb-8">
+              Voici d'autres moyens de me contacter. Je suis disponible pour des projets freelance, collaborations, ou discuter design/code.
+            </p>
+
+            <div class="space-y-6">
+              <a href="mailto:mohamed.slimani.contact@gmail.com" class="flex items-center group">
+                <i class="fas fa-envelope text-2xl text-green group-hover:text-beige transition-colors"></i>
+                <span class="ml-4 text-lg hover:underline">Mon email</span>
               </a>
-              <p class="text-gray-400 text-sm">Développeur Full-Stack & Designer UI/UX basé à Montréal.</p>
+              <a href="https://www.linkedin.com/in/mohamed-slimani-7a53ba240" target="_blank" rel="noopener" class="flex items-center group">
+                <i class="fab fa-linkedin text-2xl text-green group-hover:text-beige transition-colors"></i>
+                <span class="ml-4 text-lg hover:underline">Mon profil LinkedIn</span>
+              </a>
+              <a href="https://github.com/slimmohamed" target="_blank" rel="noopener" class="flex items-center group">
+                <i class="fab fa-github text-2xl text-green group-hover:text-beige transition-colors"></i>
+                <span class="ml-4 text-lg hover:underline">Mon profil GitHub</span>
+              </a>
+            </div>
           </div>
 
-          <div>
-              <h3 class="font-bold text-light uppercase tracking-wider text-sm mb-4">Navigation</h3>
-              <ul class="space-y-2">
-                  <li><a href="#about" class="footer-link">À propos</a></li>
-                  <li><a href="#works-section" class="footer-link">Projets</a></li>
-                  <li><a href="#skills" class="footer-link">Compétences</a></li>
-                  <li><a href="#article-section" class="footer-link">Articles</a></li>
-              </ul>
-          </div>
+          <div class="flex-1">
+            <form action="https://formspree.io/f/xdkdnajl" method="POST" class="contact-form">
+              <div class="form-group">
+                <label class="form-label" for="name">Nom</label>
+                <input type="text" id="name" name="name" class="form-input" placeholder="Votre nom" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="Votre email" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="message">Message</label>
+                <textarea id="message" name="message" class="form-input" rows="5" placeholder="Votre message" required></textarea>
+              </div>
 
-          <div>
-              <h3 class="font-bold text-light uppercase tracking-wider text-sm mb-4">Réseaux</h3>
-              <ul class="space-y-2">
-                  <li><a href="https://github.com/votreprofil" target="_blank" rel="noopener" class="footer-link">GitHub</a></li>
-                  <li><a href="https://linkedin.com/in/votreprofil" target="_blank" rel="noopener" class="footer-link">LinkedIn</a></li>
-                  <li><a href="https://dribbble.com/votreprofil" target="_blank" rel="noopener" class="footer-link">Dribbble</a></li>
-              </ul>
+              <div class="flex justify-center">
+                <button id="send-button" class="sendbtn-button bg-[#5EA08C] hover:bg-[#4e8c7a] text-white" type="submit">
+                  <span>Send</span>
+                </button>
+              </div>
+            </form>
           </div>
-
-          <div>
-              <h3 class="font-bold text-light uppercase tracking-wider text-sm mb-4">Contact</h3>
-              <ul class="space-y-2">
-                  <li><a href="mailto:moahmed.slimani.contact@gmail.com" class="footer-link">E-mail</a></li>
-              </ul>
-          </div>
+        </div>
 
       </div>
+    </section>
 
-      <hr class="my-8 border-gray-700" />
-
-      <div class="text-center text-sm text-gray-500">
+    <!-- FOOTER -->
+    <footer class="bg-dark text-light py-16 px-4 shadow-inner border-t border-border">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center text-sm text-gray-500">
           &copy; 2025 Mohamed Slimani. Tous droits réservés.
+        </div>
       </div>
-  </div>
-</footer>
+    </footer>
 
-<style>
-.footer-link {
-  color: var(--gray-400);
-  transition: color 0.3s ease;
-  text-decoration: none;
-}
-.footer-link:hover {
-  color: var(--green);
-}
-</style>
+  </main>
 
-    </main>
+  <!-- Chart.js (IMPORTANT: before main.js) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
 
-<!-- Debug script for charts -->
-<script>
-  // Force chart creation after a short delay
- 
-</script>
-<!-- Debug script for charts -->
-<script>
-  // Force chart creation after a short delay
-  setTimeout(() => {
-    console.log('=== CHART DEBUG ===');
-    console.log('Chart.js available:', typeof Chart !== 'undefined');
-    
-    const radarCanvas = document.getElementById('skillsRadarChart');
-    const barCanvas = document.getElementById('skillsBarChart');
-    
-    console.log('Radar canvas:', radarCanvas);
-    console.log('Bar canvas:', barCanvas);
-    
-    if (radarCanvas) {
-      console.log('Radar canvas dimensions:', radarCanvas.offsetWidth, 'x', radarCanvas.offsetHeight);
-      console.log('Radar canvas style:', radarCanvas.style.width, radarCanvas.style.height);
-      console.log('Radar canvas display:', window.getComputedStyle(radarCanvas).display);
-    }
-    
-    if (barCanvas) {
-      console.log('Bar canvas dimensions:', barCanvas.offsetWidth, 'x', barCanvas.offsetHeight);
-      console.log('Bar canvas style:', barCanvas.style.width, barCanvas.style.height);
-      console.log('Bar canvas display:', window.getComputedStyle(barCanvas).display);
-    }
-    
-    if (typeof Chart !== 'undefined') {
-      console.log('Creating charts immediately...');
-      
-      // Create radar chart
-      const radarCtx = document.getElementById('skillsRadarChart');
-      if (radarCtx) {
-        console.log('Radar canvas found, creating chart...');
-        // Force canvas to be visible
-        radarCtx.style.width = '100%';
-        radarCtx.style.height = '100%';
-        radarCtx.style.display = 'block';
-        radarCtx.style.minHeight = '300px';
-        
-        const radarChart = new Chart(radarCtx, {
-          type: 'radar',
-          data: {
-            labels: ['Frontend', 'Backend', 'UI/UX', 'DevOps', 'Database'],
-            datasets: [{
-              label: 'Skill Level',
-              data: [95, 75, 85, 70, 60],
-              backgroundColor: 'rgba(94, 160, 140, 0.2)',
-              borderColor: '#5EA08C',
-              pointBackgroundColor: '#5EA08C',
-              borderWidth: 2,
-              pointRadius: 4
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: { duration: 1200 },
-            scales: {
-              r: {
-                angleLines: { color: '#F5DEB3' },
-                grid: { color: '#3C3C3C' },
-                pointLabels: { color: '#F5DEB3', font: { size: 14 } },
-                ticks: { display: false },
-                beginAtZero: true,
-                max: 100
-              }
-            },
-            plugins: { 
-              legend: { display: false },
-              tooltip: {
-                backgroundColor: 'rgba(30, 30, 30, 0.9)',
-                titleColor: '#F5DEB3',
-                bodyColor: '#F4F4F5'
-              }
-            }
-          }
-        });
-        console.log('Radar chart created:', radarChart);
-      }
-      
-      // Create bar chart
-      const barCtx = document.getElementById('skillsBarChart');
-      if (barCtx) {
-        console.log('Bar canvas found, creating chart...');
-        // Force canvas to be visible
-        barCtx.style.width = '100%';
-        barCtx.style.height = '100%';
-        barCtx.style.display = 'block';
-        barCtx.style.minHeight = '300px';
-        
-        const barChart = new Chart(barCtx, {
-          type: 'bar',
-          data: {
-            labels: ['React', 'Node.js', 'Python', 'Figma', 'Adobe XD', 'Git'],
-            datasets: [{
-              label: 'Proficiency',
-              data: [95, 80, 70, 85, 80, 75],
-              backgroundColor: [
-                'rgba(94, 160, 140, 0.7)',
-                'rgba(94, 160, 140, 0.7)',
-                'rgba(94, 160, 140, 0.7)',
-                'rgba(245, 222, 179, 0.7)',
-                'rgba(245, 222, 179, 0.7)',
-                'rgba(94, 160, 140, 0.7)'
-              ],
-              borderColor: [
-                '#5EA08C',
-                '#5EA08C',
-                '#5EA08C',
-                '#F5DEB3',
-                '#F5DEB3',
-                '#5EA08C'
-              ],
-              borderWidth: 2,
-              borderRadius: 6,
-              borderSkipped: false,
-            }]
-          },
-          options: {
-            indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: { duration: 2000 },
-            scales: {
-              x: {
-                beginAtZero: true,
-                max: 100,
-                grid: { color: 'rgba(60, 60, 60, 0.5)' },
-                ticks: { color: '#F5DEB3', stepSize: 20 }
-              },
-              y: {
-                grid: { color: 'rgba(60, 60, 60, 0.5)' },
-                ticks: { color: '#F5DEB3' }
-              }
-            },
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                backgroundColor: 'rgba(30, 30, 30, 0.9)',
-                titleColor: '#F5DEB3',
-                bodyColor: '#F4F4F5'
-              }
-            }
-          }
-        });
-        console.log('Bar chart created:', barChart);
-      }
-    } else {
-      console.log('Chart.js not available');
-    }
-  }, 2000);
-</script>
-
-
- <!-- Scripts -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
- <script>
-   // Check if Chart.js loaded successfully
-   if (typeof Chart === 'undefined') {
-     console.log('Chart.js not loaded from CDN, trying fallback...');
-     const script = document.createElement('script');
-     script.src = 'https://unpkg.com/chart.js@4.5.0/dist/chart.umd.js';
-     script.onload = function() {
-       console.log('Chart.js loaded from fallback CDN');
-       // Re-initialize charts if needed
-       if (window.testCharts) window.testCharts();
-     };
-     script.onerror = function() {
-       console.error('Failed to load Chart.js from both CDNs');
-     };
-     document.head.appendChild(script);
-   } else {
-     console.log('Chart.js loaded successfully from CDN');
-   }
- </script>
- <script src="../assets/js/main.js"></script>
- <script>
-   gsap.from("#hero .gsap-line", { scaleX: 0, duration: 1, ease: "power2.out" });
-   gsap.from("#hero .gsap-zoom-in", { scale: 0.6, opacity: 0, duration: 1, delay: 0.5 });
-   gsap.from("#hero .gsap-fade-in-up", { y: 40, opacity: 0, duration: 1, delay: 0.8 });
- </script>
- <script>
-  function redirectWithEffect(url, type) {
-    const body = document.body;
-  
-    if (type === 'fade') {
-      gsap.to(body, {
-        opacity: 0,
-        duration: 0.6,
-        onComplete: () => window.location.href = url
-      });
-    } else if (type === 'slide') {
-      gsap.to(body, {
-        x: '-100%',
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power1.inOut',
-        onComplete: () => window.location.href = url
-      });
-    } else {
-      window.location.href = url;
-    }
-  }
-  
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('scrollToTopBtn');
-  if (!btn) return;
-
-  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-});
-</script>
+  <!-- Main JS -->
+  <script src="/assets/js/main.js"></script>
 
 </body>
 </html>
