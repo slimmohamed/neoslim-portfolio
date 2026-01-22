@@ -16,17 +16,7 @@
 <!-- Header -->
 <!-- Header dynamique -->
 <div id="header-placeholder"></div>
-<script>
-  fetch('../assets/components/header.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('header-placeholder').innerHTML = html;
-
-      // IMPORTANT: init après injection
-      if (typeof initHeaderMenu === 'function') initHeaderMenu();
-    })
-    .catch(err => console.error('Erreur de chargement du header:', err));
-</script>
+ => console.error('Erreur de chargement du header:', err));
 
 
   <!-- Main Content -->
