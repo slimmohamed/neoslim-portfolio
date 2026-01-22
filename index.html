@@ -56,36 +56,47 @@
     </button>
   </div>
 
-  <!-- HEADER -->
-  <header class="fixed top-0 left-0 w-full z-50 h-24 md:h-28 bg-dark/90 backdrop-blur shadow-lg border-b border-border flex items-center justify-between px-4 md:px-6">
-    <div class="relative">
-      <label class="hamburger" for="menuToggle" aria-label="Toggle menu">
-        <input type="checkbox" id="menuToggle" />
-        <svg viewBox="0 0 32 32" class="h-8 w-8">
-          <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
-          <path class="line" d="M7 16 27 16"></path>
-        </svg>
-      </label>
+<!-- HEADER -->
+<header class="site-header fixed top-0 left-0 w-full h-24 md:h-32 bg-dark/90 backdrop-blur border-b border-border shadow-lg flex items-center px-4 md:px-6">
 
-      <!-- Menu (shape fixed in CSS patch) -->
-<nav id="menuBox" class="menu-box hidden">
-        <a class="value" href="#hero"><i class="fa-solid fa-house"></i><span>Accueil</span></a>
-        <a class="value" href="#works-section"><i class="fa-solid fa-layer-group"></i><span>Projets</span></a>
-        <a class="value" href="#about"><i class="fa-solid fa-user"></i><span>À propos</span></a>
-        <a class="value" href="#skills"><i class="fa-solid fa-screwdriver-wrench"></i><span>Compétences</span></a>
-        <a class="value" href="#article-section"><i class="fa-solid fa-newspaper"></i><span>Articles</span></a>
-        <a class="value" href="#contact-section"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
-      </nav>
-    </div>
+  <!-- LEFT : MENU BUTTON -->
+  <div class="relative z-[9999]">
+    <button
+      id="menuBtn"
+      class="menu-btn"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <span class="menu-icon"></span>
+    </button>
 
-    <div class="center-logo mx-auto">
-      <!-- Logo: eager ok (above the fold) -->
-      <img src="/assets/images/neoslim-logo.gif" alt="Logo Mohamed Slimani" class="h-16 md:h-20 w-auto drop-shadow-xl" decoding="async">
-    </div>
+    <!-- MENU -->
+    <nav id="menuBox" class="menu-box" aria-label="Main navigation">
+      <a class="value" href="/index.html#hero">Accueil</a>
+      <a class="value" href="/index.html#works-section">Projets</a>
+      <a class="value" href="/index.html#about">À propos</a>
+      <a class="value" href="/index.html#skills">Compétences</a>
+      <a class="value" href="/index.html#article-section">Articles</a>
+      <a class="value" href="/index.html#contact-section">Contact</a>
+    </nav>
+  </div>
 
-    <!-- Right spacer to keep logo centered visually -->
-    <div class="w-8 md:w-10" aria-hidden="true"></div>
-  </header>
+  <!-- CENTER : LOGO -->
+  <div class="absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none">
+    <img
+      src="/assets/images/neoslim-logo.gif"
+      alt="NeoSlim Logo"
+      class="h-20 md:h-28 lg:h-32 w-auto drop-shadow-2xl"
+      decoding="async"
+      fetchpriority="high"
+    />
+  </div>
+
+  <!-- RIGHT : spacer (keeps center alignment perfect) -->
+  <div class="ml-auto w-[56px] h-[56px]" aria-hidden="true"></div>
+
+</header>
 
   <main class="pt-28 md:pt-32">
 
