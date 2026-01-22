@@ -1,522 +1,336 @@
-// Main JavaScript for Portfolio Website
+// assets/js/main.js
+// Clean + fast version (no duplicates)
 
 // Chart instances
 let radarChart = null;
 let barChart = null;
 
-document.addEventListener('DOMContentLoaded', () => {
-  initMenuToggle();
-  initHeaderMenu();
-  initWorksSection();
-  initSmoothScrolling();
-  initAnimations();
-  initCardParticles();
-  initGSAPAnimations();
-  initCanvasBackground();
-  initAnchorNavigation();
-  initNavigationButtons();
-  initCollapsibleSections();
-  handleFormSubmit();
-  initScrollToTop();
-function createBarChart() {
-  const canvas = document.getElementById('skillsBarChart');
-  if (!canvas) return null;
+document.addEventListener("DOMContentLoaded", () => {
+  initMenuToggle();          // hamburger + menu links
+  initWorksSection();        // VIEW MY WORKS toggle + localStorage keep open
+  initAnchorNavigation();    // smooth scroll for #links
+  initScrollToTop();         // scroll-to-top button
+  initCanvasBackground();    // particles background (optional)
+  initCardParticles();       // hover particles (optional)
+  handleFormSubmit();        // fake submit animation (optional)
 
-  const ctx = canvas.getContext('2d');
-
-  // Gradient (darker -> your teal)
-  const gradTeal = ctx.createLinearGradient(0, 0, canvas.width || 300, 0);
-  gradTeal.addColorStop(0, 'rgba(35, 70, 62, 0.95)');   // darker
-  gradTeal.addColorStop(1, 'rgba(94, 160, 140, 0.85)'); // your #5EA08C
-
-  const gradBeige = ctx.createLinearGradient(0, 0, canvas.width || 300, 0);
-  gradBeige.addColorStop(0, 'rgba(70, 55, 30, 0.95)');
-  gradBeige.addColorStop(1, 'rgba(245, 222, 179, 0.85)'); // #F5DEB3
-
-  const data = [95, 80, 70, 85, 80, 75];
-
-  return new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['React', 'Node.js', 'Python', 'Figma', 'Adobe XD', 'Git'],
-      datasets: [{
-        data,
-        backgroundColor: (c) => {
-          const label = c.chart.data.labels[c.dataIndex];
-          return (label === 'Figma' || label === 'Adobe XD') ? gradBeige : gradTeal;
-        },
-        borderWidth: 0,
-        borderRadius: 8,
-        borderSkipped: false,
-      }]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: {
-        duration: 1200,
-        easing: 'easeOutQuart',
-        // force left->right growth:
-        onProgress: () => {},
-      },
-      scales: {
-        x: {
-          beginAtZero: true,
-          max: 100,
-          ticks: { color: '#F5DEB3', stepSize: 20 },
-          grid: { color: 'rgba(60,60,60,0.45)' }
-        },
-        y: {
-          ticks: { color: '#F5DEB3' },
-          grid: { color: 'rgba(60,60,60,0.25)' }
-        }
-      },
-      plugins: { legend: { display: false } }
-    }
-  });
-}
-
-function setupBarChartReplay() {
-  const section = document.getElementById('skills');
-  const canvas = document.getElementById('skillsBarChart');
-  if (!section || !canvas || typeof Chart === 'undefined') return;
-
-  let barChart = null;
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        if (barChart) barChart.destroy();
-        barChart = createBarChart();
-      }
-    });
-  }, { threshold: 0.35 });
-
-  io.observe(section);
-}
-function setupBarReplay() {
-  const skills = document.getElementById('skills');
-  const canvas = document.getElementById('skillsBarChart');
-  if (!skills || !canvas || typeof Chart === 'undefined') return;
-
-  let chart;
-
-  const io = new IntersectionObserver((entries) => {
-    if (!entries[0].isIntersecting) return;
-    if (chart) chart.destroy();
-
-    chart = new Chart(canvas, {
-      type: 'bar',
-      data: {
-        labels: ['React','Node.js','Python','Figma','Adobe XD','Git'],
-        datasets: [{
-          data: [95,80,70,85,80,75],
-          backgroundColor: 'rgba(94,160,140,0.75)',
-          borderRadius: 8,
-          borderSkipped: false
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: { duration: 1100, easing: 'easeOutQuart' },
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { beginAtZero: true, max: 100, ticks: { color: '#F5DEB3' } },
-          y: { ticks: { color: '#F5DEB3' } }
-        }
-      }
-    });
-  }, { threshold: 0.35 });
-
-  io.observe(skills);
-}
-setupBarReplay();
-// Call after Chart.js is loaded
-setupBarChartReplay();
-
-  // Chart initialization logic
-  function tryInitCharts() {
-    if (typeof Chart !== 'undefined') {
-      if (!barChart) createBarChart();
-      if (!radarChart) createRadarChart();
-      return true;
-    }
-    return false;
-  }
-
-  // Try to initialize charts after DOM is ready
-  setTimeout(() => {
-    if (!tryInitCharts()) {
-      // Wait for Chart.js to load
-      const checkChart = setInterval(() => {
-        if (tryInitCharts()) {
-          clearInterval(checkChart);
-        }
-      }, 100);
-    }
-  }, 1000);
-
-  // Also initialize charts when skills section comes into view
-  const skillsSection = document.getElementById('skills');
-  if (skillsSection) {
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            tryInitCharts();
-          }, 500);
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    observer.observe(skillsSection);
-  }
-
-  // Fallback: Initialize charts after a longer delay
-  setTimeout(() => {
-    tryInitCharts();
-  }, 3000);
-
-  // Additional fallback: Initialize charts when window loads
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      tryInitCharts();
-    }, 1000);
-  });
-
-  // Test function - you can call this in browser console: testCharts()
-  window.testCharts = function() {
-    createRadarChart();
-    createBarChart();
-  };
+  // Charts: init + replay when visible
+  setupChartsReplay();
 });
 
-// CHARTS INITIALIZATION
+/* -----------------------------
+   MENU (Hamburger + links)
+-------------------------------- */
+function initMenuToggle() {
+  const menuToggle = document.getElementById("menuToggle");
+  const menu = document.getElementById("menuBox");
+  if (!menuToggle || !menu) return;
 
-function createRadarChart() {
-  if (radarChart) return;
-  const ctx = document.getElementById('skillsRadarChart');
-  if (!ctx) return;
-  if (typeof Chart === 'undefined') return;
+  const showMenu = () => {
+    menu.classList.remove("hidden");
+    menu.style.display = "block";
+    menu.style.opacity = "1";
+    menu.style.transform = "translateY(0)";
+  };
 
-  ctx.style.width = '100%';
-  ctx.style.height = '100%';
-  ctx.style.display = 'block';
+  const hideMenu = () => {
+    menu.classList.add("hidden");
+    menu.style.display = "none";
+    menuToggle.checked = false;
+  };
 
-  try {
-    radarChart = new Chart(ctx, {
-      type: 'radar',
-      data: {
-        labels: ['Frontend', 'Backend', 'UI/UX', 'DevOps', 'Database'],
-        datasets: [{
-          label: 'Skill Level',
-          data: [95, 75, 85, 70, 60],
-          backgroundColor: 'rgba(94, 160, 140, 0.2)',
-          borderColor: '#5EA08C',
-          pointBackgroundColor: '#5EA08C',
-          borderWidth: 2,
-          pointRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: { duration: 1200 },
-        scales: {
-          r: {
-            angleLines: { color: '#F5DEB3' },
-            grid: { color: '#3C3C3C' },
-            pointLabels: { color: '#F5DEB3', font: { size: 14 } },
-            ticks: { display: false },
-            beginAtZero: true,
-            max: 100
-          }
-        },
-        plugins: { 
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: 'rgba(30, 30, 30, 0.9)',
-            titleColor: '#F5DEB3',
-            bodyColor: '#F4F4F5'
-          }
-        }
-      }
-    });
-  } catch (error) {
-    radarChart = null;
+  // Toggle
+  menuToggle.addEventListener("change", () => {
+    if (menuToggle.checked) showMenu();
+    else hideMenu();
+  });
+
+  // Click on a menu item => close + navigate (anchors work)
+  menu.querySelectorAll("a.value, button.value").forEach((el) => {
+    el.addEventListener("click", () => hideMenu());
+  });
+
+  // Click outside => close
+  document.addEventListener("click", (e) => {
+    const clickedHamburger = e.target.closest(".hamburger");
+    if (!menu.contains(e.target) && !clickedHamburger) hideMenu();
+  });
+}
+
+/* -----------------------------
+   WORKS SECTION TOGGLE
+-------------------------------- */
+function initWorksSection() {
+  const btn = document.getElementById("toggle-works-btn");
+  const works = document.getElementById("works-section");
+  if (!btn || !works) return;
+
+  let isOpen = false;
+
+  const show = () => {
+    works.classList.remove("hidden");
+    works.style.opacity = "1";
+    works.style.transform = "scaleY(1)";
+    isOpen = true;
+
+    const t = btn.querySelector(".btn-hero__text");
+    if (t) t.textContent = "HIDE WORKS";
+
+    setTimeout(() => works.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+  };
+
+  const hide = () => {
+    works.style.opacity = "0";
+    works.style.transform = "scaleY(0)";
+    isOpen = false;
+
+    const t = btn.querySelector(".btn-hero__text");
+    if (t) t.textContent = "VIEW MY WORKS";
+
+    setTimeout(() => works.classList.add("hidden"), 450);
+  };
+
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (isOpen) hide();
+    else show();
+  });
+
+  // keepWorksOpen from other pages
+  if (localStorage.getItem("keepWorksOpen") === "true") {
+    localStorage.removeItem("keepWorksOpen");
+    show();
+  } else {
+    works.classList.add("hidden");
+    works.style.opacity = "0";
+    works.style.transform = "scaleY(0)";
   }
 }
 
-function createBarChart() {
-  if (barChart) return;
-  const ctx = document.getElementById('skillsBarChart');
-  if (!ctx) return;
-  if (typeof Chart === 'undefined') return;
+/* -----------------------------
+   ANCHOR NAVIGATION (smooth)
+-------------------------------- */
+function initAnchorNavigation() {
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      const href = a.getAttribute("href");
+      if (!href || href === "#") return;
 
-  ctx.style.width = '100%';
-  ctx.style.height = '100%';
-  ctx.style.display = 'block';
+      const target = document.querySelector(href);
+      if (!target) return;
 
-  const data = {
-    labels: ['React', 'Node.js', 'Python', 'Figma', 'Adobe XD', 'Git'],
-    datasets: [{
-      label: 'Proficiency',
-      data: [95, 80, 70, 85, 80, 75],
-      backgroundColor: [
-        'rgba(94, 160, 140, 0.7)',
-        'rgba(94, 160, 140, 0.7)',
-        'rgba(94, 160, 140, 0.7)',
-        'rgba(245, 222, 179, 0.7)',
-        'rgba(245, 222, 179, 0.7)',
-        'rgba(94, 160, 140, 0.7)'
-      ],
-      borderColor: [
-        '#5EA08C',
-        '#5EA08C',
-        '#5EA08C',
-        '#F5DEB3',
-        '#F5DEB3',
-        '#5EA08C'
-      ],
-      borderWidth: 2,
-      borderRadius: 6,
-      borderSkipped: false,
-    }]
-  };
+      e.preventDefault();
+      const headerOffset = 120; // your fixed header height
+      const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
 
-  try {
-    barChart = new Chart(ctx, {
-      type: 'bar',
-      data: data,
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: {
-          duration: 2000
-        },
-        scales: {
-          x: {
-            beginAtZero: true,
-            max: 100,
-            grid: {
-              color: 'rgba(60, 60, 60, 0.5)'
-            },
-            ticks: {
-              color: '#F5DEB3',
-              stepSize: 20
-            }
-          },
-          y: {
-            grid: {
-              color: 'rgba(60, 60, 60, 0.5)'
-            },
-            ticks: {
-              color: '#F5DEB3'
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            display: false
-          },
-          tooltip: {
-            backgroundColor: 'rgba(30, 30, 30, 0.9)',
-            titleColor: '#F5DEB3',
-            bodyColor: '#F4F4F5'
-          }
-        }
-      }
+      window.scrollTo({ top, behavior: "smooth" });
     });
-  } catch (error) {
+  });
+}
+
+/* -----------------------------
+   SCROLL TO TOP
+-------------------------------- */
+function initScrollToTop() {
+  const btn = document.getElementById("scrollToTopBtn");
+  if (!btn) return;
+
+  // start hidden if you want
+  btn.classList.add("hidden");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) btn.classList.remove("hidden");
+    else btn.classList.add("hidden");
+  });
+
+  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
+
+/* -----------------------------
+   CHARTS (Radar + Bar) clean init
+   + replay animation on each view
+-------------------------------- */
+function setupChartsReplay() {
+  const skillsSection = document.getElementById("skills");
+  if (!skillsSection) return;
+
+  // If Chart.js not loaded, retry a bit
+  if (typeof Chart === "undefined") {
+    let tries = 0;
+    const t = setInterval(() => {
+      tries++;
+      if (typeof Chart !== "undefined") {
+        clearInterval(t);
+        setupChartsReplay();
+      }
+      if (tries > 40) clearInterval(t);
+    }, 150);
+    return;
+  }
+
+  // Observe visibility => recreate charts each time entering
+  const io = new IntersectionObserver(
+    (entries) => {
+      if (!entries[0].isIntersecting) return;
+
+      destroyCharts();
+      createRadarChart();
+      createBarChart();
+    },
+    { threshold: 0.35 }
+  );
+
+  io.observe(skillsSection);
+
+  // Also init once if already visible on load
+  setTimeout(() => {
+    const r = skillsSection.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      destroyCharts();
+      createRadarChart();
+      createBarChart();
+    }
+  }, 500);
+}
+
+function destroyCharts() {
+  if (radarChart) {
+    radarChart.destroy();
+    radarChart = null;
+  }
+  if (barChart) {
+    barChart.destroy();
     barChart = null;
   }
 }
 
-// MENU TOGGLE
-
-function initMenuToggle() {
-  const menuToggle = document.getElementById('menuToggle');
-  const menu = document.getElementById('menuBox');
-  if (!menuToggle || !menu) return;
-
-  // Animate menu show/hide with GSAP
-  function showMenu() {
-    menu.classList.remove('hidden');
-    gsap.to(menu, { opacity: 1, y: 0, duration: 0.35, pointerEvents: 'auto', onStart: () => { menu.style.display = 'block'; } });
-  }
-  function hideMenu() {
-    gsap.to(menu, { opacity: 0, y: -20, duration: 0.3, pointerEvents: 'none', onComplete: () => { menu.classList.add('hidden'); menu.style.display = 'none'; } });
-  }
-
-  menuToggle.addEventListener('change', () => {
-    if (menuToggle.checked) {
-      showMenu();
-    } else {
-      hideMenu();
-    }
-  });
-  // (Restored/fixed block for menu toggle with correct variable names)
-  if (menuToggle && menu) {
-    menuToggle.addEventListener('change', () => {
-      if (menuToggle.checked) {
-        menu.classList.add('block', 'animate-in');
-        document.body.classList.add('overflow-hidden');
-      } else {
-        menu.classList.remove('block', 'animate-in');
-        document.body.classList.remove('overflow-hidden');
-      }
-    });
-  }
-  // Hide menu when clicking a menu item
-  menu.querySelectorAll('.value').forEach(btn => {
-    btn.addEventListener('click', () => {
-      hideMenu();
-      menuToggle.checked = false;
-    });
-  });
-
-  // Hide menu when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!menu.contains(e.target) && !menuToggle.contains(e.target) && !e.target.closest('.hamburger')) {
-      hideMenu();
-      menuToggle.checked = false;
-    }
-  });
-  // Add glitch effect when menu opens
-  menuToggle.addEventListener('change', () => {
-    if (menuToggle.checked) {
-      menu.classList.add('glitch');
-      setTimeout(() => {
-        menu.classList.remove('glitch');
-      }, 1000);
-    }
-  });
-
-}
-// Add when opening the menu
-function openMenuVisuals() {
-  menu.classList.add('block', 'animate-in', 'glitch');
-}
-// Remove when closing the menu
-function closeMenuVisuals() {
-  menu.classList.remove('block', 'animate-in', 'glitch');
-}
-
-function initHeaderMenu() {
-  // This function is kept for backward compatibility, but is redundant.
-  // It just calls initMenuToggle, which is already called in DOMContentLoaded.
-}
-
-// WORKS SECTION TOGGLE
-function initWorksSection() {
-  const toggleWorksButton = document.getElementById('toggle-works-btn');
-  const worksSection = document.getElementById('works-section');
-  if (!toggleWorksButton || !worksSection) return;
-
-  let isWorksVisible = false;
-
-  toggleWorksButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    toggleWorksVisibility();
-  });
-
-  function toggleWorksVisibility() {
-    isWorksVisible = !isWorksVisible;
-    if (isWorksVisible) showWorksSection();
-    else hideWorksSection();
-  }
-
-  function showWorksSection() {
-    worksSection.classList.remove('hidden');
-    worksSection.style.opacity = '1';
-    worksSection.style.transform = 'scaleY(1)';
-    const btnText = toggleWorksButton.querySelector('.btn-hero__text');
-    if (btnText) btnText.textContent = 'HIDE WORKS';
-    setTimeout(() => {
-      worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
-  }
-
-  function hideWorksSection() {
-    worksSection.style.opacity = '0';
-    worksSection.style.transform = 'scaleY(0)';
-    const btnText = toggleWorksButton.querySelector('.btn-hero__text');
-    if (btnText) btnText.textContent = 'VIEW MY WORKS';
-    setTimeout(() => {
-      worksSection.classList.add('hidden');
-    }, 500);
-  }
-
-  if (localStorage.getItem("keepWorksOpen") === "true") {
-    worksSection.classList.remove("hidden");
-    localStorage.removeItem("keepWorksOpen");
-    isWorksVisible = true;
-    showWorksSection();
-  } else {
-    worksSection.classList.add('hidden');
-    worksSection.style.opacity = '0';
-    worksSection.style.transform = 'scaleY(0)';
-  }
-}
-
-// BACK BUTTONS
-function initBackButtons() {
-  document.querySelectorAll('.back-button-container').forEach(btn => {
-    btn.addEventListener('click', () => window.history.back());
-  });
-}
-gsap.from("#article-section img", {
-  y: -40,
-  opacity: 0,
-  duration: 1.2,
-  ease: "power2.out",
-  scrollTrigger: {
-    trigger: "#article-section",
-    start: "top 80%",
-  }
-});
-// SCROLL ANIMATIONS (GSAP)
-function initGSAPAnimations() {
-  // All scroll-triggered hide/show animations removed. All items are always visible.
-}
-
-// CANVAS BACKGROUND ANIMATION
-function initCanvasBackground() {
-  const canvas = document.getElementById('background-canvas');
+function createRadarChart() {
+  const canvas = document.getElementById("skillsRadarChart");
   if (!canvas) return;
 
-  const ctx = canvas.getContext('2d');
-  function resizeCanvas() {
+  const ctx = canvas.getContext("2d");
+  radarChart = new Chart(ctx, {
+    type: "radar",
+    data: {
+      labels: ["Frontend", "Backend", "UI/UX", "DevOps", "Database"],
+      datasets: [
+        {
+          data: [95, 75, 85, 70, 60],
+          backgroundColor: "rgba(94, 160, 140, 0.20)",
+          borderColor: "#5EA08C",
+          pointBackgroundColor: "#5EA08C",
+          borderWidth: 2,
+          pointRadius: 4,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 900 },
+      plugins: { legend: { display: false } },
+      scales: {
+        r: {
+          beginAtZero: true,
+          max: 100,
+          ticks: { display: false },
+          angleLines: { color: "rgba(245,222,179,0.55)" },
+          grid: { color: "rgba(60,60,60,0.6)" },
+          pointLabels: { color: "#F5DEB3", font: { size: 14 } },
+        },
+      },
+    },
+  });
+}
+
+function createBarChart() {
+  const canvas = document.getElementById("skillsBarChart");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+
+  // gradients (darker -> your teal/beige)
+  const gradTeal = ctx.createLinearGradient(0, 0, 350, 0);
+  gradTeal.addColorStop(0, "rgba(35, 70, 62, 0.95)");
+  gradTeal.addColorStop(1, "rgba(94, 160, 140, 0.85)");
+
+  const gradBeige = ctx.createLinearGradient(0, 0, 350, 0);
+  gradBeige.addColorStop(0, "rgba(70, 55, 30, 0.95)");
+  gradBeige.addColorStop(1, "rgba(245, 222, 179, 0.85)");
+
+  const labels = ["React", "Node.js", "Python", "Figma", "Adobe XD", "Git"];
+  const values = [95, 80, 70, 85, 80, 75];
+
+  barChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        {
+          data: values,
+          borderWidth: 0,
+          borderRadius: 8,
+          borderSkipped: false,
+          backgroundColor: (c) => {
+            const label = c.chart.data.labels[c.dataIndex];
+            return label === "Figma" || label === "Adobe XD" ? gradBeige : gradTeal;
+          },
+        },
+      ],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 1100, easing: "easeOutQuart" },
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          beginAtZero: true,
+          max: 100,
+          ticks: { color: "#F5DEB3", stepSize: 20 },
+          grid: { color: "rgba(60,60,60,0.45)" },
+        },
+        y: {
+          ticks: { color: "#F5DEB3" },
+          grid: { color: "rgba(60,60,60,0.25)" },
+        },
+      },
+    },
+  });
+}
+
+/* -----------------------------
+   CANVAS BACKGROUND (particles)
+-------------------------------- */
+function initCanvasBackground() {
+  const canvas = document.getElementById("background-canvas");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+
+  function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
-  resizeCanvas();
+  resize();
+  window.addEventListener("resize", resize);
 
-  const particles = [];
-  const particleCount = window.innerWidth < 768 ? 30 : 60;
-  const colors = ['#5EA08C', '#2B6777', '#F5DEB3', '#CFEF00'];
+  const particleCount = window.innerWidth < 768 ? 25 : 55;
+  const colors = ["#5EA08C", "#2B6777", "#F5DEB3"];
 
-  function createParticle() {
-    return {
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 3 + 1,
-      vx: Math.random() * 1 - 0.5,
-      vy: Math.random() * 1 - 0.5,
-      color: colors[Math.floor(Math.random() * colors.length)]
-    };
-  }
+  const particles = Array.from({ length: particleCount }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 3 + 1,
+    vx: Math.random() * 0.8 - 0.4,
+    vy: Math.random() * 0.8 - 0.4,
+    c: colors[(Math.random() * colors.length) | 0],
+  }));
 
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(createParticle());
-  }
-
-  function animate() {
+  function tick() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     for (const p of particles) {
       p.x += p.vx;
       p.y += p.vy;
@@ -527,215 +341,95 @@ function initCanvasBackground() {
       if (p.y < 0) p.y = canvas.height;
 
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.c;
       ctx.fill();
     }
-    requestAnimationFrame(animate);
+
+    requestAnimationFrame(tick);
   }
-
-  animate();
-
-  window.addEventListener('resize', resizeCanvas);
+  tick();
 }
 
-// CONTACT FORM HANDLING
+/* -----------------------------
+   CARD HOVER PARTICLES (optional)
+-------------------------------- */
+function initCardParticles() {
+  document.querySelectorAll(".bg-border").forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const dot = document.createElement("span");
+      dot.style.position = "absolute";
+      dot.style.left = x + "px";
+      dot.style.top = y + "px";
+      dot.style.width = "7px";
+      dot.style.height = "7px";
+      dot.style.borderRadius = "999px";
+      dot.style.pointerEvents = "none";
+      dot.style.background = "rgba(99,193,255,0.6)";
+      dot.style.opacity = "1";
+      dot.style.zIndex = "20";
+      dot.style.transition = "opacity 0.6s, transform 0.6s";
+
+      card.appendChild(dot);
+
+      requestAnimationFrame(() => {
+        dot.style.opacity = "0";
+        dot.style.transform = "scale(2)";
+      });
+
+      setTimeout(() => dot.remove(), 650);
+    });
+  });
+}
+
+/* -----------------------------
+   CONTACT FORM (optional)
+-------------------------------- */
 function handleFormSubmit() {
-  const contactForm = document.querySelector('#contact-section form');
+  const contactForm = document.querySelector("#contact-section form");
   if (!contactForm) return;
 
-  contactForm.addEventListener('submit', async function(e) {
+  contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+
     const submitBtn = contactForm.querySelector('button[type="submit"]');
+    if (!submitBtn) return;
+
+    const oldHtml = submitBtn.innerHTML;
+
     try {
       submitBtn.disabled = true;
-      submitBtn.innerHTML = 'Sending...';
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      submitBtn.innerHTML = "Sending...";
+
+      // simulate request
+      await new Promise((r) => setTimeout(r, 900));
+
       contactForm.reset();
-      showNotification('Message sent successfully!');
-    } catch (error) {
-      showNotification('Error sending message. Please try again.', 'error');
+      showNotification("Message sent successfully!");
+    } catch {
+      showNotification("Error sending message. Please try again.", "error");
     } finally {
       submitBtn.disabled = false;
-      submitBtn.innerHTML = 'Send Message';
+      submitBtn.innerHTML = oldHtml;
     }
   });
 }
-document.addEventListener('DOMContentLoaded', function() {
-  const video = document.getElementById('bg-video');
-  video.play().catch(e => {
-    // Fallback for mobile devices that block autoplay
-    video.muted = true;
-    video.play();
-  });
-});
-function showNotification(message, type = 'success') {
-  const notification = document.createElement('div');
-  notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} text-white transition-all duration-300`;
-  notification.textContent = message;
-  document.body.appendChild(notification);
+
+function showNotification(message, type = "success") {
+  const n = document.createElement("div");
+  n.className =
+    "fixed top-4 right-4 p-4 rounded-lg shadow-lg text-white transition-all duration-300 " +
+    (type === "success" ? "bg-green-500" : "bg-red-500");
+
+  n.textContent = message;
+  document.body.appendChild(n);
 
   setTimeout(() => {
-    notification.classList.add('opacity-0', 'translate-y-2');
-    setTimeout(() => notification.remove(), 300);
-  }, 3000);
-}
-
-// ANCHOR SCROLLING
-function initAnchorNavigation() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
-      if (!targetId || targetId === '#') return;
-      const target = document.querySelector(targetId);
-      if (target) {
-        e.preventDefault();
-        window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
-      }
-    });
-  });
-}
-
-// NAVIGATION BUTTON REDIRECT
-function initNavigationButtons() {
-  document.querySelectorAll('.navigate-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.getAttribute('data-url');
-      if (target) window.location.href = target;
-    });
-  });
-}
-
-// COLLAPSIBLE SECTIONS
-function initCollapsibleSections() {
-  document.querySelectorAll('.collapsible-section').forEach(section => {
-    section.addEventListener('click', function (e) {
-      if (!e.target.closest('button')) {
-        e.preventDefault();
-        this.classList.toggle('hidden');
-      }
-    });
-  });
-}
-
-// SIMPLE SCROLLING ANIMATION
-function initAnimations() {
-  const about = document.querySelector('.about-content');
-  if (about) {
-    const onScroll = () => {
-      const rect = about.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 100) {
-        about.style.transition = 'opacity 0.8s, transform 0.8s';
-        about.style.opacity = 1;
-        about.style.transform = 'translateY(0)';
-        window.removeEventListener('scroll', onScroll);
-      }
-    };
-    about.style.opacity = 0;
-    about.style.transform = 'translateY(40px)';
-    window.addEventListener('scroll', onScroll);
-    onScroll();
-  }
-}
-
-// PARTICLE HOVER EFFECT ON CARDS
-function initCardParticles() {
-  document.querySelectorAll('.bg-border').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      let rect = card.getBoundingClientRect();
-      let x = e.clientX - rect.left;
-      let y = e.clientY - rect.top;
-      let particle = document.createElement('span');
-      particle.style.position = 'absolute';
-      particle.style.left = x + 'px';
-      particle.style.top = y + 'px';
-      particle.style.width = '8px';
-      particle.style.height = '8px';
-      particle.style.borderRadius = '50%';
-      particle.style.pointerEvents = 'none';
-      particle.style.background = 'rgba(99,193,255,0.7)';
-      particle.style.opacity = 1;
-      particle.style.zIndex = 20;
-      particle.style.transition = 'opacity 0.7s, transform 0.7s';
-      card.appendChild(particle);
-      setTimeout(() => {
-        particle.style.opacity = 0;
-        particle.style.transform = 'scale(2)';
-      }, 10);
-      setTimeout(() => {
-        particle.remove();
-      }, 700);
-    });
-  });
-}
-
-// DUPLICATED SCROLL FIX
-function initSmoothScrolling() {
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    if (!link.hash || link.hash === '#') return;
-    link.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href').slice(1);
-      const target = document.getElementById(targetId);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  });
-}
-
-function initScrollToTop() {
-  const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-  if (!scrollToTopBtn) return;
-
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      scrollToTopBtn.classList.remove("hidden");
-    } else {
-      scrollToTopBtn.classList.add("hidden");
-    }
-  });
-
-  scrollToTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-}
-
-// Initialize
-document.addEventListener("DOMContentLoaded", initScrollToTop);
-
-
-// Contact section animation
-function animateContactSection() {
-  var section = document.getElementById('contact-section');
-  if (!section) return;
-  var logo = document.getElementById('contact-logo');
-  var form = document.getElementById('contact-form-animated');
-  var fields = document.querySelectorAll('.contact-field');
-  var sectionRect = section.getBoundingClientRect();
-  var windowHeight = window.innerHeight || document.documentElement.clientHeight;
-  if (sectionRect.top < windowHeight - 100) {
-    section.classList.add('animate-in');
-    setTimeout(function() {
-      if (logo) logo.classList.add('animate-in');
-    }, 200);
-    setTimeout(function() {
-      if (form) form.classList.add('animate-in');
-    }, 400);
-    fields.forEach(function(field, i) {
-      setTimeout(function() {
-        field.classList.add('animate-in');
-      }, 600 + i * 120);
-    });
-    // Ensure animation only runs once
-    window.removeEventListener('scroll', animateContactSection);
-    if (window.location.hash === '#contact-section') {
-      setTimeout(() => section.scrollIntoView({ behavior: 'smooth' }), 100);
-    }
-    // Ensure scroll-to-top button hides if contact-section is in view
-    if (sectionRect.top < windowHeight - 100) {
-      const btn = document.getElementById("scrollToTopBtn");
-      if (btn) btn.classList.add("hidden");
-    }
-  }
+    n.classList.add("opacity-0", "translate-y-2");
+    setTimeout(() => n.remove(), 300);
+  }, 2200);
 }
