@@ -379,72 +379,123 @@ img[alt="Image article"]{
   display:none; /* keep it minimal on mobile */
 }
 
-/* -------------------------
-   Contact Form (FIXED “white broken box”)
--------------------------- */
-.contact-form{
-  width:100%;
+
+  
+/* =========================
+   CONTACT FIX (MOBILE SAFE)
+========================= */
+
+.contact-wrap{
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  overflow: hidden;
 }
 
-.form-group{
-  margin-bottom: 14px;
+@media (min-width: 768px){
+  .contact-wrap{
+    flex-direction: row;
+    gap: 40px;
+    padding: 28px;
+    align-items: flex-start;
+  }
 }
 
-.form-label{
-  display:block;
-  font-size: 14px;
-  color: rgba(245,222,179,.95);
-  margin-bottom: 8px;
-  font-weight: 600;
-  letter-spacing:.2px;
+.contact-left,
+.contact-right{
+  flex: 1 1 0;
+  min-width: 0; /* IMPORTANT: prevents overflow on mobile */
 }
 
+/* Contact links */
+.contact-link{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.10);
+  transition: transform .15s ease, border-color .2s ease, background .2s ease;
+}
+
+.contact-link:hover{
+  transform: translateY(-1px);
+  background: rgba(94,160,140,.10);
+  border-color: rgba(94,160,140,.35);
+}
+
+.contact-ico{
+  font-size: 22px;
+  color: var(--green, #5EA08C);
+  width: 24px;
+  text-align: center;
+  flex: 0 0 auto;
+}
+
+.contact-txt{
+  font-size: 16px;
+  color: rgba(244,244,245,.95);
+}
+
+/* Form layout */
+.form-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 640px){
+  .form-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+  .form-full{
+    grid-column: 1 / -1;
+  }
+}
+
+/* Inputs: prevent "white broken box" */
 .form-input{
-  width:100%;
+  width: 100%;
+  max-width: 100%;
+  display: block;
   padding: 12px 14px;
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,.12);
   background: rgba(0,0,0,.28);
-  color: var(--text);
+  color: #F4F4F5;
   outline: none;
-  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
-}
-
-.form-input::placeholder{
-  color: rgba(161,161,170,.7);
 }
 
 .form-input:focus{
   border-color: rgba(94,160,140,.65);
-  background: rgba(0,0,0,.36);
   box-shadow: 0 0 0 4px rgba(94,160,140,.12);
 }
 
-textarea.form-input{
-  resize: vertical;
-  min-height: 120px;
-}
-
+/* Button: consistent */
 .sendbtn-button{
-  display:inline-flex;
+  display: inline-flex;
   align-items:center;
   justify-content:center;
   padding: 12px 18px;
   border-radius: 999px;
-  border: 1px solid rgba(94,160,140,.45);
+  border: 1px solid rgba(94,160,140,.55);
   background: rgba(94,160,140,.18);
-  color: var(--text);
+  color: #F4F4F5;
   font-weight: 800;
-  letter-spacing:.06em;
+  letter-spacing: .06em;
   cursor:pointer;
   transition: transform .15s ease, background .2s ease, border-color .2s ease;
 }
 .sendbtn-button:hover{
   transform: translateY(-1px);
   background: rgba(94,160,140,.26);
-  border-color: rgba(94,160,140,.75);
+  border-color: rgba(94,160,140,.80);
 }
-
 /* -------------------------
    Newsletter box (if you have one)
    Use: .newsletter, .newsletter-input, .newsletter-btn
