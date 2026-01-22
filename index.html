@@ -269,63 +269,80 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact-section" class="py-24 bg-dark relative overflow-hidden">
-      <div class="max-w-4xl mx-auto px-4">
-        <div class="text-center mb-16">
-          <img id="contact-logo" src="/assets/images/contact.png" alt="Contact" class="h-40 mx-auto mb-4 opacity-90" loading="lazy" decoding="async">
-          <h2 class="text-4xl md:text-5xl font-bold text-light">Construisons quelque chose ensemble.</h2>
-          <p class="text-lg text-gray-400 mt-4">J'adorerais entendre parler de votre projet. Parlons-en.</p>
+<section id="contact-section" class="py-24 bg-dark relative overflow-hidden">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="text-center mb-12 md:mb-16">
+      <img id="contact-logo"
+           src="/assets/images/contact.png"
+           alt="Contact"
+           class="h-32 md:h-40 mx-auto mb-4 opacity-90"
+           loading="lazy" decoding="async">
+      <h2 class="text-3xl md:text-5xl font-bold text-light">Construisons quelque chose ensemble.</h2>
+      <p class="text-base md:text-lg text-gray-400 mt-4">J'adorerais entendre parler de votre projet. Parlons-en.</p>
+    </div>
+
+    <!-- Wrapper -->
+    <div class="contact-wrap bg-border shadow-xl">
+      <!-- Left -->
+      <div class="contact-left">
+        <h3 class="text-2xl font-semibold text-green mb-4">Me joindre directement</h3>
+        <p class="text-gray-400 mb-8">
+          Voici d'autres moyens de me contacter. Je suis disponible pour des projets freelance, collaborations, ou discuter design/code.
+        </p>
+
+        <div class="space-y-5">
+          <a href="mailto:mohamed.slimani.contact@gmail.com" class="contact-link group">
+            <i class="fas fa-envelope contact-ico"></i>
+            <span class="contact-txt">Mon email</span>
+          </a>
+
+          <a href="https://www.linkedin.com/in/mohamed-slimani-7a53ba240"
+             target="_blank" rel="noopener"
+             class="contact-link group">
+            <i class="fab fa-linkedin contact-ico"></i>
+            <span class="contact-txt">Mon profil LinkedIn</span>
+          </a>
+
+          <a href="https://github.com/slimmohamed"
+             target="_blank" rel="noopener"
+             class="contact-link group">
+            <i class="fab fa-github contact-ico"></i>
+            <span class="contact-txt">Mon profil GitHub</span>
+          </a>
         </div>
+      </div>
 
-        <div class="bg-border p-8 rounded-lg shadow-xl flex flex-col md:flex-row gap-12 items-start">
-          <div class="flex-1 text-light">
-            <h3 class="text-2xl font-semibold text-green mb-4">Me joindre directement</h3>
-            <p class="text-gray-400 mb-8">
-              Voici d'autres moyens de me contacter. Je suis disponible pour des projets freelance, collaborations, ou discuter design/code.
-            </p>
+      <!-- Right -->
+      <div class="contact-right">
+        <form action="https://formspree.io/f/xdkdnajl" method="POST" class="contact-form w-full">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="name">Nom</label>
+              <input type="text" id="name" name="name" class="form-input" placeholder="Votre nom" required>
+            </div>
 
-            <div class="space-y-6">
-              <a href="mailto:mohamed.slimani.contact@gmail.com" class="flex items-center group">
-                <i class="fas fa-envelope text-2xl text-green group-hover:text-beige transition-colors"></i>
-                <span class="ml-4 text-lg hover:underline">Mon email</span>
-              </a>
-              <a href="https://www.linkedin.com/in/mohamed-slimani-7a53ba240" target="_blank" rel="noopener" class="flex items-center group">
-                <i class="fab fa-linkedin text-2xl text-green group-hover:text-beige transition-colors"></i>
-                <span class="ml-4 text-lg hover:underline">Mon profil LinkedIn</span>
-              </a>
-              <a href="https://github.com/slimmohamed" target="_blank" rel="noopener" class="flex items-center group">
-                <i class="fab fa-github text-2xl text-green group-hover:text-beige transition-colors"></i>
-                <span class="ml-4 text-lg hover:underline">Mon profil GitHub</span>
-              </a>
+            <div class="form-group">
+              <label class="form-label" for="email">Email</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="Votre email" required>
+            </div>
+
+            <div class="form-group form-full">
+              <label class="form-label" for="message">Message</label>
+              <textarea id="message" name="message" class="form-input" rows="6" placeholder="Votre message" required></textarea>
             </div>
           </div>
 
-          <div class="flex-1">
-            <form action="https://formspree.io/f/xdkdnajl" method="POST" class="contact-form">
-              <div class="form-group">
-                <label class="form-label" for="name">Nom</label>
-                <input type="text" id="name" name="name" class="form-input" placeholder="Votre nom" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="email">Email</label>
-                <input type="email" id="email" name="email" class="form-input" placeholder="Votre email" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="message">Message</label>
-                <textarea id="message" name="message" class="form-input" rows="5" placeholder="Votre message" required></textarea>
-              </div>
-
-              <div class="flex justify-center">
-                <button id="send-button" class="sendbtn-button bg-[#5EA08C] hover:bg-[#4e8c7a] text-white" type="submit">
-                  <span>Send</span>
-                </button>
-              </div>
-            </form>
+          <div class="flex justify-center md:justify-end mt-2">
+            <button id="send-button" class="sendbtn-button" type="submit">
+              <span>Send</span>
+            </button>
           </div>
-        </div>
-
+        </form>
       </div>
-    </section>
+    </div>
+
+  </div>
+</section>
 
     <!-- FOOTER -->
     <footer class="bg-dark text-light py-16 px-4 shadow-inner border-t border-border">
