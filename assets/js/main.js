@@ -243,6 +243,49 @@ function initAnchorNavigation() {
     });
   });
 }
+// main.js
+window.initHeaderMenu = function initHeaderMenu() {
+  const menuToggle = document.getElementById('menuToggle');
+  const menuBox = document.getElementById('menuBox');
+
+  if (!menuToggle || !menuBox) return;
+
+  // Sécurité: éviter doubles listeners si init appelée plusieurs fois
+  if (menuToggle.dataset.bound === "1") return;
+  menuToggle.dataset.bound = "1";
+
+  const closeMenu = () => {
+    menuToggle.checked = false;
+    menuBox.classList.add('hidden');
+  };
+
+  const openMenu = () => {
+    menuToggle.checked = true;
+    menuBox.classList.remove('hidden');
+  };
+
+  // Toggle via checkbox change
+  menuToggle.addEventListener('change', () => {
+    if (menuToggle.checked) openMenu();
+    else closeMenu();
+  });
+
+  // Click sur un lien => fermer
+  menuBox.querySelectorAll('a.value').forEach(a => {
+    a.addEventListener('click', closeMenu);
+  });
+
+  // Click dehors => fermer
+  document.addEventListener('click', (e) => {
+    const clickedHamburger = e.target.closest('.hamburger');
+    if (!menuBox.contains(e.target) && !clickedHamburger) {
+      closeMenu();
+    }
+  });
+
+  // Optionnel: fermer au scroll
+  window.addEventListener('scroll', () => closeMenu(), { passive: true });
+};
 
 /* =========================================================
    Scroll To Top button - fixed position and visibility
