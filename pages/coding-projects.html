@@ -24,13 +24,17 @@
   <!-- Header dynamique -->
 <div id="header-placeholder"></div>
 <script>
-  fetch('../assets/components/header.html')
+  fetch('/assets/components/header.html')
     .then(res => res.text())
     .then(html => {
       document.getElementById('header-placeholder').innerHTML = html;
-      if (typeof initHeaderMenu === 'function') initHeaderMenu();
-    });
+
+      // déclenche une init fiable
+      document.dispatchEvent(new Event('header:loaded'));
+    })
+    .catch(console.error);
 </script>
+
   <!-- Main Content -->
   <main class="pt-44 md:pt-48">
     <!-- Navigation Buttons -->
