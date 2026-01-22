@@ -11,13 +11,13 @@
 
     <!-- Menu Box -->
     <div id="menuBox" class="menu-box hidden absolute top-full left-0 bg-dark border border-border rounded shadow-md p-4 space-y-2">
-     <a class="value block" href="/index.html#hero">Accueil</a>
-<a class="value block" href="/index.html#works-section">Projets</a>
-<a class="value block" href="/index.html#about">À propos</a>
-<a class="value block" href="/index.html#skills">Compétences</a>
-<a class="value block" href="/index.html#article-section">Articles</a>
-<a class="value block" href="/index.html#contact-section">Contact</a>
-</div>
+      <a class="value block" href="/index.html#hero">Accueil</a>
+      <a class="value block" href="/index.html#works-section">Projets</a>
+      <a class="value block" href="/index.html#about">À propos</a>
+      <a class="value block" href="/index.html#skills">Compétences</a>
+      <a class="value block" href="/index.html#article-section">Articles</a>
+      <a class="value block" href="/index.html#contact-section">Contact</a>
+    </div>
   </div>
 
   <!-- Logo -->
@@ -25,32 +25,35 @@
     <img src="/assets/images/neoslim-logo.gif" alt="Logo Mohamed Slimani" class="h-32 md:h-40 w-auto drop-shadow-xl">
   </div>
 </header>
+
 <script>
-  // Simple menu toggle logic for display on click
   document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.getElementById('menuToggle');
     const menuBox = document.getElementById('menuBox');
-    if (menuToggle && menuBox) {
-      menuToggle.addEventListener('change', function() {
-        menuBox.classList.toggle('hidden', !menuToggle.checked);
-        menuBox.classList.toggle('block', menuToggle.checked);
+
+    if (!menuToggle || !menuBox) return;
+
+    menuToggle.addEventListener('change', function() {
+      menuBox.classList.toggle('hidden', !menuToggle.checked);
+      menuBox.classList.toggle('block', menuToggle.checked);
+    });
+
+    menuBox.querySelectorAll('.value').forEach(link => {
+      link.addEventListener('click', () => {
+        menuBox.classList.add('hidden');
+        menuBox.classList.remove('block');
+        menuToggle.checked = false;
       });
-      // Hide menu when clicking a menu item
-      menuBox.querySelectorAll('.value').forEach(btn => {
-        btn.addEventListener('click', () => {
-          menuBox.classList.add('hidden');
-          menuBox.classList.remove('block');
-          menuToggle.checked = false;
-        });
-      });
-      // Hide menu when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!menuBox.contains(e.target) && !menuToggle.contains(e.target) && !e.target.closest('.hamburger')) {
-          menuBox.classList.add('hidden');
-          menuBox.classList.remove('block');
-          menuToggle.checked = false;
-        }
-      });
-    }
+    });
+
+    document.addEventListener('click', function(e) {
+      const clickedHamburger = e.target.closest('.hamburger');
+      const clickedInsideMenu = menuBox.contains(e.target);
+      if (!clickedInsideMenu && !clickedHamburger) {
+        menuBox.classList.add('hidden');
+        menuBox.classList.remove('block');
+        menuToggle.checked = false;
+      }
+    });
   });
 </script>
