@@ -205,5 +205,31 @@
   </script>
   
   <script src="../assets/js/main.js"></script>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const menuToggle = document.getElementById('menuToggle');
+  const menuBox = document.getElementById('menuBox');
+  if (!menuToggle || !menuBox) return;
+
+  menuToggle.addEventListener('change', () => {
+    menuBox.classList.toggle('hidden', !menuToggle.checked);
+  });
+
+  menuBox.querySelectorAll('a.value').forEach(a => {
+    a.addEventListener('click', () => {
+      menuToggle.checked = false;
+      menuBox.classList.add('hidden');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    const clickedHamburger = e.target.closest('.hamburger');
+    if (!menuBox.contains(e.target) && !clickedHamburger) {
+      menuToggle.checked = false;
+      menuBox.classList.add('hidden');
+    }
+  });
+});
+</script>
 </body>
 </html>
