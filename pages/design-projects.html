@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Design Projects - Mohamed Slimani</title>
-  <script src="/assets/js/main.js" defer></script>
 
   <!-- Fonts & Styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,35 +15,40 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+  <!-- Main JS (charge UNE seule fois) -->
+  <script src="/assets/js/main.js" defer></script>
 </head>
 
 <body class="bg-gray-900 text-gray-100 font-montserrat overflow-x-hidden relative">
-  <!-- Header dynamique -->
-<div id="header-placeholder"></div>
-<script>
-  fetch('/assets/components/header.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('header-placeholder').innerHTML = html;
 
-      // déclenche une init fiable
-      document.dispatchEvent(new Event('header:loaded'));
-    })
-    .catch(console.error);
-</script>
+  <!-- Header dynamique -->
+  <div id="header-placeholder"></div>
+  <script>
+    fetch('/assets/components/header.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('header-placeholder').innerHTML = html;
+        document.dispatchEvent(new Event('header:loaded'));
+      })
+      .catch(console.error);
+  </script>
 
   <!-- Main content -->
   <main class="pt-44 md:pt-48">
+
     <div class="container mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
-    <a href="/index.html#works-section"
-   onclick="localStorage.setItem('keepWorksOpen','true')"
-   class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-100 px-4 py-2 rounded-lg transition-colors border border-gray-700">
-  <i class="fas fa-arrow-left"></i> Go back
-</a>
-        <a href="../index.html" class="flex items-center gap-2 bg-emerald-900 hover:bg-emerald-800 text-emerald-100 px-4 py-2 rounded-lg transition-colors border border-emerald-700">
+        <a href="/index.html#works-section"
+           onclick="localStorage.setItem('keepWorksOpen','true')"
+           class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-100 px-4 py-2 rounded-lg transition-colors border border-gray-700">
+          <i class="fas fa-arrow-left"></i> Go back
+        </a>
+
+        <a href="/index.html"
+           class="flex items-center gap-2 bg-emerald-900 hover:bg-emerald-800 text-emerald-100 px-4 py-2 rounded-lg transition-colors border border-emerald-700">
           <i class="fas fa-home"></i> Go Home
         </a>
       </div>
@@ -52,32 +56,140 @@
 
     <section class="container mx-auto px-6 py-12">
       <div class="flex justify-center mb-8 gsap-fade-in-up">
-        <img src="/assets/images/dp.png" alt="Design Portfolio Logo" class="h-32 transition duration-500 hover:brightness-125 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+        <img src="/assets/images/dp.png" alt="Design Portfolio Logo"
+             class="h-32 transition duration-500 hover:brightness-125 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
       </div>
       <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto gsap-fade-in-up">
         Découvrez mes travaux créatifs incluant le design graphique, l'UI/UX et les projets d'arts visuels.
       </p>
     </section>
+
+    <!-- GRID PROJETS -->
     <section class="py-20 px-4 bg-gray-900">
       <div class="max-w-6xl mx-auto">
+
         <h2 class="text-4xl font-bold text-amber-400 mb-12 text-center prestigious-text gsap-fade-in-up">
           Mes Projets Design
         </h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-100 gsap-fade-in-up">
-          <!-- Exemple de projet -->
-          <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
-            <img src="/assets/images/project1.png" alt="Projet 1" class="w-full h-48 object-cover">
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 gsap-fade-in-up">
+
+          <!-- ESSENTÉ -->
+          <article class="bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+            <img src="/assets/images/essente-cover.jpg" alt="ESSENTÉ - Brand Identity" class="w-full h-48 object-cover">
             <div class="p-6">
-              <h3 class="text-xl font-semibold text-white mb-2">Nom du Projet</h3>
-              <p class="text-gray-400 text-sm">Brève description du projet. UI/UX, design graphique, etc.</p>
+              <h3 class="text-xl font-semibold text-white mb-2">ESSENTÉ — Brand Identity</h3>
+              <p class="text-gray-400 text-sm mb-4">
+                Identité visuelle, direction artistique “Minimal Luxe”, présentation de marque & visuels marketing.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Branding</span>
+                <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Art Direction</span>
+                <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Slides</span>
+              </div>
             </div>
+          </article>
+
+          <!-- NeoSlim -->
+          <article class="bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+            <img src="/assets/images/neoslim-cover.jpg" alt="NeoSlim - Portfolio UI" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-white mb-2">NeoSlim — Portfolio UI/UX</h3>
+              <p class="text-gray-400 text-sm mb-4">
+                Design web moderne, hiérarchie visuelle, animations & expérience utilisateur.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">UI/UX</span>
+                <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Web Design</span>
+                <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Motion</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- NYRA -->
+          <article class="bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+            <img src="/assets/images/nyra-cover.jpg" alt="NYRA - Jewelry Visual Concept" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-white mb-2">NYRA — Jewelry Visual Concept</h3>
+              <p class="text-gray-400 text-sm mb-4">
+                Concept visuel luxe, univers sombre, storytelling, visuels produit & direction artistique.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Luxury</span>
+                <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Product Visuals</span>
+                <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Art Direction</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- SECTION MUSIC VISUALS -->
+        <div class="mt-20">
+          <h3 class="text-3xl font-bold text-emerald-300 mb-6 text-center gsap-fade-in-up">
+            Music Visuals & Digital Presence
+          </h3>
+          <p class="text-center text-gray-400 max-w-3xl mx-auto mb-10 gsap-fade-in-up">
+            J’ai collaboré avec des artistes indépendants pour construire leur image digitale : gestion réseaux sociaux,
+            chaînes YouTube, réalisation de clips, création de covers & pochettes, et production de covers musicales.
+          </p>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 gsap-fade-in-up">
+
+            <!-- Social media -->
+            <article class="bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+              <img src="/assets/images/music-social.jpg" alt="Social Media for Artists" class="w-full h-48 object-cover">
+              <div class="p-6">
+                <h4 class="text-lg font-semibold text-white mb-2">Social Media Management</h4>
+                <p class="text-gray-400 text-sm mb-4">
+                  Cohérence visuelle, planning, templates de posts/stories et optimisation de la présence en ligne.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Instagram</span>
+                  <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">TikTok</span>
+                  <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">YouTube</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Clips -->
+            <article class="bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+              <img src="/assets/images/music-clips.jpg" alt="Music Clips" class="w-full h-48 object-cover">
+              <div class="p-6">
+                <h4 class="text-lg font-semibold text-white mb-2">Music Clips & Editing</h4>
+                <p class="text-gray-400 text-sm mb-4">
+                  Montage, rythme, transitions, storytelling visuel et versions optimisées pour les réseaux.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Editing</span>
+                  <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Storytelling</span>
+                  <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Shorts/Reels</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Covers -->
+            <article class="bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+              <img src="/assets/images/music-covers.jpg" alt="Cover Art & Thumbnails" class="w-full h-48 object-cover">
+              <div class="p-6">
+                <h4 class="text-lg font-semibold text-white mb-2">Cover Art & Thumbnails</h4>
+                <p class="text-gray-400 text-sm mb-4">
+                  Pochettes (single/cover), covers YouTube, thumbnails et déclinaisons selon l’univers musical.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Cover Art</span>
+                  <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Thumbnails</span>
+                  <span class="text-xs px-3 py-1 rounded-full bg-gray-700 text-gray-200">Branding</span>
+                </div>
+              </div>
+            </article>
+
           </div>
-    
-        <!-- Place tes blocs de projets ici -->
+        </div>
+
       </div>
     </section>
+
   </main>
-  <!-- Header injection et script JS dynamique -->
-  <script src="../assets/js/main.js"></script>
 </body>
 </html>
