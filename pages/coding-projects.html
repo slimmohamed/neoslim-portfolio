@@ -14,10 +14,16 @@
 <body class="bg-gray-900 text-gray-100 font-montserrat overflow-x-hidden relative">
   <!-- Header -->
 <!-- Header -->
-<!-- Header dynamique -->
+  <!-- Header dynamique -->
 <div id="header-placeholder"></div>
- => console.error('Erreur de chargement du header:', err));
-
+<script>
+  fetch('../assets/components/header.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('header-placeholder').innerHTML = html;
+      if (typeof initHeaderMenu === 'function') initHeaderMenu();
+    });
+</script>
 
   <!-- Main Content -->
   <main class="pt-44 md:pt-48">
