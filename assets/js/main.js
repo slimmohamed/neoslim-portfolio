@@ -1,25 +1,38 @@
 // assets/js/main.js
-// Clean + fast version (no duplicates)
-
-// Chart instances
 let radarChart = null;
 let barChart = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-  initMenuToggle();          // hamburger + menu links
-  initWorksSection();        // VIEW MY WORKS toggle + localStorage keep open
-  initAnchorNavigation();    // smooth scroll for #links
-  initScrollToTop();         // scroll-to-top button
-  initCanvasBackground();    // particles background (optional)
-  initCardParticles();       // hover particles (optional)
-  handleFormSubmit();        // fake submit animation (optional)
+  initMenuToggle();
+  initWorksSection();
+  initAnchorNavigation();
+  initScrollToTop();
+  initCanvasBackground();
+  initCardParticles();
+  handleFormSubmit();
 
-  // Charts: init + replay when visible
   setupChartsReplay();
+  restoreWorksOpenIfNeeded();
 });
 
+// used by your buttons in HTML
+window.redirectWithEffect = function (url, type = "fade") {
+  if (typeof gsap === "undefined") {
+    window.location.href = url;
+    return;
+  }
+  const body = document.body;
+  if (type === "fade") {
+    gsap.to(body, { opacity: 0, duration: 0.55, onComplete: () => (window.location.href = url) });
+  } else if (type === "slide") {
+    gsap.to(body, { x: "-100%", opacity: 0, duration: 0.55, ease: "power1.inOut", onComplete: () => (window.location.href = url) });
+  } else {
+    window.location.href = url;
+  }
+};
+
 /* -----------------------------
-   MENU (Hamburger + links)
+   MENU
 -------------------------------- */
 function initMenuToggle() {
   const menuToggle = document.getElementById("menuToggle");
@@ -39,18 +52,15 @@ function initMenuToggle() {
     menuToggle.checked = false;
   };
 
-  // Toggle
   menuToggle.addEventListener("change", () => {
     if (menuToggle.checked) showMenu();
     else hideMenu();
   });
 
-  // Click on a menu item => close + navigate (anchors work)
-  menu.querySelectorAll("a.value, button.value").forEach((el) => {
-    el.addEventListener("click", () => hideMenu());
+  menu.querySelectorAll("a.value").forEach((a) => {
+    a.addEventListener("click", () => hideMenu());
   });
 
-  // Click outside => close
   document.addEventListener("click", (e) => {
     const clickedHamburger = e.target.closest(".hamburger");
     if (!menu.contains(e.target) && !clickedHamburger) hideMenu();
@@ -72,10 +82,8 @@ function initWorksSection() {
     works.style.opacity = "1";
     works.style.transform = "scaleY(1)";
     isOpen = true;
-
     const t = btn.querySelector(".btn-hero__text");
     if (t) t.textContent = "HIDE WORKS";
-
     setTimeout(() => works.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
   };
 
@@ -83,46 +91,52 @@ function initWorksSection() {
     works.style.opacity = "0";
     works.style.transform = "scaleY(0)";
     isOpen = false;
-
     const t = btn.querySelector(".btn-hero__text");
     if (t) t.textContent = "VIEW MY WORKS";
-
     setTimeout(() => works.classList.add("hidden"), 450);
   };
 
   btn.addEventListener("click", (e) => {
     e.preventDefault();
-    if (isOpen) hide();
-    else show();
+    isOpen ? hide() : show();
   });
 
-  // keepWorksOpen from other pages
+  // default closed
+  works.classList.add("hidden");
+  works.style.opacity = "0";
+  works.style.transform = "scaleY(0)";
+}
+
+function restoreWorksOpenIfNeeded() {
+  const works = document.getElementById("works-section");
+  const btn = document.getElementById("toggle-works-btn");
+  if (!works || !btn) return;
+
   if (localStorage.getItem("keepWorksOpen") === "true") {
     localStorage.removeItem("keepWorksOpen");
-    show();
-  } else {
-    works.classList.add("hidden");
-    works.style.opacity = "0";
-    works.style.transform = "scaleY(0)";
+    works.classList.remove("hidden");
+    works.style.opacity = "1";
+    works.style.transform = "scaleY(1)";
+    const t = btn.querySelector(".btn-hero__text");
+    if (t) t.textContent = "HIDE WORKS";
+    setTimeout(() => works.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
   }
 }
 
 /* -----------------------------
-   ANCHOR NAVIGATION (smooth)
+   ANCHOR NAVIGATION
 -------------------------------- */
 function initAnchorNavigation() {
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener("click", (e) => {
       const href = a.getAttribute("href");
       if (!href || href === "#") return;
-
       const target = document.querySelector(href);
       if (!target) return;
 
       e.preventDefault();
-      const headerOffset = 120; // your fixed header height
+      const headerOffset = 120;
       const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
-
       window.scrollTo({ top, behavior: "smooth" });
     });
   });
@@ -135,7 +149,6 @@ function initScrollToTop() {
   const btn = document.getElementById("scrollToTopBtn");
   if (!btn) return;
 
-  // start hidden if you want
   btn.classList.add("hidden");
 
   window.addEventListener("scroll", () => {
@@ -147,14 +160,12 @@ function initScrollToTop() {
 }
 
 /* -----------------------------
-   CHARTS (Radar + Bar) clean init
-   + replay animation on each view
+   CHARTS
 -------------------------------- */
 function setupChartsReplay() {
   const skillsSection = document.getElementById("skills");
   if (!skillsSection) return;
 
-  // If Chart.js not loaded, retry a bit
   if (typeof Chart === "undefined") {
     let tries = 0;
     const t = setInterval(() => {
@@ -168,11 +179,9 @@ function setupChartsReplay() {
     return;
   }
 
-  // Observe visibility => recreate charts each time entering
   const io = new IntersectionObserver(
     (entries) => {
       if (!entries[0].isIntersecting) return;
-
       destroyCharts();
       createRadarChart();
       createBarChart();
@@ -182,7 +191,7 @@ function setupChartsReplay() {
 
   io.observe(skillsSection);
 
-  // Also init once if already visible on load
+  // init if already visible
   setTimeout(() => {
     const r = skillsSection.getBoundingClientRect();
     if (r.top < window.innerHeight && r.bottom > 0) {
@@ -207,8 +216,8 @@ function destroyCharts() {
 function createRadarChart() {
   const canvas = document.getElementById("skillsRadarChart");
   if (!canvas) return;
-
   const ctx = canvas.getContext("2d");
+
   radarChart = new Chart(ctx, {
     type: "radar",
     data: {
@@ -249,7 +258,6 @@ function createBarChart() {
 
   const ctx = canvas.getContext("2d");
 
-  // gradients (darker -> your teal/beige)
   const gradTeal = ctx.createLinearGradient(0, 0, 350, 0);
   gradTeal.addColorStop(0, "rgba(35, 70, 62, 0.95)");
   gradTeal.addColorStop(1, "rgba(94, 160, 140, 0.85)");
@@ -301,7 +309,7 @@ function createBarChart() {
 }
 
 /* -----------------------------
-   CANVAS BACKGROUND (particles)
+   CANVAS BACKGROUND
 -------------------------------- */
 function initCanvasBackground() {
   const canvas = document.getElementById("background-canvas");
@@ -330,7 +338,6 @@ function initCanvasBackground() {
 
   function tick() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     for (const p of particles) {
       p.x += p.vx;
       p.y += p.vy;
@@ -345,14 +352,13 @@ function initCanvasBackground() {
       ctx.fillStyle = p.c;
       ctx.fill();
     }
-
     requestAnimationFrame(tick);
   }
   tick();
 }
 
 /* -----------------------------
-   CARD HOVER PARTICLES (optional)
+   CARD HOVER PARTICLES
 -------------------------------- */
 function initCardParticles() {
   document.querySelectorAll(".bg-border").forEach((card) => {
@@ -387,7 +393,7 @@ function initCardParticles() {
 }
 
 /* -----------------------------
-   CONTACT FORM (optional)
+   CONTACT FORM
 -------------------------------- */
 function handleFormSubmit() {
   const contactForm = document.querySelector("#contact-section form");
@@ -404,10 +410,7 @@ function handleFormSubmit() {
     try {
       submitBtn.disabled = true;
       submitBtn.innerHTML = "Sending...";
-
-      // simulate request
       await new Promise((r) => setTimeout(r, 900));
-
       contactForm.reset();
       showNotification("Message sent successfully!");
     } catch {
