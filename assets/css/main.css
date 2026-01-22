@@ -57,64 +57,166 @@
   border-color: rgba(94,160,140,0.35);
 }
 
-/* prevents weird horizontal layout on some mobile styles */
-.menu-box *{ white-space: normal; }
-/* ===== MENU FIX (shape + position) ===== */
-.menu-box{
-  position: absolute;
-  top: calc(100% + 14px);
-  left: 0;
-  width: min(260px, 78vw);
-  padding: 12px;
-  border-radius: 16px;
-  background: rgba(10, 14, 18, 0.92);
-  border: 1px solid rgba(255,255,255,0.10);
-  box-shadow: 0 18px 45px rgba(0,0,0,0.55);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  display: none; /* JS handles show/hide */
-  transform: translateY(-6px);
-  opacity: 0;
+/* =========================
+   MOBILE FIX: HEADER UI
+   ========================= */
+
+/* Ensure everything uses correct sizing */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Header safety */
+header { -webkit-backdrop-filter: blur(10px); }
+
+/* ---------- HAMBURGER ---------- */
+.hamburger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
   z-index: 9999;
 }
 
-.menu-box.is-open{
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
+.hamburger input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.menu-box .value{
+.hamburger svg {
+  width: 34px;
+  height: 34px;
+}
+
+/* ---------- MENU BOX (the shape problem) ---------- */
+.menu-box {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  width: min(84vw, 280px);
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(10, 12, 16, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(14px);
+
+  /* FIX layout: force vertical items */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  /* closed state */
+  opacity: 0;
+  transform: translateY(-8px) scale(0.98);
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity .20s ease, transform .20s ease, visibility .20s ease;
+}
+
+.menu-box.is-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* Menu links */
+.menu-box .value {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 12px 12px;
   border-radius: 12px;
-  color: rgba(255,255,255,0.92);
   text-decoration: none;
+  color: rgba(244, 244, 245, 0.95);
   font-weight: 600;
   letter-spacing: 0.2px;
   line-height: 1;
 }
 
-.menu-box .value i{
+.menu-box .value i { width: 18px; opacity: 0.95; }
+
+.menu-box .value:hover {
+  background: rgba(94, 160, 140, 0.18);
+  border: 1px solid rgba(94, 160, 140, 0.25);
+}
+
+/* ---------- BACK TO TOP (too big / wrong position) ---------- */
+#scrollToTopBtn {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 12, 16, 0.90);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.55);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+}
+
+#scrollToTopBtn .scroll-label {
+  display: none; /* hide text on mobile */
+}
+
+#scrollToTopBtn .scroll-icon {
   width: 20px;
-  text-align: center;
-  opacity: 0.9;
+  height: 20px;
 }
 
-.menu-box .value:hover{
-  background: rgba(94,160,140,0.18);
+/* Put it above iPhone bottom UI */
+@media (max-width: 768px) {
+  .fixed.bottom-20.right-6 { bottom: 92px !important; right: 16px !important; }
 }
 
-.menu-box .value:active{
-  transform: scale(0.98);
+/* ---------- CONTACT / NEWSLETTER BOX (inputs overlap) ---------- */
+.contact-form,
+.contact-form .form-group {
+  width: 100%;
 }
 
-/* Prevent weird overflow on iOS */
-header { -webkit-transform: translateZ(0); }
+.contact-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
 
-/* Optional: reduce motion for performance */
-@media (prefers-reduced-motion: reduce){
-  .video-background video{ display:none !important; }
+.form-label {
+  color: rgba(244,244,245,0.85);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.form-input {
+  width: 100%;
+  display: block;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(244,244,245,0.95);
+  outline: none;
+}
+
+.form-input::placeholder { color: rgba(244,244,245,0.45); }
+
+.form-input:focus {
+  border-color: rgba(94,160,140,0.55);
+  box-shadow: 0 0 0 4px rgba(94,160,140,0.15);
+}
+
+textarea.form-input {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* Button */
+#send-button, .sendbtn-button {
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 700;
 }
