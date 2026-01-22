@@ -24,17 +24,36 @@
 
 <body class="bg-gray-900 text-gray-100 font-montserrat overflow-x-hidden relative">
 
-  <!-- Header dynamique -->
-  <div id="header-placeholder"></div>
-  <script>
-    fetch('/assets/components/header.html')
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById('header-placeholder').innerHTML = html;
-        document.dispatchEvent(new Event('header:loaded'));
+<!-- Header dynamique -->
+<div id="header-placeholder"></div>
+
+<script>
+  (function () {
+    const placeholder = document.getElementById("header-placeholder");
+
+    // 1) Load header
+    fetch("/assets/components/header.html", { cache: "no-cache" })
+      .then((res) => res.text())
+      .then((html) => {
+        placeholder.innerHTML = html;
+
+        // Let other scripts know header exists
+        document.dispatchEvent(new Event("header:loaded"));
+
+        // 2) After header is in DOM, set main padding correctly
+        requestAnimationFrame(() => {
+          const header = document.querySelector("header.site-header") || document.querySelector("header");
+          const main = document.querySelector("main");
+
+          if (header && main) {
+            const h = header.offsetHeight || 96;
+            main.style.paddingTop = (h + 20) + "px"; // +20 for breathing space
+          }
+        });
       })
       .catch(console.error);
-  </script>
+  })();
+</script>
 
   <!-- Main content -->
   <main class="pt-44 md:pt-48">
