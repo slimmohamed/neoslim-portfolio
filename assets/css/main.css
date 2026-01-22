@@ -1,701 +1,337 @@
-/* =========================================================
-   NeoSlim Portfolio - main.css (FULL CLEAN FIX)
-   Fix: menu shape + hamburger + back-to-top + forms/newsletter
-   ========================================================= */
+/* /assets/css/main.css */
 
-/* -------------------------
-   CSS Variables
--------------------------- */
+/* =========================
+   THEME VARIABLES
+========================= */
 :root{
-  --bg: #1E1E1E;
-  --bg2:#151515;
-  --dark:#0F1113;
-  --border:#2A2A2A;
-  --border2:#343434;
-
-  --text:#F4F4F5;
-  --muted:#A1A1AA;
+  --bg:#1E1E1E;
+  --bg2:#121826;
+  --light:#F4F4F5;
+  --muted:#9CA3AF;
+  --border:rgba(255,255,255,.10);
 
   --green:#5EA08C;
   --teal:#2B6777;
   --beige:#F5DEB3;
-  --orange:#F97316;
 
-  --shadow: 0 10px 40px rgba(0,0,0,.45);
-  --shadow2: 0 8px 18px rgba(0,0,0,.35);
-
-  --radius: 16px;
-  --radius2: 22px;
-
-  --headerH: 160px; /* h-40 */
+  --shadow: 0 16px 40px rgba(0,0,0,.35);
 }
 
-@media (min-width: 768px){
-  :root{ --headerH: 176px; } /* md:h-44 */
-}
-
-/* -------------------------
-   Base / Reset
--------------------------- */
-*{ box-sizing: border-box; }
-html, body{ height:100%; }
+/* =========================
+   BASE / RESET
+========================= */
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
 body{
   margin:0;
-  background: var(--bg);
-  color: var(--text);
+  background:var(--bg);
+  color:var(--light);
   font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   overflow-x:hidden;
 }
 
-img{ max-width:100%; height:auto; display:block; }
-a{ color: inherit; text-decoration:none; }
-button{ font-family: inherit; }
+.no-scroll{ overflow:hidden; }
 
-::selection{
-  background: rgba(94,160,140,.35);
-  color: var(--text);
-}
+img, video{ max-width:100%; height:auto; display:block; }
 
-/* -------------------------
-   Helpers
--------------------------- */
-.bg-dark{ background: var(--bg); }
-.text-light{ color: var(--text); }
-.text-gray{ color: var(--muted); }
-.text-green{ color: var(--green); }
-.text-beige{ color: var(--beige); }
-.border-border{ border-color: var(--border); }
-.bg-border{ background: rgba(255,255,255,.04); border: 1px solid var(--border); border-radius: var(--radius); }
+a{ color:inherit; text-decoration:none; }
 
-.shadow-soft{ box-shadow: var(--shadow2); }
-
-/* Prevent anchor jump under fixed header */
-section[id]{ scroll-margin-top: calc(var(--headerH) + 16px); }
-
-/* -------------------------
-   Background Video + Overlay
--------------------------- */
+/* =========================
+   BACKGROUND VIDEO LAYER
+========================= */
 .video-background{
-  position: fixed;
-  inset: 0;
-  z-index: -30;
-  overflow: hidden;
+  position:fixed;
+  inset:0;
+  z-index:-20;
+  overflow:hidden;
 }
 .video-background video{
   width:100%;
   height:100%;
-  object-fit: cover;
-  transform: scale(1.02);
-  filter: saturate(1.05) contrast(1.05);
+  object-fit:cover;
+  transform:scale(1.02);
 }
 .video-overlay{
   position:absolute;
   inset:0;
-  background:
-    radial-gradient(800px 500px at 30% 20%, rgba(94,160,140,.10), transparent 60%),
-    radial-gradient(900px 600px at 80% 70%, rgba(245,222,179,.10), transparent 55%),
-    linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.65) 35%, rgba(0,0,0,.75) 100%);
+  background:rgba(0,0,0,.45);
+  backdrop-filter: blur(2px);
 }
 
-/* Canvas stays behind content but above video */
+/* Canvas behind */
 #background-canvas{
-  position: fixed;
-  inset: 0;
-  z-index: -20;
-  width:100%;
-  height:100%;
-  opacity: .85;
+  position:fixed;
+  inset:0;
+  z-index:-10;
   pointer-events:none;
 }
 
-/* -------------------------
-   Header
--------------------------- */
+/* =========================
+   HEADER
+========================= */
 header{
-  height: var(--headerH);
+  border-bottom:1px solid var(--border);
 }
 
-header.fixed{
-  background: rgba(15,17,19,.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 8px 30px rgba(0,0,0,.40);
-}
-
-/* Center logo block */
-.center-logo{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-/* -------------------------
-   Hamburger Button
--------------------------- */
+/* Hamburger clickable always */
 .hamburger{
   display:flex;
   align-items:center;
   justify-content:center;
-  width: 54px;
-  height: 54px;
-  border-radius: 14px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 6px 18px rgba(0,0,0,.30);
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.22);
+  backdrop-filter: blur(10px);
   cursor:pointer;
-  transition: transform .15s ease, background .2s ease, border-color .2s ease;
-}
-.hamburger:hover{
-  background: rgba(255,255,255,.09);
-  border-color: rgba(245,222,179,.25);
-  transform: translateY(-1px);
+  user-select:none;
+  -webkit-tap-highlight-color: transparent;
+  position:relative;
+  z-index:9999;
 }
 .hamburger input{
-  display:none;
+  position:absolute;
+  inset:0;
+  opacity:0;
+  cursor:pointer;
+  z-index:2;
 }
 .hamburger svg{
-  width: 26px;
-  height: 26px;
-  overflow: visible;
+  width:26px;
+  height:26px;
+  z-index:1;
 }
 .hamburger .line{
   fill:none;
-  stroke: var(--text);
-  stroke-width: 2.2;
-  stroke-linecap: round;
-  transition: transform .35s ease, stroke .2s ease, opacity .25s ease;
-}
-.hamburger .line-top-bottom{
-  stroke-dasharray: 12 63;
+  stroke:#fff;
+  stroke-width:2.4;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:.95;
 }
 
-/* Optional "checked" animation */
-#menuToggle:checked + svg .line{
-  stroke: var(--beige);
-}
-
-/* -------------------------
-   Menu Box (FIXED shape + position)
--------------------------- */
+/* =========================
+   MENU BOX (FIX SHAPE + POSITION + CLICK)
+========================= */
 .menu-box{
-  position: absolute;
-  top: calc(100% + 14px);
-  left: 0;
-  width: min(86vw, 330px);
-  padding: 14px;
-  border-radius: 18px;
-
-  background: rgba(10, 12, 14, .92);
-  border: 1px solid rgba(255,255,255,.09);
+  position:absolute;
+  top:56px;
+  left:0;
+  width:min(300px, 78vw);
+  padding:14px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(10,14,20,.78);
+  backdrop-filter: blur(16px);
   box-shadow: var(--shadow);
-
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  opacity: 0;
-  transform: translateY(-8px) scale(.98);
-  pointer-events: none;
-
-  display: grid;
-  gap: 8px;
+  display:none;
+  opacity:0;
+  transform: translateY(-10px);
+  z-index:9998;
 }
 
-/* When JS adds is-open */
+/* Open state controlled by JS */
 .menu-box.is-open{
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
+  display:block;
+  opacity:1;
+  transform: translateY(0);
 }
 
-/* Menu items */
 .menu-box .value{
   display:flex;
   align-items:center;
-  gap: 10px;
-  padding: 12px 12px;
-  border-radius: 14px;
-
-  font-weight: 600;
-  font-size: 15px;
-  letter-spacing: .2px;
-
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.06);
-
-  transition: transform .15s ease, background .2s ease, border-color .2s ease;
+  gap:10px;
+  padding:12px 12px;
+  border-radius:14px;
+  color:var(--light);
+  font-weight:600;
+  letter-spacing:.2px;
+  transition: background .18s ease, transform .18s ease;
 }
-
 .menu-box .value i{
-  width: 18px;
+  width:18px;
   text-align:center;
+  color:var(--beige);
   opacity:.9;
 }
-
 .menu-box .value:hover{
-  background: rgba(94,160,140,.12);
-  border-color: rgba(94,160,140,.35);
-  transform: translateY(-1px);
+  background:rgba(255,255,255,.08);
+  transform: translateX(2px);
 }
 
-/* On very small screens, prevent weird overflow */
-@media (max-width: 420px){
-  .menu-box{
-    width: min(90vw, 310px);
-  }
+/* =========================
+   WORKS SECTION TRANSITIONS
+========================= */
+#works-section{
+  transform-origin: top;
+  transition: transform .45s ease, opacity .45s ease;
+  opacity:0;
+  transform: scaleY(0);
+}
+#works-section.is-visible{
+  opacity:1;
+  transform: scaleY(1);
 }
 
-/* -------------------------
-   Hero Section
--------------------------- */
-#hero{
-  min-height: 100vh;
-  position: relative;
-}
-#hero video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* -------------------------
-   Buttons (Hero / Learn-more)
--------------------------- */
-.btn-hero{
-  position: relative;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 14px 22px;
-  border-radius: 999px;
-  border: 1px solid rgba(245,222,179,.35);
-  background: rgba(0,0,0,.35);
-  color: var(--beige);
-  font-weight: 700;
-  letter-spacing: .08em;
-  box-shadow: 0 10px 25px rgba(0,0,0,.35);
-  transition: transform .15s ease, background .2s ease, border-color .2s ease;
-}
-.btn-hero:hover{
-  transform: translateY(-1px);
-  background: rgba(94,160,140,.12);
-  border-color: rgba(94,160,140,.55);
-}
-
-.learn-more{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  border: 0;
-  background: transparent;
-  cursor:pointer;
-  user-select:none;
-}
-
-/* If your learn-more uses .circle structure */
-.learn-more .circle{
-  display:flex;
-  align-items:center;
-  gap: 10px;
-  padding: 12px 18px;
-  border-radius: 999px;
-  background: rgba(0,0,0,.35);
-  border: 1px solid rgba(255,255,255,.12);
-  box-shadow: var(--shadow2);
-  transition: transform .15s ease, background .2s ease, border-color .2s ease;
-}
-.learn-more:hover .circle{
-  transform: translateY(-1px);
-  background: rgba(255,255,255,.06);
-  border-color: rgba(245,222,179,.30);
-}
-.learn-more .button-text{
-  font-weight: 700;
-  letter-spacing: .04em;
-}
-
-/* -------------------------
-   Cards / Article placeholders
--------------------------- */
-.bg-border{
-  position: relative;
-  overflow: hidden;
-}
-
-.bg-border img{
-  border-radius: 14px;
-}
-
-/* Fix: broken image showing a blue "?" -> make it look clean */
-img[alt="Image article"]{
-  background: rgba(255,255,255,.04);
-}
-
-/* -------------------------
-   Chart container
--------------------------- */
+/* =========================
+   CHARTS
+========================= */
 .chart-container{
   width:100%;
-  border-radius: var(--radius);
-  border: 1px solid rgba(255,255,255,.08);
-  background: rgba(0,0,0,.25);
-  box-shadow: var(--shadow2);
-  padding: 14px;
+  min-height:320px;
+  height:320px;
+}
+@media (min-width:768px){
+  .chart-container{ height:380px; min-height:380px; }
+}
+.chart-container canvas{
+  width:100% !important;
+  height:100% !important;
+  display:block;
 }
 
-/* -------------------------
-   Back to Top (FIXED)
--------------------------- */
+/* =========================
+   CARD HOVER DOT
+========================= */
+.card-hover-dot{
+  position:absolute;
+  width:7px;
+  height:7px;
+  border-radius:999px;
+  background:rgba(99,193,255,.6);
+  pointer-events:none;
+  z-index:20;
+  opacity:1;
+  transform:scale(1);
+  transition: opacity .6s, transform .6s;
+}
+
+/* =========================
+   SCROLL TO TOP (FIXED)
+========================= */
 #scrollToTopBtn{
-  width: 58px;
-  height: 58px;
-  border-radius: 999px;
-  border: 1px solid rgba(245,222,179,.28);
-  background: rgba(10,12,14,.72);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 12px 35px rgba(0,0,0,.45);
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:9999;
+  border:none;
+  cursor:pointer;
+  border-radius:999px;
+  padding:14px 16px;
+  background:rgba(15,18,26,.75);
+  border:1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
   display:flex;
   align-items:center;
-  justify-content:center;
-  gap:0;
-  cursor:pointer;
-  transition: transform .15s ease, background .2s ease, border-color .2s ease, opacity .2s ease;
+  gap:10px;
+  opacity:0;
+  transform: translateY(10px);
+  pointer-events:none prevent;
+  transition: opacity .25s ease, transform .25s ease;
 }
-
-#scrollToTopBtn:hover{
-  transform: translateY(-2px);
-  background: rgba(94,160,140,.14);
-  border-color: rgba(94,160,140,.55);
+#scrollToTopBtn.is-visible{
+  opacity:1;
+  transform: translateY(0);
+  pointer-events:auto;
 }
-
 #scrollToTopBtn .scroll-icon{
-  width: 22px;
-  height: 22px;
-  fill: var(--beige);
+  width:18px;
+  height:18px;
+  fill:var(--beige);
 }
-
 #scrollToTopBtn .scroll-label{
-  display:none; /* keep it minimal on mobile */
+  color:var(--light);
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:.2px;
 }
 
-
-  
 /* =========================
-   CONTACT FIX (MOBILE SAFE)
+   CONTACT FORM (FIX OVERLAP / "newsletter box" look)
+   The overlap you see comes from old absolute/width rules.
 ========================= */
-
-.contact-wrap{
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  padding: 20px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.04);
-  overflow: hidden;
+.bg-border{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.10);
 }
 
-@media (min-width: 768px){
-  .contact-wrap{
-    flex-direction: row;
-    gap: 40px;
-    padding: 28px;
-    align-items: flex-start;
-  }
-}
-
-.contact-left,
-.contact-right{
-  flex: 1 1 0;
-  min-width: 0; /* IMPORTANT: prevents overflow on mobile */
-}
-
-/* Contact links */
-.contact-link{
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 12px;
-  border-radius: 14px;
-  background: rgba(0,0,0,.18);
-  border: 1px solid rgba(255,255,255,.10);
-  transition: transform .15s ease, border-color .2s ease, background .2s ease;
-}
-
-.contact-link:hover{
-  transform: translateY(-1px);
-  background: rgba(94,160,140,.10);
-  border-color: rgba(94,160,140,.35);
-}
-
-.contact-ico{
-  font-size: 22px;
-  color: var(--green, #5EA08C);
-  width: 24px;
-  text-align: center;
-  flex: 0 0 auto;
-}
-
-.contact-txt{
-  font-size: 16px;
-  color: rgba(244,244,245,.95);
-}
-
-/* Form layout */
-.form-grid{
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-@media (min-width: 640px){
-  .form-grid{
-    grid-template-columns: 1fr 1fr;
-  }
-  .form-full{
-    grid-column: 1 / -1;
-  }
-}
-
-/* Inputs: prevent "white broken box" */
-.form-input{
-  width: 100%;
-  max-width: 100%;
-  display: block;
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.28);
-  color: #F4F4F5;
-  outline: none;
-}
-
-.form-input:focus{
-  border-color: rgba(94,160,140,.65);
-  box-shadow: 0 0 0 4px rgba(94,160,140,.12);
-}
-
-/* Button: consistent */
-.sendbtn-button{
-  display: inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 12px 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(94,160,140,.55);
-  background: rgba(94,160,140,.18);
-  color: #F4F4F5;
-  font-weight: 800;
-  letter-spacing: .06em;
-  cursor:pointer;
-  transition: transform .15s ease, background .2s ease, border-color .2s ease;
-}
-.sendbtn-button:hover{
-  transform: translateY(-1px);
-  background: rgba(94,160,140,.26);
-  border-color: rgba(94,160,140,.80);
-}
-/* -------------------------
-   Newsletter box (if you have one)
-   Use: .newsletter, .newsletter-input, .newsletter-btn
--------------------------- */
-.newsletter{
+.contact-form{
   width:100%;
-  padding: 16px;
-  border-radius: var(--radius);
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.10);
-  box-shadow: var(--shadow2);
 }
 
-.newsletter .newsletter-row{
+.form-group{
   display:flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  flex-direction:column;
+  gap:8px;
+  margin-bottom:14px;
 }
 
-.newsletter-input{
-  flex: 1 1 220px;
-  min-width: 0;
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.28);
-  color: var(--text);
-  outline:none;
-}
-.newsletter-input:focus{
-  border-color: rgba(245,222,179,.55);
-  box-shadow: 0 0 0 4px rgba(245,222,179,.10);
+.form-label{
+  font-weight:700;
+  font-size:14px;
+  color:rgba(245,222,179,.95);
 }
 
-.newsletter-btn{
-  flex: 0 0 auto;
-  padding: 12px 16px;
-  border-radius: 14px;
-  border: 1px solid rgba(245,222,179,.35);
-  background: rgba(245,222,179,.12);
-  color: var(--beige);
-  font-weight: 800;
-  cursor:pointer;
-  transition: transform .15s ease, background .2s ease, border-color .2s ease;
-}
-.newsletter-btn:hover{
-  transform: translateY(-1px);
-  background: rgba(245,222,179,.18);
-  border-color: rgba(245,222,179,.55);
-}
-/* =========================
-   CONTACT FIX (MOBILE SAFE)
-========================= */
-
-.contact-wrap{
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  padding: 20px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.04);
-  overflow: hidden;
-}
-
-@media (min-width: 768px){
-  .contact-wrap{
-    flex-direction: row;
-    gap: 40px;
-    padding: 28px;
-    align-items: flex-start;
-  }
-}
-
-.contact-left,
-.contact-right{
-  flex: 1 1 0;
-  min-width: 0; /* IMPORTANT: prevents overflow on mobile */
-}
-
-/* Contact links */
-.contact-link{
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 12px;
-  border-radius: 14px;
-  background: rgba(0,0,0,.18);
-  border: 1px solid rgba(255,255,255,.10);
-  transition: transform .15s ease, border-color .2s ease, background .2s ease;
-}
-
-.contact-link:hover{
-  transform: translateY(-1px);
-  background: rgba(94,160,140,.10);
-  border-color: rgba(94,160,140,.35);
-}
-
-.contact-ico{
-  font-size: 22px;
-  color: var(--green, #5EA08C);
-  width: 24px;
-  text-align: center;
-  flex: 0 0 auto;
-}
-
-.contact-txt{
-  font-size: 16px;
-  color: rgba(244,244,245,.95);
-}
-
-/* Form layout */
-.form-grid{
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-@media (min-width: 640px){
-  .form-grid{
-    grid-template-columns: 1fr 1fr;
-  }
-  .form-full{
-    grid-column: 1 / -1;
-  }
-}
-
-/* Inputs: prevent "white broken box" */
 .form-input{
-  width: 100%;
-  max-width: 100%;
-  display: block;
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.28);
-  color: #F4F4F5;
-  outline: none;
+  width:100%;
+  display:block;
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(0,0,0,.25);
+  color:var(--light);
+  outline:none;
+  box-shadow:none;
+  transition: border-color .18s ease, transform .18s ease, background .18s ease;
 }
 
 .form-input:focus{
   border-color: rgba(94,160,140,.65);
-  box-shadow: 0 0 0 4px rgba(94,160,140,.12);
-}
-
-/* Button: consistent */
-.sendbtn-button{
-  display: inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 12px 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(94,160,140,.55);
-  background: rgba(94,160,140,.18);
-  color: #F4F4F5;
-  font-weight: 800;
-  letter-spacing: .06em;
-  cursor:pointer;
-  transition: transform .15s ease, background .2s ease, border-color .2s ease;
-}
-.sendbtn-button:hover{
+  background: rgba(0,0,0,.35);
   transform: translateY(-1px);
-  background: rgba(94,160,140,.26);
-  border-color: rgba(94,160,140,.80);
-}
-/* -------------------------
-   Footer
--------------------------- */
-footer{
-  border-top: 1px solid var(--border);
 }
 
-/* -------------------------
-   Mobile polishing
--------------------------- */
+textarea.form-input{
+  resize:vertical;
+  min-height:120px;
+}
+
+.sendbtn-button{
+  min-width:160px;
+  padding:12px 18px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: var(--green);
+  color:white;
+  font-weight:800;
+  letter-spacing:.2px;
+  cursor:pointer;
+  transition: transform .18s ease, filter .18s ease;
+}
+.sendbtn-button:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+.sendbtn-button.is-loading{ opacity:.75; cursor:wait; }
+
+/* =========================
+   HERO BUTTON (if you use .btn-hero)
+========================= */
+.btn-hero{
+  position:relative;
+  border:none;
+  background:transparent;
+  color:var(--light);
+  cursor:pointer;
+  padding:14px 18px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,.20);
+  font-weight:800;
+}
+.btn-hero__text{ explain: none; }
+
+/* Fix mobile spacing in contact section */
 @media (max-width: 768px){
-  /* keep header content not squished */
-  header.fixed{
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-  }
-
-  .center-logo img{
-    height: 92px; /* prevents massive logo */
-  }
-
-  /* menu nicer on phone */
-  .menu-box{
-    border-radius: 20px;
-    padding: 12px;
-  }
-}
-
-/* -------------------------
-   Reduce Motion
--------------------------- */
-@media (prefers-reduced-motion: reduce){
-  *{
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
+  .bg-border.p-8{ padding:18px !important; }
 }
